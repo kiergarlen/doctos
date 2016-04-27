@@ -1,0 +1,30 @@
+{
+  "name": "cea-docs",
+  "version": "0.0.1",
+  "description": "Administración de documentos de Dirección General de la CEA",
+  "author": {
+    "name": "Oscar Iván González Muñoz",
+    "email": "ogonzalez@ceajalisco.gob.mx"
+  },
+  "scripts": {
+    "test": "mocha test.js",
+    "watch": "gulp watch"
+  },
+  "dependencies": {
+    "mongodb": "~2",
+    "mongoose": "~4",
+    "gulp": "~3.9",
+    "gulp-mocha": "~2.2",
+    "mocha": "~2.4"
+  },
+  "devDependencies": {
+    "jscs": "~1",
+    "jshint": "~2"
+  },
+  "pre-commit": [
+    "jshint",
+    "jscs"
+  ],
+  "license": "(MIT)",
+  "preferGlobal": false
+}
