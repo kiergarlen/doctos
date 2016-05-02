@@ -7,19 +7,19 @@
     "email": "ogonzalez@ceajalisco.gob.mx"
   },
   "scripts": {
-    "test": "mocha test.js",
+    "test": "gulp test",
     "watch": "gulp watch"
   },
   "dependencies": {
-    "mongodb": "~2",
     "mongoose": "~4",
-    "gulp": "~3.9",
-    "gulp-mocha": "~2.2",
-    "mocha": "~2.4"
+    "express": "~4"
   },
   "devDependencies": {
     "jscs": "~1",
-    "jshint": "~2"
+    "jshint": "~2",
+    "gulp": "~3.9",
+    "gulp-mocha": "~2.2",
+    "mocha": "~2.4"
   },
   "pre-commit": [
     "jshint",
