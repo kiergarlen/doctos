@@ -11,17 +11,26 @@
     "watch": "gulp watch"
   },
   "dependencies": {
-    "body-parser": "^1.15.0",
-    "browserify": "^13.0.0",
+    "body-parser": "^1.15.1",
+    "browserify": "^13.0.1",
+    "chai": "^3.5.0",
     "express": "^4.13.4",
     "express-session": "^1.13.0",
+    "gulp-browserify": "^0.5.1",
     "http-status": "^0.2.2",
+    "karma": "^0.13.22",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-mocha": "^1.0.1",
     "mongoose": "^4.4.14",
+    "morgan": "^1.7.0",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.0",
     "passport-jwt": "^2.0.0",
     "stripe": "^4.5.0",
-    "underscore": "^1.8.3"
+    "superagent": "^1.8.3",
+    "underscore": "^1.8.3",
+    "wagner-core": "^0.2.0"
   },
   "devDependencies": {
     "jscs": "^1.13.1",
