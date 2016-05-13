@@ -2,7 +2,7 @@
   {
     "_id": ObjectId("507f1f77bcf86cd799439011"),
     "isInternal": true,
-    "hasInstructions": false,
+    "instructions": "",
     "status": "Pendiente original",
     "url": "../../archivos/escaneados/2015/05/11/131245747.pdf",
     "reception": {
