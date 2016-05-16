@@ -19,7 +19,10 @@ db.oficios.ensureIndex(
     'reception.office': 'text',
     'reception.area': 'text',
     'reception.subject':'text',
-    'reception.contents':'text'
+    'reception.contents':'text',
+    'response.number':'text',
+    'response.senderOrganization':'text',
+    'response.sender':'text'
   },
   {
     sparse: true,
@@ -29,7 +32,10 @@ db.oficios.ensureIndex(
       'reception.office':2,
       'reception.area':2,
       'reception.subject':10,
-      'reception.contents': 5
+      'reception.contents': 5,
+      'response.number':1,
+      'response.senderOrganization':2,
+      'response.sender':2
     },
     name: 'ContentTextIndex',
     default_language: 'spanish'
