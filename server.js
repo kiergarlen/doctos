@@ -2,6 +2,8 @@ var express = require('express');
 
 module.exports = function() {
   var app = express();
+  app.use(express.static('public'));
+  /*
   app.get('/', function(req, res) {
     res.send('Hello, world!');
   });
@@ -15,6 +17,6 @@ module.exports = function() {
     ].join('');
     res.send(response);
   });
-
+  */
   return app;
 };
