@@ -1,0 +1,493 @@
+    <sislab-menu></sislab-menu>
+    <sislab-banner></sislab-banner>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12 col-lg-8 col-lg-offset-2 main item-themed-z2">
+          <div class="view-container">
+
+<div class="row">
+  <div class="col-xs-12">
+    <h2 class="page-header">Cadena de Custodia Interna</h2>
+  </div>
+</div>
+<div class="toast">
+  <div class="alert alert-danger item-z2" role="alert"
+    data-ng-show="custody.custody.id_status == 3">
+    <i class="glyphicon glyphicon-ban-circle"></i>
+    Motivo rechazo:
+    <strong>
+      {{custody.custody.motivo_rechaza}}
+      <span
+        data-ng-show="custody.custody.fecha_rechaza.length > 0">
+          ({{custody.custody.fecha_rechaza | date: 'yyyy-MM-dd'}})
+      </span>
+    </strong>
+  </div>
+</div>
+<div class="toast-warning">
+  <div class="alert alert-warning alert-dismissible item-z2" role="alert"
+    data-ng-show="custody.message.length > 0">
+    <button type="button" class="close" aria-label="Cerrar"
+      data-ng-click="custody.message = ''">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <i class="glyphicon glyphicon-warning-sign"></i>
+    <strong>
+      {{custody.message}}
+    </strong>
+  </div>
+</div>
+<form class="form" role="form"
+  name="custodyForm"
+  data-ng-submit="custody.submitCustodyForm()"
+  novalidate
+  >
+  <!--
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>Datos de referencia</h4>
+    </div>
+    <div class="col-xs-6">
+      Fecha muestreo:
+      <strong>
+        {{custody.custody.fecha_muestreo | date: 'yyyy-MM-dd'}}
+      </strong>
+      <br>
+      Fecha recepción:
+      <strong>
+        {{custody.custody.recepcion.fecha_recibe | date: 'yyyy-MM-dd'}}
+      </strong>
+      <br>
+      Id Orden Trabajo:
+      <strong>
+        {{custody.custody.id_trabajo}}
+      </strong>
+    </div>
+    <div class="col-xs-6">
+      Matriz:
+      <strong>
+        {{custody.custody.id_matriz}}
+      </strong>
+      <br>
+      Muestras:
+      <strong>
+        {{custody.custody.cantidad_muestras}}
+      </strong>
+      <br>
+      Contenedores:
+      <strong>
+        {{custody.custody.containers.length}}
+      </strong>
+      <br>
+    </div>
+  </div>
+  -->
+  <div class="row"
+    data-ng-show="custody.user.area > 3">
+    <div class="col-xs-12">
+      <h4>
+        Entrega de custodia
+      </h4>
+    </div>
+    <div class="col-xs-12 col-sm-7">
+      <label for="receptionistSelect">
+        Entrega custodia
+      </label>
+      <select class="form-control"
+        id="receptionistSelect"
+        name="receptionistSelect"
+        data-ng-model="custody.custody.id_usuario_entrega"
+        >
+        <option data-ng-repeat="receptionist in custody.receptionists"
+          value="{{receptionist.id_usuario}}"
+          data-ng-selected="custody.custody.id_usuario_entrega == receptionist.id_usuario"
+          >
+          {{::receptionist.nombres}}
+          {{::receptionist.apellido_paterno}}
+          {{::receptionist.apellido_materno}}
+        </option>
+      </select>
+    </div>
+    <div class="col-xs-9 col-sm-6">
+      <label for="transferDate">
+        <i class="glyphicon glyphicon-calendar"></i>
+        Fecha entrega
+      </label>
+      <input type="text"
+        class="form-control"
+        name="transferDate"
+        placeholder="aaaa-MM-dd"
+        required
+        data-ng-model="custody.custody.fecha_entrega"
+        data-date-format="yyyy-MM-dd"
+        data-date-type="date"
+        data-autoclose="1"
+        date-use-native="true"
+        data-bs-datepicker
+        >
+    </div>
+    <div class="col-xs-9 col-sm-4">
+      <label for="transferTime">
+        <i class="glyphicon glyphicon-time"></i>
+        Hora
+      </label>
+      <input type="text"
+        class="form-control"
+        id="transferTime"
+        name="transferTime"
+        placeholder="HH:mm"
+        required
+        data-ng-model="custody.custody.fecha_entrega"
+        data-time-format="HH:mm"
+        data-date-type="date"
+        data-length="1"
+        data-hour-step="1"
+        data-minute-step="1"
+        data-arrow-behavior="picker"
+        data-auto-close="1"
+        data-bs-timepicker
+        >
+    </div>
+  </div>
+  <div class="row"
+    data-ng-show="custody.user.area != 4">
+    <div class="col-xs-12">
+      <h4>
+        Recepción de custodia
+      </h4>
+    </div>
+    <div class="col-xs-12 col-sm-7">
+      <label for="analystSelect">
+        Recibe custodia
+      </label>
+      <select class="form-control"
+        id="analystSelect"
+        name="analystSelect"
+        data-ng-model="custody.custody.id_usuario_recibe"
+        >
+        <option data-ng-repeat="analyst in custody.analysts"
+          value="{{analyst.id_usuario}}"
+          data-ng-selected="custody.custody.id_usuario_recibe == analyst.id_usuario"
+          >
+          {{::analyst.nombres}}
+          {{::analyst.apellido_paterno}}
+          {{::analyst.apellido_materno}}
+        </option>
+      </select>
+    </div>
+    <div class="col-xs-9 col-sm-6">
+      <label for="receptionDate">
+        <i class="glyphicon glyphicon-calendar"></i>
+        Fecha recepción
+      </label>
+      <input type="text"
+        class="form-control"
+        name="receptionDate"
+        placeholder="aaaa-MM-dd"
+        required
+        data-ng-model="custody.custody.fecha_recibe"
+        data-date-format="yyyy-MM-dd"
+        data-date-type="date"
+        data-autoclose="1"
+        date-use-native="true"
+        data-bs-datepicker
+        >
+    </div>
+    <div class="col-xs-9 col-sm-4">
+      <label for="receptionTime">
+        <i class="glyphicon glyphicon-time"></i>
+        Hora
+      </label>
+      <input type="text"
+        class="form-control"
+        id="receptionTime"
+        name="receptionTime"
+        placeholder="HH:mm"
+        required
+        data-ng-model="custody.custody.fecha_recibe"
+        data-time-format="HH:mm"
+        data-date-type="date"
+        data-length="1"
+        data-hour-step="1"
+        data-minute-step="1"
+        data-arrow-behavior="picker"
+        data-auto-close="1"
+        data-bs-timepicker
+        >
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="panel">
+        <div class="panel-heading">
+          <h3 class="panel-title">Ubicación de Muestras/Recipientes</h3>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover table-condensed"
+            id="containerStorageList">
+            <thead>
+              <tr>
+                <th>Id Muestra</th>
+                <th>Id Recipiente</th>
+                <th>Preservación</th>
+                <th>Ubicación</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                data-ng-repeat="container in custody.custody.containers"
+                id="containerId{{container.id_recipiente}}">
+                <td>
+                  {{container.id_muestra}}
+                </td>
+                <td>
+                  {{container.id_recipiente}}
+                </td>
+                <td>
+                  {{container.preservacion}}
+                  <br>
+                  <sup class="muted-text">
+                    {{container.tipo_preservacion}}
+                  </sup>
+                </td>
+                <td>
+                  <select class="form-control"
+                    id="storageSelectId{{container.id_recipiente}}"
+                    name="storageSelectId{{container.id_recipiente}}"
+                    data-ng-model="container.id_almacenamiento"
+                    >
+                    <option value="0">
+                      Ubicación
+                    </option>
+                    <option data-ng-repeat="storage in custody.storages"
+                      value="{{storage.id_almacenamiento}}"
+                      data-ng-selected="container.id_almacenamiento == storage.id_almacenamiento"
+                      >
+                      {{storage.almacenamiento}}
+                    </option>
+                  </select>
+                </td>
+                <td>
+                  {{container.fecha_actualiza | date: 'yyyy-MM-dd'}}
+                </td>
+                <td>
+                  <button class="btn btn-default"
+                    value="Consultar" title="Consultar"
+                    data-ng-click="custody.viewLog(container)"
+                    >
+                    <i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row"
+    data-ng-show="custody.isLogVisible">
+    <div class="col-xs-12">
+      <h4>Historial de uso, Recipiente: {{custody.currentContainer.id_recipiente}}</h4>
+    </div>
+  </div>
+  <div class="row"
+    data-ng-show="custody.isLogVisible"
+    data-ng-repeat="logEntry in custody.logEntries">
+    <div class="col-xs-9 col-sm-2">
+      <label for="parameterSelect{{logEntry.id_historial_recipiente}}">
+        Parámetro
+      </label>
+      <select class="form-control"
+        name="parameterSelect{{logEntry.id_historial_recipiente}}"
+        data-ng-model="logEntry.id_parametro"
+        >
+        <option value="0">
+          Seleccione un parámetro
+        </option>
+        <option data-ng-repeat="parameter in custody.parameters"
+          value="{{parameter.id_parametro}}"
+          data-ng-selected="logEntry.id_parametro == parameter.id_parametro"
+          >
+          {{::parameter.parametro}}
+        </option>
+      </select>
+    </div>
+    <div class="col-xs-3 col-sm-2">
+      <label for="logVolume{{logEntry.id_historial_recipiente}}">
+        Volumen (ml)
+      </label>
+      <input type="text" class="form-control"
+        name="logVolume{{logEntry.id_historial_recipiente}}"
+        placeholder="0.0"
+        data-ng-model="logEntry.volumen"
+        data-ng-readonly="logEntry.id_historial_recipiente > 0"
+        >
+    </div>
+    <div class="col-xs-12 col-sm-3">
+      <label for="analystSelectId{{logEntry.id_historial_recipiente}}">
+        Analista
+      </label>
+      <select class="form-control"
+        id="analystSelectId{{logEntry.id_historial_recipiente}}"
+        name="analystSelectId{{logEntry.id_historial_recipiente}}"
+        data-ng-model="logEntry.id_usuario_analiza"
+        >
+        <option data-ng-repeat="analyst in custody.analysts"
+          value="{{analyst.id_usuario}}"
+          data-ng-selected="logEntry.id_usuario_analiza == analyst.id_usuario"
+          >
+          {{::analyst.nombres}}
+          {{::analyst.apellido_paterno}}
+          {{::analyst.apellido_materno}}
+        </option>
+      </select>
+    </div>
+    <div class="col-xs-7 col-sm-5">
+      <label for="logDate">
+        <i class="glyphicon glyphicon-calendar"></i>
+        Fecha
+      </label>
+      <input type="text"
+        class="form-control"
+        name="logDate"
+        placeholder="aaaa-MM-dd"
+        required
+        data-ng-model="logEntry.fecha"
+        data-date-format="yyyy-MM-dd"
+        data-date-type="date"
+        data-autoclose="1"
+        date-use-native="true"
+        data-bs-datepicker
+        data-ng-readonly="logEntry.id_historial_recipiente > 0"
+        >
+    </div>
+    <div class="col-xs-3 col-sm-2"
+      data-ng-show="custody.user.area == 2">
+      <label for="logTime">
+        <i class="glyphicon glyphicon-time"></i>
+        Hora
+      </label>
+      <input type="text"
+        class="form-control"
+        id="logTime"
+        name="logTime"
+        placeholder="HH:mm"
+        required
+        data-ng-model="logEntry.fecha"
+        data-time-format="HH:mm"
+        data-date-type="date"
+        data-length="1"
+        data-hour-step="1"
+        data-minute-step="1"
+        data-arrow-behavior="picker"
+        data-auto-close="1"
+        data-bs-timepicker
+        >
+    </div>
+  </div>
+  <div class="row"
+    data-ng-show="custody.isLogVisible">
+    <div class="col-xs-6">
+      <br>
+      <a class="btn btn-success"
+        value="Agregar historial" title="Agregar historial"
+        data-ng-click="custody.addLog()"
+        >
+        <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+        Agregar historial
+      </a>
+      <a class="btn btn-primary"
+        value="Guardar y cerrar" title="Guardar y cerrar"
+        data-ng-click="custody.saveLog()"
+        data-ng-show="custody.logEntries.length > 0"
+        >
+        <i class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></i>
+        Guardar historial
+      </a>
+      <br><br>
+    </div>
+  </div>
+  <!--
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>Disposición final</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+        muestra :: fecha disposición :: autorizado por
+    </div>
+  </div>
+  -->
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>Comentarios</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <textarea rows="3" class="form-control well well-sm"
+        id="custodyCommentsText"
+        name="custodyCommentsText"
+        data-ng-model="custody.custody.comentarios"
+        >
+      </textarea>
+    </div>
+  </div>
+  <div class="row"
+    data-ng-show="custody.user.level < 3">
+    <div class="col-xs-12">
+      <h4>Validación</h4>
+    </div>
+    <div class="col-xs-12 col-sm-5 well wel-sm ">
+      <button class="btn btn-success"
+        value="Validar" title="Validar"
+        data-ng-disabled="custody.custody.id_status == 2"
+        data-ng-click="custody.approveItem()"
+        >
+        <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
+        Validar
+      </button>
+      <button class="btn btn-danger"
+        value="Rechazar" title="Rechazar"
+        data-ng-disabled="custody.custody.id_status == 3"
+        data-ng-click="custody.rejectItem()"
+        >
+        <i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
+        Rechazar
+      </button>
+    </div>
+    <div class="col-xs-12 col-sm-7 well wel-sm ">
+      <label class="sr-only" for="rejectText">
+        Motivo rechazo
+      </label>
+      <input type="text" class="form-control"
+        id="rejectText"
+        name="rejectText"
+        placeholder="Especifique motivo rechazo"
+        data-ng-disabled="custody.custody.id_status != 3"
+        data-ng-model="custody.custody.motivo_rechaza"
+        >
+    </div>
+  </div>
+  <br>
+  <button type="submit" class="btn btn-primary"
+    value="Guardar" title="Guardar"
+    data-ng-click="custody.submitForm()"
+    data-ng-if="custody.custody.id_status != 2 || custody.user.level < 3"
+    >
+    <i class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></i>
+    Guardar
+  </button>
+</form>
+
+          </div>
+          <sislab-footer></sislab-footer>
+        </div><!-- view-container -->
+      </div><!-- row -->
+    </div><!-- container -->
+    <sislab-banner-bottom></sislab-banner-bottom>

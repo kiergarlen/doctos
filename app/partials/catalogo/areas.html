@@ -1,0 +1,89 @@
+    <sislab-menu></sislab-menu>
+    <sislab-banner></sislab-banner>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12 col-lg-8 col-lg-offset-2 main item-themed-z2">
+          <div class="view-container">
+
+<div class="row">
+  <div class="col-xs-12">
+    <h2 class="page-header">Áreas</h2>
+  </div>
+</div>
+<form class="form" role="form"
+  name="areasForm"
+  novalidate
+  >
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>Búsqueda</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-8">
+      <label for="areaSearch" class="sr-only">
+        Ingrese una búsqueda (Área, Siglas, Responsable, etc.)
+      </label>
+      <div class="input-group">
+        <div class="input-group-addon">
+          <i class="glyphicon glyphicon-search"></i>
+        </div>
+        <input type="text"
+          class="form-control"
+          placeholder="Ingrese una búsqueda (Área, Siglas, Responsable, etc.)"
+          id="areaSearch"
+          name="areaSearch"
+          data-ng-model="areas.filter.$">
+      </div>
+      <br>
+    </div>
+  </div>
+</form>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Áreas</h3>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover table-condensed"
+          id="areasList">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Área</th>
+              <th>Responsable</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              data-ng-repeat="item in areas.areas |
+              filter:areas.filter.$"
+              id="areaId{{item.id_area}}">
+              <td>
+                {{::item.id_area}}
+              </td>
+              <td>
+                  {{::item.area}}
+                  <br>
+                  <span class="text-muted">
+                    {{::item.siglas}}
+                  </span>
+              </td>
+              <td>
+                {{item.id_usuario_supervisa}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+          </div>
+          <sislab-footer></sislab-footer>
+        </div><!-- view-container -->
+      </div><!-- row -->
+    </div><!-- container -->
+    <sislab-banner-bottom></sislab-banner-bottom>

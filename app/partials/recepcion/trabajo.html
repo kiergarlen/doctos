@@ -1,0 +1,413 @@
+    <sislab-menu></sislab-menu>
+    <sislab-banner></sislab-banner>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12 col-lg-8 col-lg-offset-2 main item-themed-z2">
+          <div class="view-container">
+
+<div class="row">
+  <div class="col-xs-12">
+    <h2 class="page-header">Orden de Trabajo</h2>
+  </div>
+</div>
+<div class="toast">
+  <div class="alert alert-danger item-z2" role="alert"
+    data-ng-show="job.job.id_status == 3">
+    <i class="glyphicon glyphicon-ban-circle"></i>
+      Motivo rechazo:
+      <strong>
+        {{job.job.motivo_rechaza}}
+      <span
+        data-ng-show="job.job.fecha_rechaza.length > 0">
+          ({{job.job.fecha_rechaza | date: 'yyyy-MM-dd'}})
+      </span>
+    </strong>
+  </div>
+</div>
+<div class="toast-warning">
+  <div class="alert alert-warning alert-dismissible item-z2" role="alert"
+    data-ng-show="job.message.length > 0">
+    <button type="button" class="close" aria-label="Cerrar"
+      data-ng-click="job.message = ''">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <i class="glyphicon glyphicon-warning-sign"></i>
+    <strong>
+      {{job.message}}
+    </strong>
+  </div>
+</div>
+<form class="form" role="form"
+  name="jobForm"
+  data-ng-submit="job.submitForm()"
+  novalidate
+  >
+  <!--
+  <div class="row"
+    data-ng-if="job.user.area == 4">
+    <div class="col-xs-12">
+      <h4>Entrega Orden</h4>
+    </div>
+    <div class="col-xs-6 col-sm-4">
+      <label for="jobDeliverDate">
+        <i class="glyphicon glyphicon-calendar"></i>
+        Fecha
+      </label>
+      <input type="text"
+        class="form-control"
+        id="jobDeliverDate"
+        name="jobDeliverDate"
+        placeholder="aaaa-mm-dd"
+        required
+        data-ng-model="job.job.fecha_entrega"
+        data-date-format="yyyy-MM-dd"
+        data-date-type="date"
+        data-autoclose="1"
+        date-use-native="true"
+        data-bs-datepicker
+        >
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <label for="jobDeliverTime">
+        <i class="glyphicon glyphicon-time"></i>
+        Hora
+      </label>
+      <input type="text"
+        class="form-control"
+        id="jobDeliverTime"
+        name="jobDeliverTime"
+        placeholder="HH:mm"
+        required
+        data-ng-model="job.job.fecha_entrega"
+        data-time-format="HH:mm"
+        data-date-type="date"
+        data-length="1"
+        data-hour-step="1"
+        data-minute-step="1"
+        data-arrow-behavior="picker"
+        data-auto-close="1"
+        data-bs-timepicker
+        >
+    </div>
+    <div class="col-xs-12 col-sm-6">
+      <label for="delivererSelect">
+        Entrega Orden
+      </label>
+      <select class="form-control"
+        id="delivererSelect"
+        name="delivererSelect"
+        data-ng-model="job.job.id_usuario_entrega"
+        >
+        <option
+          data-ng-repeat="deliverer in job.deliverers"
+          value="{{deliverer.id_usuario}}">
+          {{::deliverer.nombres}}
+          {{::deliverer.apellido_paterno}}
+          {{::deliverer.apellido_materno}}
+        </option>
+      </select>
+    </div>
+  </div>
+  -->
+  <!--
+  <div class="row"
+    data-ng-if="job.isParameterListAsigned && job.user.level < 5">
+    <div class="col-xs-12">
+      <h4>Recibe Orden</h4>
+    </div>
+    <div class="col-xs-6 col-sm-4">
+      <label for="jobReceiveDate">
+        <i class="glyphicon glyphicon-calendar"></i>
+        Fecha
+      </label>
+      <input type="text"
+        class="form-control"
+        id="jobReceiveDate"
+        name="jobReceiveDate"
+        placeholder="aaaa-mm-dd"
+        required
+        data-ng-model="job.job.fecha_recibe"
+        data-date-format="yyyy-MM-dd"
+        data-date-type="date"
+        data-autoclose="1"
+        date-use-native="true"
+        data-bs-datepicker
+        >
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <label for="jobReceiveTime">
+        <i class="glyphicon glyphicon-time"></i>
+        Hora
+      </label>
+      <input type="text"
+        class="form-control"
+        id="jobReceiveTime"
+        name="jobReceiveTime"
+        placeholder="HH:mm"
+        required
+        data-ng-model="job.job.fecha_recibe"
+        data-time-format="HH:mm"
+        data-date-type="date"
+        data-length="1"
+        data-hour-step="1"
+        data-minute-step="1"
+        data-arrow-behavior="picker"
+        data-auto-close="1"
+        data-bs-timepicker
+        >
+    </div>
+    <div class="col-xs-12 col-sm-6">
+      <label for="receiverSelect">
+        Recibe Orden
+      </label>
+      {{job.job.id_usuario_recibe}}
+      {{job.job.supervisor.id_usuario}}
+      {{job.job.supervisor.nombres}}
+      {{job.job.supervisor.apellido_paterno}}
+      {{job.job.supervisor.apellido_materno}}
+      <br>
+      {{vm.analysts}}
+    </div>
+  </div>
+  -->
+  <div class="row"
+    data-ng-if="!job.isParameterListAsigned">
+    <div class="col-xs-12">
+      <h4>Asignación de Análisis</h4>
+    </div>
+    <div class="col-xs-12">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="panel">
+            <div class="panel-heading">
+              <h3 class="panel-title">Análisis</h3>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-hover table-condensed"
+                id="parameterList">
+                <thead>
+                  <tr>
+                    <th>Parámetro</th>
+                    <th>Analista</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    data-ng-repeat="parameter in job.job.parametros"
+                    id="parameterId{{parameter.id_parametro}}">
+                    <td>
+                      {{parameter.param}}
+                    </td>
+                    <td>
+                      <select class="form-control"
+                        id="analystSelectId{{parameter.id_parametro}}"
+                        name="analystSelectId{{parameter.id_parametro}}"
+                        data-ng-model="parameter.id_usuario_analiza"
+                        >
+                        <option data-ng-repeat="analyst in job.analysts"
+                          value="{{analyst.id_usuario}}"
+                          data-ng-selected="parameter.id_usuario_analiza == analyst.id_usuario"
+                          >
+                          {{::analyst.nombres}}
+                          {{::analyst.apellido_paterno}}
+                          {{::analyst.apellido_materno}}
+                        </option>
+                      </select>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row"
+    data-ng-if="job.isParameterListAsigned">
+    <div class="col-xs-12">
+      <h4>Análisis - Resultados Preliminares</h4>
+    </div>
+    <div class="col-xs-12">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="panel">
+            <div class="panel-heading">
+              <h3 class="panel-title">Resultados</h3>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-hover table-condensed"
+                id="resultsList">
+                <thead>
+                  <tr>
+                    <th>Parámetro</th>
+                    <th>Id Análisis</th>
+                    <th>Resultado</th>
+                    <th>Duplicado</th>
+                    <th>M. Duplicada</th>
+                    <th
+                      data-ng-if="job.job.id_area != 3">
+                      Estándar (%R)
+                    </th>
+                    <th
+                      data-ng-if="job.job.id_area != 3">
+                      Coeficiente Variacion
+                    </th>
+                    <th
+                      data-ng-if="job.job.id_area == 3">
+                      Tiempo Incubacion
+                    </th>
+                    <th
+                      data-ng-if="job.job.id_area == 3">
+                      Temp. Incubacion
+                    </th>
+                    <th>Fecha</th>
+                    <th>Analista</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    data-ng-repeat="result in job.job.resultados">
+                    <td>
+                      {{::result.parametro}}<br>
+                      <sub>[{{::result.unidad}}]</sub>
+                    </td>
+                    <td>{{::result.id_analisis}}</td>
+                    <td>{{::result.valor}}</td>
+                    <td>{{::result.duplicado}}</td>
+                    <td>{{::result.muestra_duplicada}}</td>
+                    <td
+                      data-ng-if="job.job.id_area != 3">
+                      {{::result.estandar}}
+                    </td>
+                    <td
+                      data-ng-if="job.job.id_area != 3">
+                      {{::result.coeficiente_variacion}}
+                    </td>
+                    <td
+                      data-ng-if="job.job.id_area == 3">
+                      {{::result.tiempo_incubacion}}
+                    </td>
+                    <td
+                      data-ng-if="job.job.id_area == 3">
+                      {{::result.temperatura_incubacion}}
+                    </td>
+                    <td>{{::result.fecha_analiza | date: 'yyyy-MM-dd'}}</td>
+                    <td>
+                      {{::result.nombres}}<br>
+                      {{::result.apellido_paterno}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row"
+    data-ng-if="job.isParameterListAsigned">
+    <div class="col-xs-12">
+      <h4>Referencias por Muestra</h4>
+    </div>
+    <div class="col-xs-12 col-sm-8">
+      <table class="table table-hover table-condensed"
+        id="referenceResultList">
+        <thead>
+          <tr>
+            <th>Muestra</th>
+            <th>Parámetro</th>
+            <th>Resultado</th>
+            <th>Unidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            data-ng-repeat="reference in job.job.referencias">
+            <td>{{::reference.id_muestra}}</td>
+            <td>{{::reference.param}}</td>
+            <td>{{::reference.valor}}</td>
+            <td>{{::reference.unidad}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row"
+    data-ng-if="job.isParameterListAsigned && job.user.level < 5">
+    <div class="col-xs-12">
+      <h4>Aprueba preliminares</h4>
+    </div>
+    <div class="col-xs-12 col-sm-8 well wel-sm ">
+      <button class="btn btn-success"
+        value="Aprobar" title="Aprobar"
+        data-ng-click="job.approveResults()"
+        data-ng-disabled="job.job.id_usuario_aprueba > 0"
+        >
+        <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
+        Aprobar
+      </button>
+      <button class="btn btn-warning"
+        value="No aprobar" title="No aprobar"
+        data-ng-click="job.rejectResults()"
+        data-ng-disabled="job.job.id_usuario_aprueba < 1"
+        >
+        <i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
+        No aprobar
+      </button>
+    </div>
+  </div>
+  <div class="row"
+    data-ng-show="job.user.level < 3">
+    <div class="col-xs-12">
+      <h4>Validación</h4>
+    </div>
+    <div class="col-xs-12 col-sm-5 well wel-sm ">
+      <button class="btn btn-success"
+        value="Validar" title="Validar"
+        data-ng-disabled="job.job.id_status == 2"
+        data-ng-click="job.approveItem()"
+        >
+        <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
+        Validar
+      </button>
+      <button class="btn btn-danger"
+        value="Rechazar" title="Rechazar"
+        data-ng-disabled="job.job.id_status == 3"
+        data-ng-click="job.rejectItem()"
+        >
+        <i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
+        Rechazar
+      </button>
+    </div>
+    <div class="col-xs-12 col-sm-7 well wel-sm ">
+      <label class="sr-only" for="rejectText">
+        Motivo rechazo
+      </label>
+      <input type="text" class="form-control"
+        id="rejectText"
+        name="rejectText"
+        placeholder="Especifique motivo rechazo"
+        data-ng-disabled="job.job.id_status != 3"
+        data-ng-model="job.job.motivo_rechaza"
+        >
+    </div>
+  </div>
+  <br>
+  <button type="submit" class="btn btn-primary"
+    value="Guardar" title="Guardar"
+    data-ng-click="job.submitForm()"
+    data-ng-if="job.job.id_status != 2 || job.user.level < 3"
+    >
+    <i class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></i>
+    Guardar
+  </button>
+</form>
+
+          </div>
+          <sislab-footer></sislab-footer>
+        </div><!-- view-container -->
+      </div><!-- row -->
+    </div><!-- container -->
+    <sislab-banner-bottom></sislab-banner-bottom>

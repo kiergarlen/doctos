@@ -1,0 +1,491 @@
+    <sislab-menu></sislab-menu>
+    <sislab-banner></sislab-banner>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12 col-lg-8 col-lg-offset-2 main item-themed-z2">
+          <div class="view-container">
+
+<div class="row">
+  <div class="col-xs-12">
+    <h2 class="page-header">Hoja de campo</h2>
+  </div>
+</div>
+<div class="toast" data-ng-cloak>
+  <div class="alert alert-danger item-z2" role="alert"
+    data-ng-show="sheet.sheet.id_status == 3">
+    <i class="glyphicon glyphicon-ban-circle"></i>
+    Motivo rechazo:
+    <strong>
+      {{sheet.sheet.motivo_rechaza}}
+      <span
+        data-ng-show="sheet.sheet.fecha_rechaza.length > 0">
+          ({{sheet.sheet.fecha_rechaza | date: 'yyyy-MM-dd'}})
+      </span>
+    </strong>
+  </div>
+</div>
+<div class="toast-warning" data-ng-cloak>
+  <div class="alert alert-warning alert-dismissible item-z2" role="alert"
+    data-ng-show="sheet.message.length > 0">
+    <button type="button" class="close" aria-label="Cerrar"
+      data-ng-click="sheet.message = ''">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <i class="glyphicon glyphicon-warning-sign"></i>
+    <strong>
+      {{sheet.message}}
+    </strong>
+  </div>
+</div>
+<form class="form" role="form"
+  name="sheetForm"
+  novalidate
+  >
+  <!--
+  <div class="row">
+    <div class="col-xs-12" data-bs-collapse>
+      <h4 data-bs-collapse-toggle>
+        <a class="btn btn-default">
+          <i class="glyphicon glyphicon-chevron-down"
+            aria-hidden="true"></i>
+        </a>
+        Datos de Referencia
+      </h4>
+      <div class="row well well-sm item-z1"
+        data-bs-collapse-target
+        >
+        <div class="col-xs-12 col-sm-6">
+          <h6>Plan</h6>
+          <ul class="list-inline">
+            <li>
+              Folio:
+              <strong>
+                {{::sheet.sheet.plan.folio}}
+              </strong>
+            </li>
+            <li data-ng-show="sheet.sheet.plan.fecha_plan.length > 0">
+              Fecha:
+              <strong>
+                {{::sheet.sheet.plan.fecha_plan | date: 'yyyy-MM-dd'}}
+              </strong>
+            </li>
+          </ul>
+          Responsable Muestreo:
+          <strong>
+            {{::sheet.sheet.plan.supervisor_muestreo.nombres}}
+            {{::sheet.sheet.plan.supervisor_muestreo.apellido_paterno}}
+            {{::sheet.sheet.plan.supervisor_muestreo.apellido_materno}}
+          </strong>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <div class="well well-sm">
+            <h6>Cliente</h6>
+            <ul class="list-inline">
+              <li>
+                Cliente:
+                <strong>
+                  {{::sheet.sheet.plan.cliente.cliente}}
+                </strong>
+                {{::sheet.sheet.plan.cliente.area}}
+              </li>
+              <li>
+                Contacto:
+                <strong>
+                  {{::sheet.sheet.plan.cliente.contacto}}
+                </strong>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  -->
+  <!--
+   <div class="row">
+    <div class="col-xs-12">
+      <h4>Referencia del muestreo</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-6">
+      <label for="samplingNormSelect">
+        Norma referencia muestreo
+      </label>
+      <select class="form-control"
+        id="samplingNormSelect"
+        name="samplingNormSelect"
+        required
+        data-ng-model="sheet.sheet.id_norma"
+        >
+        <option data-ng-repeat="samplingNorm in sheet.samplingNorms"
+          value="{{samplingNorm.id_norma}}">
+          {{::samplingNorm.norma}}
+        </option>
+      </select>
+    </div>
+  </div>
+  -->
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>Fecha / hora de muestreo</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 col-sm-4">
+      <label for="startDate">
+        <i class="glyphicon glyphicon-calendar"></i>
+        Fecha
+      </label>
+      <input type="text"
+        class="form-control"
+        id="startDate"
+        name="startDate"
+        placeholder="aaaa-mm-dd"
+        required
+        data-ng-model="sheet.sheet.fecha_muestreo"
+        data-date-format="yyyy-MM-dd"
+        data-date-type="date"
+        data-autoclose="1"
+        date-use-native="true"
+        data-bs-datepicker
+        >
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <label for="startTime">
+        <i class="glyphicon glyphicon-time"></i>
+        Hora
+      </label>
+      <input type="text"
+        class="form-control"
+        id="startTime"
+        name="startTime"
+        placeholder="HH:mm"
+        required
+        data-ng-model="sheet.sheet.fecha_muestreo"
+        data-time-format="HH:mm"
+        data-date-type="date"
+        data-length="1"
+        data-hour-step="1"
+        data-minute-step="1"
+        data-arrow-behavior="picker"
+        data-auto-close="1"
+        data-bs-timepicker
+        >
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 col-sm-4">
+      <label for="endDate">
+        <i class="glyphicon glyphicon-calendar"></i>
+        Fecha entrega
+      </label>
+      <input type="text"
+        class="form-control"
+        id="endDate"
+        name="endDate"
+        placeholder="aaaa-mm-dd"
+        required
+        data-ng-model="sheet.sheet.fecha_entrega"
+        data-date-format="yyyy-MM-dd"
+        data-date-type="date"
+        data-autoclose="1"
+        date-use-native="true"
+        data-bs-datepicker
+        >
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <label for="endTime">
+        <i class="glyphicon glyphicon-time"></i>
+        Hora entrega
+      </label>
+      <input type="text"
+        class="form-control"
+        id="endTime"
+        name="endTime"
+        placeholder="HH:mm"
+        required
+        data-ng-model="sheet.sheet.fecha_entrega"
+        data-time-format="HH:mm"
+        data-date-type="date"
+        data-length="1"
+        data-hour-step="1"
+        data-minute-step="1"
+        data-arrow-behavior="picker"
+        data-auto-close="1"
+        data-bs-timepicker
+        >
+    </div>
+  </div>
+  <!-- PUNTOS Y RESULTADOS -->
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>Resultados</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12"
+      data-ng-repeat="row in sheet.sheet.muestras">
+      <h5>Muestra en: {{::row.punto.punto}}</h5>
+      <p>
+        <span class="label label-info"
+          data-ng-if="row.id_tipo_muestreo == 2">Muestreo Compuesto</span>
+        <span class="label label-success"
+          data-ng-if="row.id_tipo_muestra == 2">Muestra Compuesta</span>
+        <br>
+        <small>
+          {{::row.punto.descripcion}}
+        </small>
+        <br>
+        Latitud: {{::row.punto.lat}} | Longitud: {{::row.punto.lng}}
+      </p>
+      <div class="row">
+        <div class="col-xs-6 col-sm-4">
+          <label for="sampleDate{{::row.id_muestra}}">
+            <i class="glyphicon glyphicon-calendar"></i>
+            Fecha muestreo
+          </label>
+          <input type="text"
+            class="form-control"
+            id="sampleDate{{::row.id_muestra}}"
+            name="sampleDate{{::row.id_muestra}}"
+            placeholder="aaaa-mm-dd"
+            required
+            data-ng-model="row.fecha_muestreo"
+            data-date-format="yyyy-MM-dd"
+            data-date-type="date"
+            data-autoclose="1"
+            date-use-native="true"
+            data-bs-datepicker
+            >
+        </div>
+        <div class="col-xs-6 col-sm-3">
+          <label for="sampleTime{{::row.id_muestra}}">
+            <i class="glyphicon glyphicon-time"></i>
+            Hora muestreo
+          </label>
+          <input type="text"
+            class="form-control"
+            id="sampleTime{{::row.id_muestra}}"
+            name="sampleTime{{::row.id_muestra}}"
+            placeholder="HH:mm"
+            required
+            data-ng-model="row.fecha_muestreo"
+            data-time-format="HH:mm"
+            data-length="1"
+            data-hour-step="1"
+            data-minute-step="1"
+            data-arrow-behavior="picker"
+            data-auto-close="1"
+            data-bs-timepicker
+            >
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6 col-sm-4"
+          data-ng-repeat="result in row.resultados"
+          >
+          <label
+            data-ng-if="result.id_tipo_valor < 3 && row.id_tipo_muestra != 2"
+            >
+            {{::result.param}}
+          </label>
+          <input type="text"
+            class="form-control"
+            placeholder="0"
+            data-ng-model="result.valor"
+            data-ng-if="result.id_tipo_valor == 1 && row.id_tipo_muestra != 2"
+            >
+          <input type="text"
+            class="form-control"
+            placeholder="Valor"
+            data-ng-model="result.valor"
+            data-ng-if="result.id_tipo_valor == 2 && row.id_tipo_muestra != 2"
+            >
+          <label
+            data-ng-if="result.id_tipo_valor == 3 && row.id_tipo_muestra != 2"
+            >
+            {{::result.param}}
+            <br>
+            <label>
+              <input type="radio"
+                value="1"
+                data-ng-model="result.valor"
+                >
+                Presente
+            </label>
+            <label>
+              <input type="radio"
+                value="0"
+                data-ng-model="result.valor"
+                >
+                Ausente
+            </label>
+            <br><br>
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <label for="sampleComments{{::row.id_muestra}}">
+            Comentarios
+          </label>
+          <br>
+          <textarea rows="2" class="form-control well well-sm"
+            id="sheetComments{{::row.id_muestra}}"
+            name="sheetComments{{::row.id_muestra}}"
+            data-ng-model="row.comentarios"
+            >
+          </textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>Condiciones ambientales</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-6">
+      <label for="cloudCoverSelect">
+        Cobertura de nubes
+      </label>
+      <select class="form-control"
+        id="cloudCoverSelect"
+        name="cloudCoverSelect"
+        required
+        data-ng-model="sheet.sheet.id_nube"
+        >
+        <option
+          data-ng-repeat="cloudCover in sheet.cloudCovers"
+          value="{{cloudCover.id_nube}}">
+          {{::cloudCover.nube}}
+        </option>
+      </select>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+      <label for="windDirectionSelect">
+        Dirección de la corriente
+      </label>
+      <select class="form-control"
+        id="windDirectionSelect"
+        name="windDirectionSelect"
+        required
+        data-ng-model="sheet.sheet.id_direccion_corriente"
+        >
+        <option
+          data-ng-repeat="windDirection in sheet.windDirections"
+          value="{{windDirection.id_direccion_corriente}}">
+          {{::windDirection.direccion_corriente}}
+        </option>
+      </select>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+      <label for="waveIntensitySelect">
+        Intensidad del oleaje
+      </label>
+      <select class="form-control"
+        id="waveIntensitySelect"
+        name="waveIntensitySelect"
+        required
+        data-ng-model="sheet.sheet.id_oleaje"
+        >
+        <option
+          data-ng-repeat="waveIntensity in sheet.waveIntensities"
+          value="{{waveIntensity.id_oleaje}}">
+          {{::waveIntensity.oleaje}}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>Preservaciones {{sheet.selectPreservations()}}</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-6"
+      data-ng-repeat="preservation in sheet.preservations">
+      <label>
+        <input type="checkbox"
+          value="{{preservation.selected}}"
+          data-ng-model="preservation.selected"
+          >
+          {{preservation.preservacion}}
+      </label>
+      <br>
+      <small class="text-muted">
+        {{preservation.descripcion}}
+      </small>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>Comentarios</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <textarea rows="3" class="form-control well well-sm"
+        id="sheetCommentsText"
+        name="sheetCommentsText"
+        data-ng-model="sheet.sheet.comentarios"
+        >
+      </textarea>
+    </div>
+  </div>
+  <br>
+  <div class="row"
+    data-ng-show="sheet.user.level < 3">
+    <div class="col-xs-12">
+      <h4>Validación</h4>
+    </div>
+    <div class="col-xs-12 col-sm-5 well wel-sm ">
+      <button class="btn btn-success"
+        value="Validar" title="Validar"
+        data-ng-disabled="sheet.sheet.id_status == 2"
+        data-ng-click="sheet.approveItem()"
+        >
+        <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
+        Validar
+      </button>
+      <button class="btn btn-danger"
+        value="Rechazar" title="Rechazar"
+        data-ng-disabled="sheet.sheet.id_status == 3"
+        data-ng-click="sheet.rejectItem()"
+        >
+        <i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
+        Rechazar
+      </button>
+    </div>
+    <div class="col-xs-12 col-sm-7 well wel-sm ">
+      <label class="sr-only" for="rejectText">
+        Motivo rechazo
+      </label>
+      <input type="text" class="form-control"
+        id="rejectText"
+        name="rejectText"
+        placeholder="Especifique motivo rechazo"
+        data-ng-disabled="sheet.sheet.id_status != 3"
+        data-ng-model="sheet.sheet.motivo_rechaza"
+        >
+    </div>
+  </div>
+  <br>
+  <button type="submit" class="btn btn-primary"
+    value="Guardar" title="Guardar"
+    data-ng-click="sheet.submitForm()"
+    data-ng-if="sheet.sheet.id_status != 2 || sheet.user.level < 3"
+    >
+    <i class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></i>
+    Guardar
+  </button>
+</form>
+
+          </div>
+          <sislab-footer></sislab-footer>
+        </div><!-- view-container -->
+      </div><!-- row -->
+    </div><!-- container -->
+    <sislab-banner-bottom></sislab-banner-bottom>

@@ -1,0 +1,87 @@
+    <sislab-menu></sislab-menu>
+    <sislab-banner></sislab-banner>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12 col-lg-8 col-lg-offset-2 main item-themed-z2">
+          <div class="view-container">
+
+<div class="row">
+  <div class="col-xs-12">
+    <h2 class="page-header">Perfil de usuario</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-sm-2">
+    <div class="thumbnail item-z1">
+      <img
+        data-ng-src="img/emp/{{::profile.profile.id_trabajad}}.JPG"
+        alt="{{::profile.profile.nombres}}"
+        >
+    </div>
+  </div>
+  <div class"=coll-xs-12 col-sm-10">
+    <h4>
+      {{::profile.profile.nombres}}
+      <strong>
+      {{::profile.profile.apellido_paterno}}
+      {{::profile.profile.apellido_materno}}
+      </strong><br>
+      <small>{{::profile.profile.puesto}}</small>
+    </h4>
+    <ul class="list-unstyled">
+      <li>
+        Rol: <strong>{{::profile.profile.rol}}</strong>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 panel">
+    <form class="form" role="form"
+      name="profileForm"
+      novalidate
+      >
+      <div class="row">
+        <div class="col-xs-12">
+          <h4>Cambiar contraseña</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-3">
+          <label for="oldPassword">Contraseña actual</label>
+          <input type="text"
+            class="form-control"
+            name="oldPassword"
+            data-ng-model="profile.profile.password_actual"
+            >
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-3">
+          <label for="newPassword">Contraseña nueva</label>
+          <input type="text"
+            class="form-control"
+            name="newPassword"
+            data-ng-model="profile.profile.password_nueva"
+            >
+        </div>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-primary"
+        value="Guardar" title="Guardar"
+        data-ng-click="profile.submitForm()"
+        >
+        <i class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></i>
+        Guardar
+      </button>
+      <br><br>
+    </form>
+  </div>
+</div>
+
+          </div>
+          <sislab-footer></sislab-footer>
+        </div><!-- view-container -->
+      </div><!-- row -->
+    </div><!-- container -->
+    <sislab-banner-bottom></sislab-banner-bottom>

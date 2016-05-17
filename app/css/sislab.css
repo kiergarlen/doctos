@@ -1,0 +1,443 @@
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+}
+
+bgred {
+  background-color: red;
+}
+
+/*
+ * Global add-ons
+ */
+
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.framed-item {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  margin-bottom: -1px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+  border: 0;
+}
+
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar {
+  display: none;
+}
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+  }
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #ca445c;
+}
+
+
+/*
+ * Main content
+ */
+
+.main {
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+    background-color: #fff;
+  }
+}
+.main .page-header {
+  margin-top: 0;
+}
+
+
+/*
+ * Placeholder dashboard ideas
+ */
+
+.placeholders {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  margin-bottom: 20px;
+}
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+/* Navbar underlines experiment
+.nav > li > a:hover,
+.nav > li > a:focus {
+  text-decoration: none;
+  background-color: #eeeeee;
+  background-color: #f5f5f5;
+  border-bottom:4px solid #616161;
+  margin-bottom:-4px;
+}
+*/
+  .login-bg {
+    background: url('img/bg-lab-lowres.jpg') no-repeat center center fixed;
+
+    position:fixed;
+    width:200%;
+    height:200%;
+    left:-50%;
+  }
+
+  .login-bg img {
+    /*
+    display:none;
+    */
+    margin:auto;
+    min-width:50%;
+    min-height:50%;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+  }
+
+  .login-footer {
+    bottom:30px;
+    color:#fff;
+    font-size:11px;
+    position:absolute;
+    text-align:center;
+    width:100%;
+    /*
+    text-shadow: 0px 0px 2px #560f27, 0 0 1em #560f27, 0 0 0.2em #560f27;
+    */
+  }
+/*
+Firefox Fix For Freaky Fieldset
+*/
+@-moz-document url-prefix() {
+  fieldset { display: table-cell; }
+}
+
+  .login-bg {
+    background: url('img/bg-lab-lowres.jpg') no-repeat center center fixed;
+
+    position:fixed;
+    width:200%;
+    height:200%;
+    left:-50%;
+  }
+
+  .login-bg img {
+    /*
+    display:none;
+    */
+    margin:auto;
+    min-width:50%;
+    min-height:50%;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+  }
+
+  .login-footer {
+    bottom:30px;
+    color:#fff;
+    font-size:11px;
+    position:absolute;
+    text-align:center;
+    width:100%;
+    /*
+    text-shadow: 0px 0px 2px #560f27, 0 0 1em #560f27, 0 0 0.2em #560f27;
+    */
+  }
+
+.img-responsive-full {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.common-footer {
+  margin-top:5px;
+  padding:10px;
+  font-size:11px;
+  text-align:center;
+}
+
+  .main-bg {
+    background: url('../img/crystal-bg.jpg') no-repeat center center fixed;
+
+    position:fixed;
+    width:200%;
+    height:200%;
+    left:-50%;
+  }
+
+  .main-bg img {
+    /*
+    display:none;
+    */
+    margin:auto;
+    min-width:50%;
+    min-height:50%;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+  }
+
+.item-themed-z5 {
+  /*
+  box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2);
+  box-shadow:0 0 40px #560f27;
+  */
+     -moz-box-shadow:0 27px 24px 0 #560f27;
+  -webkit-box-shadow:0 27px 24px 0 #560f27;
+          box-shadow:0 27px 24px 0 #560f27;
+}
+.item-themed-z4 {
+  /*
+  box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22);
+  box-shadow:0 0 35px #560f27;
+  */
+     -moz-box-shadow:0 16px 28px 0 #560f27;
+  -webkit-box-shadow:0 16px 28px 0 #560f27;
+          box-shadow:0 16px 28px 0 #560f27;
+}
+.item-themed-z3 {
+  /*
+  box-shadow: 0 17px 50px rgba(0, 0, 0, 0.19);
+  box-shadow:0 0 30px #560f27;
+  */
+     -moz-box-shadow:0 17px 50px #560f27;
+  -webkit-box-shadow:0 17px 50px #560f27;
+          box-shadow:0 17px 50px #560f27;
+}
+.item-themed-z2 {
+  box-shadow: 0 8px 17px rgba(0, 0, 0, 0.2);
+  /*
+  box-shadow:0 0 25px #560f27;
+     -moz-box-shadow:0 8px 17px #560f27;
+  -webkit-box-shadow:0 8px 17px #560f27;
+          box-shadow:0 8px 17px #560f27;
+  */
+}
+.item-themed-z1 {
+  /*
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  box-shadow:0 0 25px #560f27;
+  */
+     -moz-box-shadow:0 2px 5px 0 #560f27;
+  -webkit-box-shadow:0 2px 5px 0 #560f27;
+          box-shadow:0 2px 5px 0 #560f27;
+}
+
+.item-z5 {
+  /*
+  box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2);
+  box-shadow:0 0 40px #560f27;
+  */
+     -moz-box-shadow:0 27px 24px 0 #333;
+  -webkit-box-shadow:0 27px 24px 0 #333;
+          box-shadow:0 27px 24px 0 #333;
+}
+.item-z4 {
+  /*
+  box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22);
+  box-shadow:0 0 35px #560f27;
+  */
+     -moz-box-shadow:0 16px 28px 0 #333;
+  -webkit-box-shadow:0 16px 28px 0 #333;
+          box-shadow:0 16px 28px 0 #333;
+}
+.item-z3 {
+  /*
+  box-shadow: 0 17px 50px rgba(0, 0, 0, 0.19);
+  box-shadow:0 0 30px #560f27;
+  */
+     -moz-box-shadow:0 17px 50px #333;
+  -webkit-box-shadow:0 17px 50px #333;
+          box-shadow:0 17px 50px #333;
+}
+.item-z2 {
+  /*
+  box-shadow: 0 8px 17px rgba(0, 0, 0, 0.2);
+  box-shadow:0 0 25px #560f27;
+  */
+     -moz-box-shadow:0 8px 17px #333;
+  -webkit-box-shadow:0 8px 17px #333;
+          box-shadow:0 8px 17px #333;
+}
+.item-z1 {
+  /*
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  box-shadow:0 0 25px #560f27;
+  */
+     -moz-box-shadow:0 2px 5px 0 #333;
+  -webkit-box-shadow:0 2px 5px 0 #333;
+          box-shadow:0 2px 5px 0 #333;
+}
+
+
+.text-themed-z5 {
+  text-shadow:0 27px 24px 0 #560f27;
+}
+.text-themed-z4 {
+  text-shadow:0 16px 28px 0 #560f27;
+}
+.text-themed-z3 {
+  text-shadow:0 17px 50px #560f27;
+}
+.text-themed-z2 {
+  text-shadow:0 8px 17px #560f27;
+}
+.text-themed-z1 {
+  text-shadow:0 2px 5px 0 #560f27;
+}
+
+.text-z5 {
+  text-shadow:0 27px 24px 0 #333;
+}
+.text-z4 {
+  text-shadow:0 16px 28px 0 #333;
+}
+.text-z3 {
+  text-shadow:0 17px 50px #333;
+}
+.text-z2 {
+  text-shadow:0 8px 17px #333;
+}
+.text-z1 {
+  text-shadow:0 2px 5px 0 #333;
+}
+
+
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.details-tooltip {
+  background-color:#fff;
+  background-color:rgba(255,255,255,0.95);
+  position: absolute;
+  margin-left:0;
+  margin-top:-25px;
+  z-index: 100;
+  padding: 5px;
+  width: 95%;
+  left:5%;
+  top: -150%;
+}
+
+.details-tooltip:after {
+  content:'';
+  position:absolute;
+  border:6px solid #fff;
+  border-color:#fff transparent transparent;
+  width:0;
+  height:0;
+  bottom:-12px;
+  left:10%;
+  margin-left:-6px;
+}
+
+
+.details-modal {
+  background-color:#fff;
+  background-color:rgba(255,255,255,0.95);
+  z-index: 100;
+  padding: 5px;
+  width: 95%;
+  position: absolute;
+  left:5%;
+  margin-left:0;
+  top: -200%;
+}
+
+
+/* Angular-strap */
+.collapse.am-collapse {
+  animation-duration: .3s;
+  animation-timing-function: ease;
+  animation-fill-mode: backwards;
+  overflow: hidden;
+  &.in-remove {
+    animation-name: collapse;
+    display: block;
+  }
+  &.in-add {
+    animation-name: expand;
+  }
+}
+
+.toast {
+  position: fixed;
+  top: 85px;
+  left: 5px;
+  min-width: 200px;
+  height: auto;
+  z-index: 2000;
+}
+
+.toast-warning {
+  position: fixed;
+  top: 140px;
+  left: 5px;
+  min-width: 200px;
+  height: auto;
+  z-index: 2000;
+}
+
+/* User's name on nav */
+.navbar-name {
+  color:#fff;
+  padding:0 0 0 60px;
+  position:absolute;
+}

@@ -1,0 +1,95 @@
+    <sislab-menu></sislab-menu>
+    <sislab-banner></sislab-banner>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12 col-lg-8 col-lg-offset-2 main item-themed-z2">
+          <div class="view-container">
+
+<div class="row">
+  <div class="col-xs-12">
+    <h2 class="page-header">Equipos</h2>
+  </div>
+</div>
+<form class="form" role="form"
+  name="instrumentsForm"
+  novalidate
+  >
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>Búsqueda</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-8">
+      <label for="instrumentSearch" class="sr-only">
+        Ingrese una búsqueda
+      </label>
+      <div class="input-group">
+        <div class="input-group-addon">
+          <i class="glyphicon glyphicon-search"></i>
+        </div>
+        <input type="text"
+          class="form-control"
+          placeholder="Ingrese una búsqueda"
+          name="instrumentSearch"
+          data-ng-model="instruments.filter.$">
+      </div>
+      <br>
+    </div>
+  </div>
+</form>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Equipos</h3>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover table-condensed">
+          <thead>
+            <tr>
+              <th>Inventario</th>
+              <th>Bitácora</th>
+              <th>Folio</th>
+              <th>Equipo</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              data-ng-repeat="item in instruments.instruments
+              | filter:instruments.filter.$">
+              <td>
+                {{::item.inventario}}
+              </td>
+              <td>
+                {{::item.bitacora}}
+              </td>
+              <td>
+                {{::item.folio}}
+              </td>
+              <td>
+                {{::item.instrumento}}
+              </td>
+              <td>
+                <button class="btn btn-default"
+                  value="Consultar" title="Consultar"
+                  data-ng-click="instruments.viewInstrument(item.id_instrumento)"
+                  >
+                  <i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+          </div>
+          <sislab-footer></sislab-footer>
+        </div><!-- view-container -->
+      </div><!-- row -->
+    </div><!-- container -->
+    <sislab-banner-bottom></sislab-banner-bottom>

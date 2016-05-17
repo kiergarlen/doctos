@@ -1,0 +1,95 @@
+    <sislab-menu></sislab-menu>
+    <sislab-banner></sislab-banner>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12 col-lg-8 col-lg-offset-2 main item-themed-z2">
+          <div class="view-container">
+
+<div class="row">
+  <div class="col-xs-12">
+    <h2 class="page-header">Catálogo de clientes</h2>
+  </div>
+</div>
+<form class="form" role="form"
+  name="clientsForm"
+  novalidate
+  >
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>Búsqueda</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-8">
+      <label for="clientName" class="sr-only">
+        Ingrese una búsqueda (Razon Social, Contacto, etc.)
+      </label>
+      <input type="text"
+        class="form-control"
+        placeholder="Ingrese una búsqueda (Razon Social, Contacto, etc.)"
+        id="clientName"
+        name="clientName"
+        data-ng-model="clients.filter.$">
+      <br>
+    </div>
+  </div>
+</form>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Clientes</h3>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover table-condensed"
+          id="clientsList">
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Contacto</th>
+              <th>Domicilio</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              data-ng-repeat="item in clients.clients |
+              filter:clients.filter.$"
+              id="clientId{{item.id_cliente}}"
+              data-ng-click="">
+              <td>
+                <h6>{{item.cliente}}</h6>
+                <span class="text-muted"
+                  data-ng-show="item.area.length > 0">
+                  {{item.area}}
+                </span>
+                <span class="label label-default"
+                  data-ng-show="item.interno < 1">Externo</span>
+              </td>
+              <td>
+                {{item.contacto}}<br>
+                <a href="mailto:{{item.email}}"
+                  data-ng-show="item.email.length > 0">
+                  {{item.email}}
+                </a><br>
+                {{item.tel}}
+              </td>
+              <td>
+                {{item.calle}}, {{item.numero}}<br>
+                {{item.colonia}}<br>
+                {{item.localidad}}, {{item.estado}}<br>
+                CP {{item.cp}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+          </div>
+          <sislab-footer></sislab-footer>
+        </div><!-- view-container -->
+      </div><!-- row -->
+    </div><!-- container -->
+    <sislab-banner-bottom></sislab-banner-bottom>

@@ -1,0 +1,72 @@
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed"
+            data-toggle="collapse" data-target="#navbar"
+            aria-expanded="false" aria-controls="navbar">
+            Menú
+          </button>
+          <a class="navbar-brand" href="#/main">
+            <img src="img/sislab.png" alt="SISLAB">
+          </a>
+        </div>
+      </div>
+    </div>
+    <sislab-banner></sislab-banner>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12 col-lg-8 col-lg-offset-2 main item-themed-z2">
+          <div class="view-container">
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="row">
+      <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
+        <form role="form" name="loginForm"
+          novalidate>
+          <h3>Ingreso</h3>
+          <div class="form-group"
+            data-ng-class="{ 'has-error': loginForm.username.$invalid &&
+            (loginForm.username.$touched || loginForm.$submitted),
+            'has-success': !loginForm.username.$invalid &&
+            (loginForm.username.$touched || loginForm.$submitted)}">
+            <label for="username">Usuario</label>
+              <input type="text" class="form-control"
+              name="username"
+              data-ng-model="login.user.username"
+              placeholder="Usuario"
+              required
+              autofocus>
+          </div>
+          <div class="form-group"
+            data-ng-class="{ 'has-error': loginForm.password.$invalid &&
+            (loginForm.password.$touched || loginForm.$submitted),
+            'has-success': !loginForm.password.$invalid &&
+            (loginForm.password.$touched || loginForm.$submitted)}">
+            <label for="password">Contraseña</label>
+              <input type="password" class="form-control"
+              name="password"
+              data-ng-model="login.user.password"
+              placeholder="Contraseña"
+              required
+              >
+          </div>
+          <h6>{{login.message}}</h6>
+          <br>
+          <button class="btn btn-lg btn-primary btn-block"
+            data-ng-click="login.submitForm()"
+            >
+            Iniciar sesión</button>
+          <br>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+          </div>
+          <sislab-footer></sislab-footer>
+        </div><!-- view-container -->
+      </div><!-- row -->
+    </div><!-- container -->
+    <sislab-banner-bottom></sislab-banner-bottom>

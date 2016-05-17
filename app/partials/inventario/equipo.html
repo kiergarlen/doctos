@@ -1,0 +1,124 @@
+    <sislab-menu></sislab-menu>
+    <sislab-banner></sislab-banner>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12 col-lg-8 col-lg-offset-2 main item-themed-z2">
+          <div class="view-container">
+
+<div class="row">
+  <div class="col-xs-12">
+    <h2 class="page-header">Equipo</h2>
+  </div>
+</div>
+<div class="toast-warning">
+  <div class="alert alert-warning alert-dismissible item-z1" role="alert"
+    data-ng-show="instrument.message.length > 0">
+    <button type="button" class="close" aria-label="Cerrar"
+      data-ng-click="instrument.message = ''">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <i class="glyphicon glyphicon-warning-sign"></i>
+    <strong>
+      {{instrument.message}}
+    </strong>
+  </div>
+</div>
+
+<form class="form" role="form"
+  name="instrumentForm"
+  novalidate
+  >
+  <div class="row">
+    <div class="col-xs-12 col-sm-12">
+      <label
+        for="instrumentName"
+        >
+        Equipo
+      </label>
+      <input type="text"
+        class="form-control"
+        name="instrumentName"
+        placeholder="Equipo"
+        data-ng-model="instrument.instrument.instrumento"
+        >
+    </div>
+    <div class="col-xs-12 col-sm-4">
+      <label
+        for="instrumentInventoryNumber"
+        >
+        Inventario
+      </label>
+      <input type="text"
+        class="form-control"
+        name="instrumentInventoryNumber"
+        placeholder="Inventario"
+        data-ng-model="instrument.instrument.inventario"
+        >
+    </div>
+    <div class="col-xs-12 col-sm-4">
+      <label
+        for="instrumentLog"
+        >
+        Bitácora
+      </label>
+      <input type="text"
+        class="form-control"
+        name="equipmentLog"
+        placeholder="Bitácora"
+        data-ng-model="instrument.instrument.bitacora"
+        >
+    </div>
+    <div class="col-xs-12 col-sm-4">
+      <label
+        for="instrumentNumber"
+        >
+        Folio
+      </label>
+      <input type="text"
+        class="form-control"
+        name="instrumentNumber"
+        placeholder="Folio"
+        data-ng-model="instrument.instrument.folio"
+        >
+    </div>
+    <div class="col-xs-12 col-sm-8">
+      <label
+        for="instrumentDescription"
+        >
+        Descripción
+      </label>
+      <textarea rows="3" class="form-control well well-sm"
+        name="instrumentDescription"
+        data-ng-model="instrument.instrument.descripcion"
+        >
+      </textarea>
+    </div>
+    <div class="col-xs-12 col-sm-8">
+      <label
+        for="instrumentComment"
+        >
+        Comentarios
+      </label>
+      <textarea rows="3" class="form-control well well-sm"
+        name="instrumentComment"
+        data-ng-model="instrument.instrument.comentarios"
+        >
+      </textarea>
+    </div>
+  </div>
+  <br>
+  <button type="submit" class="btn btn-primary"
+    value="Guardar" title="Guardar"
+    data-ng-click="instrument.submitForm()"
+    >
+    <i class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></i>
+    Guardar
+  </button>
+</form>
+
+          </div>
+          <sislab-footer></sislab-footer>
+        </div><!-- view-container -->
+      </div><!-- row -->
+    </div><!-- container -->
+    <sislab-banner-bottom></sislab-banner-bottom>

@@ -1,0 +1,109 @@
+    <sislab-menu></sislab-menu>
+    <sislab-banner></sislab-banner>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12 col-lg-8 col-lg-offset-2 main item-themed-z2">
+          <div class="view-container">
+
+<div class="row">
+  <div class="col-xs-12">
+    <h2 class="page-header">Muestras</h2>
+  </div>
+</div>
+<form class="form" role="form"
+  name="samplesForm"
+  novalidate
+  >
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>Búsqueda</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-8">
+      <label for="sampleSearch" class="sr-only">
+        Ingrese una búsqueda
+      </label>
+      <div class="input-group">
+        <div class="input-group-addon">
+          <i class="glyphicon glyphicon-search"></i>
+        </div>
+        <input type="text"
+          class="form-control"
+          placeholder="Ingrese una búsqueda"
+          name="sampleSearch"
+          data-ng-model="samples.filter.$">
+      </div>
+      <br>
+    </div>
+  </div>
+</form>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Muestras</h3>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover table-striped">
+          <thead>
+            <tr>
+              <th>Id Muestra</th>
+              <th>Id Estudio</th>
+              <th>Id Orden</th>
+              <th>Id Plan</th>
+              <th>Id Hoja</th>
+              <th>Tipo Muestreo</th>
+              <th
+                data-ng-show="samples.user.level < 3">
+                Ubicación
+              </th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              data-ng-repeat="item in samples.samples
+              | filter:samples.filter.$">
+              <td>
+                {{::item.id_muestra}}
+              </td>
+              <td>
+               {{::item.id_estudio}}
+              </td>
+              <td>
+                {{::item.id_orden}}
+              </td>
+              <td>
+               {{::item.id_plan}}
+              </td>
+              <td>
+                {{::item.id_hoja}}
+              </td>
+              <td>
+                <span class="label label-info"
+                  data-ng-show="item.id_tipo_muestreo > 1">Compuesto</span>
+                <span class="label label-primary"
+                  data-ng-show="item.id_tipo_muestreo < 2">Simple</span>
+              </td>
+              <td
+                data-ng-show="samples.user.level < 3">
+                {{::item.ubicacion}}
+              </td>
+              <td>
+                {{::item.fecha_muestreo | date: 'yyyy-MM-dd'}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+          </div>
+          <sislab-footer></sislab-footer>
+        </div><!-- view-container -->
+      </div><!-- row -->
+    </div><!-- container -->
+    <sislab-banner-bottom></sislab-banner-bottom>

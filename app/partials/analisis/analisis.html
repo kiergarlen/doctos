@@ -1,0 +1,259 @@
+    <sislab-menu></sislab-menu>
+    <sislab-banner></sislab-banner>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12 col-lg-8 col-lg-offset-2 main item-themed-z2">
+          <div class="view-container">
+
+<div class="row">
+  <div class="col-xs-12">
+    <h2 class="page-header">Análisis</h2>
+  </div>
+</div>
+<div class="toast" data-ng-cloak>
+  <div class="alert alert-danger item-z2" role="alert"
+    data-ng-show="analysis.analysis.id_status == 3">
+    <i class="glyphicon glyphicon-ban-circle"></i>
+    Motivo rechazo:
+    <strong>
+      {{analysis.analysis.motivo_rechaza}}
+      <span
+        data-ng-show="analysis.analysis.fecha_rechaza.length > 0">
+          ({{analysis.analysis.fecha_rechaza | date: 'yyyy-MM-dd'}})
+      </span>
+    </strong>
+  </div>
+</div>
+<div class="toast-warning" data-ng-cloak>
+  <div class="alert alert-warning alert-dismissible item-z2" role="alert"
+    data-ng-show="analysis.message.length > 0">
+    <button type="button" class="close" aria-label="Cerrar"
+      data-ng-click="analysis.message = ''">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <i class="glyphicon glyphicon-warning-sign"></i>
+    <strong>
+      {{analysis.message}}
+    </strong>
+  </div>
+</div>
+<form class="form" role="form"
+  name="analysisForm"
+  novalidate
+  >
+  <div class="row">
+    <div class="col-xs-12">
+      <label for="analysisDate">
+        <i class="glyphicon glyphicon-calendar"></i>
+        Fecha entrega Análisis
+      </label>
+      <input type="text"
+        class="form-control"
+        name="analysisDate"
+        placeholder="aaaa-MM-dd"
+        data-ng-model="analysis.analysis.fecha_analiza"
+        data-date-format="yyyy-MM-dd"
+        data-date-type="date"
+        data-autoclose="1"
+        date-use-native="true"
+        data-bs-datepicker
+        >
+      <br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 panel"
+      data-ng-repeat="parameter in analysis.analysis.parametros"
+      >
+      <div class="row">
+        <div class="col-xs-12">
+          <h4>
+            {{::parameter.param}} <small>[{{::parameter.unidad}}]</small>
+          </h4>
+        </div>
+        <div class="col-xs-4">
+          <label for="resultAnalysisDate">
+            <i class="glyphicon glyphicon-calendar"></i>
+            Fecha Análisis
+          </label>
+          <input type="text"
+            class="form-control"
+            name="resultAnalysisDate"
+            placeholder="aaaa-MM-dd"
+            data-ng-model="parameter.referencias.fecha_analiza"
+            data-date-format="yyyy-MM-dd"
+            data-date-type="date"
+            data-autoclose="1"
+            date-use-native="true"
+            data-bs-datepicker
+            >
+          <br>
+          <div class="table-responsive">
+            <table class="table table-hover table-condensed">
+              <thead>
+                <tr>
+                  <th>Muestra</th>
+                  <th>Resultado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  data-ng-repeat="result in parameter.resultados">
+                  <td>
+                    {{::result.id_muestra}}
+                    <!--
+                      <div class="panel">
+                        Fecha/hora muestreo: {fecha_muestreo}<br>
+                        Fecha/hora recepción: {fecha_recepcion}<br>
+                        pH: {ph}<br>
+                        Gasto: {gasto}<br>
+                        Matriz: {matriz}<br>
+                      </div>
+                    -->
+                  </td>
+                  <td>
+                    <input type="text" class="form-control"
+                      name="result{{::parameter.id_parametro}}"
+                      placeholder="Resultado"
+                      data-ng-model="result.valor"
+                      >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-xs-4">
+          <label for="resultDuplicate">
+            Duplicado
+          </label>
+          <input type="text" class="form-control"
+            name="resultDuplicate"
+            placeholder="Resultado"
+            data-ng-model="parameter.referencias.duplicado"
+            >
+        </div>
+        <div class="col-xs-4">
+          <label for="resultDuplicateSample">
+            Muestra Duplicada
+          </label>
+          <input type="text" class="form-control"
+            name="resultDuplicateSample"
+            placeholder="Resultado"
+            data-ng-model="parameter.referencias.muestra_duplicada"
+            >
+        </div>
+        <div class="col-xs-4"
+          data-ng-if="parameter.id_area != 3">
+          <label for="resultStandard">
+            Estandar (%R)
+          </label>
+          <input type="text" class="form-control"
+            name="resultStandard"
+            placeholder="Resultado"
+            data-ng-model="parameter.referencias.estandar"
+            >
+        </div>
+        <div class="col-xs-4"
+          data-ng-if="parameter.id_area != 3">
+          <label for="resultCoefficient">
+            Coeficiente Variacion
+          </label>
+          <input type="text" class="form-control"
+            name="resultCoefficient"
+            placeholder="Resultado"
+            data-ng-model="parameter.referencias.coeficiente_variacion"
+            >
+        </div>
+        <div class="col-xs-4"
+          data-ng-if="parameter.id_area == 3">
+          <label for="resultIncubationTime">
+            Tiempo de Incubación (horas)
+          </label>
+          <input type="text" class="form-control"
+            name="resultIncubationTime"
+            placeholder="Resultado"
+            data-ng-model="parameter.referencias.tiempo_incubacion"
+            >
+        </div>
+        <div class="col-xs-4"
+          data-ng-if="parameter.id_area == 3">
+          <label for="resultIncubationTemp">
+            Temperatura de Incubación (&deg;C)
+          </label>
+          <input type="text" class="form-control"
+            name="resultIncubationTemp"
+            placeholder="Resultado"
+            data-ng-model="parameter.referencias.temperatura_incubacion"
+            >
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>Comentarios</h4>
+    </div>
+    <div class="col-xs-12">
+      <textarea rows="3" class="form-control well well-sm"
+        id="analysisCommentsText"
+        name="analysisCommentsText"
+        data-ng-model="analysis.analysis.comentarios"
+        >
+      </textarea>
+    </div>
+  </div>
+  <br>
+  <div class="row"
+    data-ng-show="analysis.user.level < 3">
+    <div class="col-xs-12">
+      <h4>Validación</h4>
+    </div>
+    <div class="col-xs-12 col-sm-5 well wel-sm ">
+      <button class="btn btn-success"
+        value="Validar" title="Validar"
+        data-ng-disabled="analysis.analysis.id_status == 2"
+        data-ng-click="analysis.approveItem()"
+        >
+        <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
+        Validar
+      </button>
+      <button class="btn btn-danger"
+        value="Rechazar" title="Rechazar"
+        data-ng-disabled="analysis.analysis.id_status == 3"
+        data-ng-click="analysis.rejectItem()"
+        >
+        <i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
+        Rechazar
+      </button>
+    </div>
+    <div class="col-xs-12 col-sm-7 well wel-sm ">
+      <label class="sr-only" for="rejectText">
+        Motivo rechazo
+      </label>
+      <input type="text" class="form-control"
+        id="rejectText"
+        name="rejectText"
+        placeholder="Especifique motivo rechazo"
+        data-ng-disabled="analysis.analysis.id_status != 3"
+        data-ng-model="analysis.analysis.motivo_rechaza"
+        >
+    </div>
+  </div>
+  <br>
+  <button type="submit" class="btn btn-primary"
+    value="Guardar" title="Guardar"
+    data-ng-click="analysis.submitForm()"
+    data-ng-if="analysis.analysis.id_status != 2 || analysis.user.level < 3"
+    >
+    <i class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></i>
+    Guardar
+  </button>
+</form>
+
+          </div>
+          <sislab-footer></sislab-footer>
+        </div><!-- view-container -->
+      </div><!-- row -->
+    </div><!-- container -->
+    <sislab-banner-bottom></sislab-banner-bottom>

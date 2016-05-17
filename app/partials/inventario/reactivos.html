@@ -1,0 +1,95 @@
+    <sislab-menu></sislab-menu>
+    <sislab-banner></sislab-banner>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12 col-lg-8 col-lg-offset-2 main item-themed-z2">
+          <div class="view-container">
+
+<div class="row">
+  <div class="col-xs-12">
+    <h2 class="page-header">Reactivos</h2>
+  </div>
+</div>
+<form class="form" role="form"
+  name="reactivesForm"
+  novalidate
+  >
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>Búsqueda</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-8">
+      <label for="reactiveSearch" class="sr-only">
+        Ingrese una búsqueda
+      </label>
+      <div class="input-group">
+        <div class="input-group-addon">
+          <i class="glyphicon glyphicon-search"></i>
+        </div>
+        <input type="text"
+          class="form-control"
+          placeholder="Ingrese una búsqueda"
+          name="reactiveSearch"
+          data-ng-model="reactives.filter.$">
+      </div>
+      <br>
+    </div>
+  </div>
+</form>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Reactivos</h3>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover table-condensed">
+          <thead>
+            <tr>
+              <th>Reactivo</th>
+              <th>Lote</th>
+              <th>Folio</th>
+              <th>Valor</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              data-ng-repeat="item in reactives.reactives
+              | filter:reactives.filter.$">
+              <td>
+                {{::item.reactivo}}
+              </td>
+              <td>
+                {{::item.lote}}
+              </td>
+              <td>
+                {{::item.folio}}
+              </td>
+              <td>
+                {{::item.valor}}
+              </td>
+              <td>
+                <button class="btn btn-default"
+                  value="Consultar" title="Consultar"
+                  data-ng-click="reactives.viewReactive(item.id_reactivo)"
+                  >
+                  <i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+          </div>
+          <sislab-footer></sislab-footer>
+        </div><!-- view-container -->
+      </div><!-- row -->
+    </div><!-- container -->
+    <sislab-banner-bottom></sislab-banner-bottom>
