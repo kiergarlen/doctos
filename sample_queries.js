@@ -1,23 +1,26 @@
-db.getCollection('MyCollection').find(
-{
-  "$and" :
-    [
-      { "name" : { "$in" : [ "Joe", "Jane"]}} ,
-      { "date" : {
-            "$gte" :ISODate("2015-11-23T09:00:00.000Z"),
-             "$lte":ISODate("2015-11-23T09:00:00.000Z")
-         }
-    ]
-})
+db.getCollection('docs').find(
+  {
+    "$and":
+      [
+        {
+          "reception.office": {
+            "$in": [
+              "Contraloría Interna", "Gerencia de Personal"
+            ]
+          }
+        },
+        {
+          "date" : {
+            "$gte":ISODate("2015-10-23T09:00:00.000Z"),
+            "$lte":ISODate("2015-12-23T09:00:00.000Z")
+           }
+      ]
+  });
 
-
-
-
-db.oficios.ensureIndex(
+db.docs.ensureIndex(
   {
     'comment':'text',
     'reception.office': 'text',
-    'reception.area': 'text',
     'reception.subject':'text',
     'reception.contents':'text',
     'response.number':'text',
@@ -30,7 +33,6 @@ db.oficios.ensureIndex(
     {
       'comment': 1,
       'reception.office':2,
-      'reception.area':2,
       'reception.subject':10,
       'reception.contents': 5,
       'response.number':1,
