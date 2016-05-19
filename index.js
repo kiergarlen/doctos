@@ -1,8 +1,3 @@
-/*
-
-app.use(express.static('public'));
-
-*/
 var express = require('express');
 var app = express();
 var mongodb = require('mongodb');
