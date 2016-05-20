@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 var Schema = mongoose.Schema;
 
-var uri = 'mongodb://localhost:27017/documentos';
+var uri = 'mongodb://localhost:27017/documents';
 
 app.use(express.static('app'));
 // app.get('/', function(req, res) {
@@ -46,17 +46,14 @@ app.post('/api/v1/login', function(req, res) {
 });
 
 
-app.get('/api/v1/search/:searchtext', function(req, res) {
-  var searchedText = req.params.searchtext;
-  // console.log(searchedText);
-  //process.exit(1);
+app.get('/api/v1/search/:term', function(req, res) {
+  var searchedText = req.params.term;
   mongodb.MongoClient.connect(uri, function(error, db) {
     if (error) {
       console.log('ERROR ' + error);
-      // process.exit(1);
     }
 
-    db.collection('oficios').find(
+    db.collection('docs').find(
       {$text: {$search: searchedText}},
       {score: {$meta:'textScore'}}
     )

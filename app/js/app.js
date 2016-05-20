@@ -7,245 +7,94 @@
 
   //ANGULAR MODULE SETTER
   angular
-    .module('sislabApp', [
+    .module('docsApp', [
       'ngRoute',
       'ngResource',
       'ngAnimate',
-      'angular-jwt'
+      'angular-jwt',
+      'ngMaterial',
+      'ngMessages'
     ]
   );
 
-  //config.js
-  function config($routeProvider, $httpProvider, jwtInterceptorProvider) {
-    $routeProvider
-      .otherwise({
-        redirectTo: '/busqueda'
-      }).
-      when('/sistema/login', {
-        templateUrl: 'partials/sistema/login.html',
-        controller: 'LoginController',
-        controllerAs: 'login'
-      }).
-      when('/busqueda', {
-        templateUrl: 'busqueda/busqueda.html',
-        controller: 'SearchController',
-        controllerAs: 'search'
-      }).
-      when('/main', {
-        templateUrl: 'partials/sistema/tareas.html',
-        controller: 'TaskListController',
-        controllerAs: 'tasks'
-      }).
-      when('/estudio/estudio', {
-        templateUrl: 'partials/estudio/estudios.html',
-        controller: 'StudyListController',
-        controllerAs: 'studies'
-      }).
-      when('/estudio/estudio/:studyId', {
-        templateUrl: 'partials/estudio/estudio.html',
-        controller: 'StudyController',
-        controllerAs: 'study'
-      }).
-      when('/muestreo/solicitud', {
-        templateUrl: 'partials/muestreo/solicitudes.html',
-        controller: 'QuoteListController',
-        controllerAs: 'quotes'
-      }).
-      when('/muestreo/solicitud/:quoteId', {
-        templateUrl: 'partials/muestreo/solicitud.html',
-        controller: 'QuoteController',
-        controllerAs: 'quote'
-      }).
-      when('/muestreo/orden', {
-        templateUrl: 'partials/muestreo/ordenes.html',
-        controller: 'OrderListController',
-        controllerAs: 'orders'
-      }).
-      when('/muestreo/orden/:orderId', {
-        templateUrl: 'partials/muestreo/orden.html',
-        controller: 'OrderController',
-        controllerAs: 'order'
-      }).
-      when('/muestreo/plan', {
-        templateUrl: 'partials/muestreo/planes.html',
-        controller: 'PlanListController',
-        controllerAs: 'plans'
-      }).
-      when('/muestreo/plan/:planId', {
-        templateUrl: 'partials/muestreo/plan.html',
-        controller: 'PlanController',
-        controllerAs: 'plan'
-      }).
-      when('/recepcion/hoja', {
-        templateUrl: 'partials/recepcion/hojas.html',
-        controller: 'SheetListController',
-        controllerAs: 'sheets'
-      }).
-      when('/recepcion/hoja/:sheetId', {
-        templateUrl: 'partials/recepcion/hoja.html',
-        controller: 'SheetController',
-        controllerAs: 'sheet'
-      }).
-      when('/recepcion/recepcion', {
-        templateUrl: 'partials/recepcion/recepciones.html',
-        controller: 'ReceptionListController',
-        controllerAs: 'receptions'
-      }).
-      when('/recepcion/recepcion/:receptionId', {
-        templateUrl: 'partials/recepcion/recepcion.html',
-        controller: 'ReceptionController',
-        controllerAs: 'reception'
-      }).
-      when('/recepcion/trabajo', {
-        templateUrl: 'partials/recepcion/trabajos.html',
-        controller: 'JobListController',
-        controllerAs: 'jobs'
-      }).
-      when('/recepcion/trabajo/:jobId', {
-        templateUrl: 'partials/recepcion/trabajo.html',
-        controller: 'JobController',
-        controllerAs: 'job'
-      }).
-      when('/recepcion/custodia', {
-        templateUrl: 'partials/recepcion/custodias.html',
-        controller: 'CustodyListController',
-        controllerAs: 'custodies'
-      }).
-      when('/recepcion/custodia/:custodyId', {
-        templateUrl: 'partials/recepcion/custodia.html',
-        controller: 'CustodyController',
-        controllerAs: 'custody'
-      }).
-      when('/analisis/analisis', {
-        templateUrl: 'partials/analisis/lista_analisis.html',
-        controller: 'AnalysisListController',
-        controllerAs: 'analysisList'
-      }).
-      when('/analisis/analisis/:analysisId', {
-        templateUrl: 'partials/analisis/analisis.html',
-        controller: 'AnalysisController',
-        controllerAs: 'analysis'
-      }).
-      when('/reporte/reporte', {
-        templateUrl: 'partials/reporte/reportes.html',
-        controller: 'ReportListController',
-        controllerAs: 'reports'
-      }).
-      when('/reporte/reporte/:reportId', {
-        templateUrl: 'partials/reporte/reporte.html',
-        controller: 'ReportController',
-        controllerAs: 'report'
-      }).
-      when('/inventario/muestra', {
-        templateUrl: 'partials/inventario/muestras.html',
-        controller: 'SampleListController',
-        controllerAs: 'samples'
-      }).
-      when('/inventario/muestra/:sampleId', {
-        templateUrl: 'partials/inventario/muestra.html',
-        controller: 'SampleController',
-        controllerAs: 'sample'
-      }).
-      when('/inventario/equipo', {
-        templateUrl: 'partials/inventario/equipos.html',
-        controller: 'InstrumentListController',
-        controllerAs: 'instruments'
-      }).
-      when('/inventario/equipo/:instrumentId', {
-        templateUrl: 'partials/inventario/equipo.html',
-        controller: 'InstrumentController',
-        controllerAs: 'instrument'
-      }).
-      when('/inventario/reactivo', {
-        templateUrl: 'partials/inventario/reactivos.html',
-        controller: 'ReactiveListController',
-        controllerAs: 'reactives'
-      }).
-      when('/inventario/reactivo/:reactiveId', {
-        templateUrl: 'partials/inventario/reactivo.html',
-        controller: 'ReactiveController',
-        controllerAs: 'reactive'
-      }).
-      when('/inventario/recipiente', {
-        templateUrl: 'partials/inventario/recipientes.html',
-        controller: 'ContainerListController',
-        controllerAs: 'containers'
-      }).
-      when('/catalogo/punto', {
-        templateUrl: 'partials/catalogo/puntos.html',
-        controller: 'PointListController',
-        controllerAs: 'points'
-      }).
-      when('/catalogo/cliente', {
-        templateUrl: 'partials/catalogo/clientes.html',
-        controller: 'ClientListController',
-        controllerAs: 'clients'
-      }).
-      when('/catalogo/cliente/:clientId', {
-        templateUrl: 'partials/catalogo/cliente.html',
-        controller: 'ClientController',
-        controllerAs: 'client'
-      }).
-      when('/catalogo/area', {
-        templateUrl: 'partials/catalogo/areas.html',
-        controller: 'AreaListController',
-        controllerAs: 'areas'
-      }).
-      when('/catalogo/empleado', {
-        templateUrl: 'partials/catalogo/empleados.html',
-        controller: 'EmployeeListController',
-        controllerAs: 'employees'
-      }).
-      when('/catalogo/norma', {
-        templateUrl: 'partials/catalogo/normas.html',
-        controller: 'NormListController',
-        controllerAs: 'norms'
-      }).
-      when('/catalogo/referencia', {
-        templateUrl: 'partials/catalogo/referencia.html',
-        controller: 'ReferenceListController',
-        controllerAs: 'references'
-      }).
-      when('/catalogo/metodo', {
-        templateUrl: 'partials/catalogo/metodos.html',
-        controller: 'MethodListController',
-        controllerAs: 'methods'
-      }).
-      when('/catalogo/precio', {
-        templateUrl: 'partials/catalogo/precios.html',
-        controller: 'PriceListController',
-        controllerAs: 'prices'
-      }).
-      when('/sistema/usuario', {
-        templateUrl: 'partials/sistema/usuarios.html',
-        controller: 'UserListController',
-        controllerAs: 'users'
-      }).
-      when('/sistema/usuario/:userId', {
-        templateUrl: 'partials/sistema/usuario.html',
-        controller: 'UserController',
-        controllerAs: 'user'
-      }).
-      when('/sistema/perfil', {
-        templateUrl: 'partials/sistema/perfil.html',
-        controller: 'ProfileController',
-        controllerAs: 'profile'
-      }).
-      when('/sistema/logout', {
-        templateUrl: 'partials/sistema/logout.html',
-        controller: 'LogoutController',
-        controllerAs: 'logout'
-      })
-    ;
-  }
+  //SearchController.js
   angular
-    .module('sislabApp')
-    .config(
+    .module('docsApp')
+    .controller('SearchController',
       [
-        '$routeProvider', '$httpProvider', 'jwtInterceptorProvider',
-        config
+        '$scope', 'SearchService',
+        SearchController
       ]
     );
+  function SearchController($scope, SearchService) {
+    var vm = this;
+    vm.term = '';
+    vm.results = [];
+    vm.submit = submit;
+
+    function submit() {
+      console.log(vm.term);
+      if (vm.term.length < 2) {
+        alert('Debe ingresar un término de búsqueda válido');
+        vm.term = '';
+        vm.results = [].slice();
+      } else {
+        SearchService
+          .query({term: vm.term})
+          .$promise
+          .then(function success(response) {
+            vm.results = response;
+          });
+      }
+    }
+  }
+
+  //SearchService.js
+  angular
+  .module('docsApp')
+  .factory('SearchService',
+    [
+      '$resource', 'TokenService',
+      SearchService
+    ]
+  );
+  function SearchService($resource, TokenService) {
+    return $resource(API_BASE_URL + 'search/:term', {}, {
+      query: {
+        method: 'GET',
+        params: {term: 'term'},
+        isArray: true//,
+        // headers: {
+        //   'Auth-Token': TokenService.getTokenHeader()
+        // }
+      },
+      get: {
+        method: 'GET',
+        params: {},
+        isArray: true//,
+        // headers: {
+        //   'Auth-Token': TokenService.getTokenHeader()
+        // }
+      },
+      update: {
+        method: 'POST',
+        params: {},
+        isArray: false//,
+        // headers: {
+        //   'Auth-Token': TokenService.getTokenHeader()
+        // }
+      },
+      save: {
+        method: 'POST',
+        params: {},
+        isArray: false//,
+        // headers: {
+        //   'Auth-Token': TokenService.getTokenHeader()
+        // }
+      }
+    });
+  }
+
 
   // DIRECTIVES
   //sislabMenu.js
@@ -259,7 +108,7 @@
     };
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .directive('sislabMenu', sislabMenu);
 
   //sislabSearchResults.js
@@ -273,14 +122,14 @@
     };
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .directive('sislabSearchResults', sislabSearchResults);
   //ResultsController.js
   function ResultsController() {
 
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('ResultsController',
       [
         '$scope', 'TokenService',
@@ -300,7 +149,7 @@
     };
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .directive('sislabBanner', sislabBanner);
 
   //sislabFooter.js
@@ -315,7 +164,7 @@
     };
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .directive('sislabFooter', sislabFooter);
 
   //sislabBannerBottom.js
@@ -330,18 +179,19 @@
     };
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .directive('sislabBannerBottom', sislabBannerBottom);
 
   //CONTROLLERS
   //LoginController.js
-  /**
-   * @name LoginController
-   * @constructor
-   * @desc Controla la vista para Login
-   * @this {Object} $scope - Contenedor para el modelo
-   * @param {Object} TokenService - Proveedor para manejo del token
-   */
+  angular
+    .module('docsApp')
+    .controller('LoginController',
+      [
+        '$scope', 'TokenService',
+        LoginController
+      ]
+    );
   function LoginController($scope, TokenService) {
     var vm = this;
     vm.message = '';
@@ -360,14 +210,6 @@
       );
     }
   }
-  angular
-    .module('sislabApp')
-    .controller('LoginController',
-      [
-        '$scope', 'TokenService',
-        LoginController
-      ]
-    );
 
   //MenuController.js
   /**
@@ -386,7 +228,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('MenuController',
       [
         'TokenService', 'MenuService',
@@ -415,7 +257,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('TaskListController',
       [
         'TokenService', 'TaskService',
@@ -467,7 +309,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('StudyListController',
       [
         '$window', '$location', 'TokenService',
@@ -670,7 +512,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('StudyController',
       [
         '$routeParams', 'TokenService', 'ValidationService',
@@ -701,7 +543,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('OrderListController',
       [
         '$location', 'OrderService',
@@ -919,7 +761,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('OrderController',
       [
         '$routeParams', 'TokenService', 'ValidationService',
@@ -950,7 +792,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('PlanListController',
       [
         '$location', 'PlanService',
@@ -1583,7 +1425,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('PlanController',
       [
         '$routeParams', 'TokenService', 'ValidationService',
@@ -1616,7 +1458,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('SheetListController',
       [
         '$location', 'SheetService',
@@ -1843,7 +1685,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('SheetController',
       [
         '$routeParams', 'TokenService', 'ValidationService',
@@ -1873,7 +1715,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('ReceptionListController',
       [
         '$location', 'ReceptionService',
@@ -2186,7 +2028,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('ReceptionController',
       [
         '$routeParams', 'TokenService', 'ValidationService',
@@ -2216,7 +2058,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('CustodyListController',
       [
         '$location', 'CustodyService',
@@ -2486,7 +2328,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('CustodyController',
       [
         '$routeParams', 'TokenService', 'ValidationService',
@@ -2550,7 +2392,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('JobListController',
       [
         '$location', 'TokenService', 'ArrayUtilsService',
@@ -2670,7 +2512,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('JobController',
       [
         '$routeParams', 'TokenService', 'ValidationService',
@@ -2711,7 +2553,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('AnalysisListController',
       [
         '$location', 'TokenService', 'ArrayUtilsService',
@@ -2797,7 +2639,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('AnalysisController',
       [
         '$routeParams', 'TokenService', 'ValidationService',
@@ -2824,7 +2666,7 @@
     vm.user = TokenService.getUserFromToken();
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('SampleListController',
       [
         '$location', 'TokenService', 'SampleService',
@@ -2848,7 +2690,7 @@
     vm.sample = SampleService.query({sampleId: $routeParams.sampleId});
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('SampleController',
       [
         '$routeParams', 'TokenService', 'SampleService',
@@ -2874,7 +2716,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('InstrumentListController',
       [
         '$location', 'InstrumentService',
@@ -2932,7 +2774,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('InstrumentController',
       [
         '$routeParams', 'TokenService', 'RestUtilsService',
@@ -2960,7 +2802,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('ReactiveListController',
       [
         '$location', 'LoggableReactiveService',
@@ -3018,7 +2860,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('ReactiveController',
       [
         '$routeParams', 'TokenService', 'RestUtilsService',
@@ -3045,7 +2887,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('ContainerListController',
       [
         'ContainerService',
@@ -3072,7 +2914,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('ReportListController',
       [
         '$location', 'ReportService',
@@ -3099,7 +2941,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('ReportController',
       [
         '$routeParams', 'ReportService',
@@ -3125,7 +2967,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('PointListController',
       [
         'PointService',
@@ -3151,7 +2993,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('ClientListController',
       [
         'ClientService',
@@ -3172,7 +3014,7 @@
     vm.areas = AreaService.get();
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('AreaListController',
       [
         'AreaService',
@@ -3193,7 +3035,7 @@
     vm.employees = EmployeeService.get();
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('EmployeeListController',
       [
         'EmployeeService',
@@ -3219,7 +3061,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('NormListController',
       [
         'NormService',
@@ -3245,7 +3087,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('ReferenceListController',
       [
         'ReferenceService',
@@ -3271,7 +3113,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('MethodListController',
       [
         'MethodService',
@@ -3297,7 +3139,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('PriceListController',
       [
         'PriceService',
@@ -3326,7 +3168,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('UserListController',
       [
         '$location', 'TokenService', 'UserService',
@@ -3347,7 +3189,7 @@
     vm.user = UserService.query({userId: $routeParams.userId});
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('UserController',
       [
         '$routeParams', 'UserService',
@@ -3420,7 +3262,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('ProfileController',
       [
         'TokenService', 'RestUtilsService', 'PasswordService',
@@ -3448,7 +3290,7 @@
     }
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('LogoutController',
       [
         '$location', 'TokenService',
@@ -3469,7 +3311,7 @@
     vm.client = ClientService.get();
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .controller('ClientController',
       [
         'ClientService',
@@ -3637,7 +3479,7 @@
     return ArrayUtils;
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('ArrayUtilsService',
       [
         ArrayUtilsService
@@ -3726,7 +3568,7 @@
     return DateUtils;
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('DateUtilsService',
       [
         DateUtilsService
@@ -3797,7 +3639,7 @@
     return RestUtils;
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('RestUtilsService',
       [
         '$resource', '$location',
@@ -3890,7 +3732,7 @@
     };
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('TokenService',
       [
         '$window', '$http', '$location', 'jwtHelper',
@@ -3928,7 +3770,7 @@
     return Validation;
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('ValidationService',
       [
         'DateUtilsService',
@@ -3958,7 +3800,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('MenuService',
       [
         '$resource', 'TokenService',
@@ -3988,7 +3830,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('TaskService',
       [
         '$resource', 'TokenService',
@@ -4042,7 +3884,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('StudyService',
       [
         '$resource', 'TokenService',
@@ -4096,7 +3938,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('OrderService',
       [
         '$resource', 'TokenService',
@@ -4150,7 +3992,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('PlanService',
       [
         '$resource', 'TokenService',
@@ -4204,7 +4046,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('SheetService',
       [
         '$resource', 'TokenService',
@@ -4258,7 +4100,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('ReceptionService',
       [
         '$resource', 'TokenService',
@@ -4312,7 +4154,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('JobService',
       [
         '$resource', 'TokenService',
@@ -4350,7 +4192,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('UserJobsService',
       [
         '$resource', 'TokenService',
@@ -4404,7 +4246,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('CustodyService',
       [
         '$resource', 'TokenService',
@@ -4458,7 +4300,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('AnalysisService',
       [
         '$resource', 'TokenService',
@@ -4512,7 +4354,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('ClientService',
       [
         '$resource', 'TokenService',
@@ -4566,7 +4408,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('PointService',
       [
         '$resource', 'TokenService',
@@ -4596,7 +4438,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('PackagePointsService',
       [
         '$resource', 'TokenService',
@@ -4626,7 +4468,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('ParameterService',
       [
         '$resource', 'TokenService',
@@ -4656,7 +4498,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('CustodyParameterService',
       [
         '$resource', 'TokenService',
@@ -4686,7 +4528,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('NormService',
       [
         '$resource', 'TokenService',
@@ -4716,7 +4558,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('SamplingTypeService',
       [
         '$resource', 'TokenService',
@@ -4754,7 +4596,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('OrderSourceService',
       [
         '$resource', 'TokenService',
@@ -4784,7 +4626,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('MatrixService',
       [
         '$resource', 'TokenService',
@@ -4814,7 +4656,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('PackageService',
       [
         '$resource', 'TokenService',
@@ -4844,7 +4686,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('LocationPackagesService',
       [
         '$resource', 'TokenService',
@@ -4874,7 +4716,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('SamplingSupervisorService',
       [
         '$resource', 'TokenService',
@@ -4904,7 +4746,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('PlanObjectiveService',
       [
         '$resource', 'TokenService',
@@ -4934,7 +4776,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('PointKindsService',
       [
         '$resource', 'TokenService',
@@ -4964,7 +4806,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('DistrictService',
       [
         '$resource', 'TokenService',
@@ -4994,7 +4836,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('CityService',
       [
         '$resource', 'TokenService',
@@ -5024,7 +4866,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('SamplingEmployeeService',
       [
         '$resource', 'TokenService',
@@ -5054,7 +4896,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('PreservationService',
       [
         '$resource', 'TokenService',
@@ -5108,7 +4950,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('ContainerService',
       [
         '$resource', 'TokenService',
@@ -5154,7 +4996,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('ContainerLogService',
       [
         '$resource', 'TokenService',
@@ -5184,7 +5026,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('ReactiveService',
       [
         '$resource', 'TokenService',
@@ -5238,7 +5080,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('LoggableReactiveService',
       [
         '$resource', 'TokenService',
@@ -5268,7 +5110,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('MaterialService',
       [
         '$resource', 'TokenService',
@@ -5298,7 +5140,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('CoolerService',
       [
         '$resource', 'TokenService',
@@ -5352,7 +5194,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('InstrumentService',
       [
         '$resource', 'TokenService',
@@ -5382,7 +5224,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('SamplingInstrumentService',
       [
         '$resource', 'TokenService',
@@ -5412,7 +5254,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('FieldParameterService',
       [
         '$resource', 'TokenService',
@@ -5442,7 +5284,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('ReceptionistService',
       [
         '$resource', 'TokenService',
@@ -5472,7 +5314,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('AnalystService',
       [
         '$resource', 'TokenService',
@@ -5502,7 +5344,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('AreaService',
       [
         '$resource', 'TokenService',
@@ -5532,7 +5374,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('ReceivingAreaService',
       [
         '$resource', 'TokenService',
@@ -5562,7 +5404,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('RequiredVolumeService',
       [
         '$resource', 'TokenService',
@@ -5600,7 +5442,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('SampleService',
       [
         '$resource', 'TokenService',
@@ -5630,7 +5472,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('SheetSampleService',
       [
         '$resource', 'TokenService',
@@ -5660,7 +5502,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('InstrumentsListService',
       [
         '$resource', 'TokenService',
@@ -5690,7 +5532,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('AnalysisListService',
       [
         '$resource', 'TokenService',
@@ -5720,7 +5562,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('DepartmentService',
       [
         '$resource', 'TokenService',
@@ -5750,7 +5592,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('ReportsListService',
       [
         '$resource', 'TokenService',
@@ -5780,7 +5622,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('ReportService',
       [
         '$resource', 'TokenService',
@@ -5810,7 +5652,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('EmployeeService',
       [
         '$resource', 'TokenService',
@@ -5840,7 +5682,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('NormsListService',
       [
         '$resource', 'TokenService',
@@ -5870,7 +5712,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('ReferencesListService',
       [
         '$resource', 'TokenService',
@@ -5900,7 +5742,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('MethodsListService',
       [
         '$resource', 'TokenService',
@@ -5930,7 +5772,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('PricesListService',
       [
         '$resource', 'TokenService',
@@ -5960,7 +5802,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('UsersListService',
       [
         '$resource', 'TokenService',
@@ -6014,7 +5856,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('ProfileService',
       [
         '$resource', 'TokenService',
@@ -6044,7 +5886,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('CloudService',
       [
         '$resource', 'TokenService',
@@ -6074,7 +5916,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('WindService',
       [
         '$resource', 'TokenService',
@@ -6104,7 +5946,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('WaveService',
       [
         '$resource', 'TokenService',
@@ -6134,7 +5976,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('SamplingNormService',
       [
         '$resource', 'TokenService',
@@ -6188,7 +6030,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('LocationService',
       [
         '$resource', 'TokenService',
@@ -6242,7 +6084,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('WaterBodyService',
       [
         '$resource', 'TokenService',
@@ -6296,7 +6138,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('StorageService',
       [
         '$resource', 'TokenService',
@@ -6326,7 +6168,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('PasswordService',
       [
         '$resource', 'TokenService',
@@ -6380,7 +6222,7 @@
     });
   }
   angular
-    .module('sislabApp')
+    .module('docsApp')
     .factory('UserService',
       [
         '$resource', 'TokenService',
