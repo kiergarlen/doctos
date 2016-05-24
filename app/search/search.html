@@ -47,10 +47,12 @@
         <div class="md-list-item-text" layout="column">
           <small class="md-caption">
             {{item.status}}
-            <i>({{item.response.date | date: 'dd/MM/yyyy'}})</i>
+          </small>
+          <small class="md-caption">
+            <i>(Respuesta {{item.response.date | date: 'dd/MM/yyyy'}})</i>
           </small>
           <span class="md-body-2">
-            {{item.response.senderOrganization}}
+            {{item.response.senderOrganization}}<br>
             <small>
               <i>
               {{item.response.sender}}
