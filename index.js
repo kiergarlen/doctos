@@ -46,8 +46,8 @@ app.post('/api/v1/login', function(req, res) {
 });
 
 
-app.get('/api/v1/search/:term', function(req, res) {
-  var searchedText = req.params.term;
+app.post('/api/v1/search', function(req, res) {
+  var searchedText = req.body.term;
   mongodb.MongoClient.connect(uri, function(error, db) {
     if (error) {
       console.log('ERROR ' + error);
@@ -55,10 +55,16 @@ app.get('/api/v1/search/:term', function(req, res) {
 
     db.collection('docs').find(
       {$text: {$search: searchedText}},
-      {score: {$meta:'textScore'}}
+      {
+          'status': 1,
+          'response': 1,
+          'reception.subject': 1,
+          'reception.url': 1,
+          'score': {$meta:'textScore'}
+      }
     )
     .sort({score:{$meta:'textScore'}})
-    .limit(50)
+    // .limit(50)
     .toArray(function(error, docs) {
       if (error) {
         console.log('ERROR ' + error);

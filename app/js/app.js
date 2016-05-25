@@ -22,20 +22,25 @@
     .module('docsApp')
     .controller('SearchController',
       [
-        '$scope', 'SearchService',
+        '$scope', '$mdDialog', 'SearchService',
         SearchController
       ]
     );
-  function SearchController($scope, SearchService) {
+  function SearchController($scope, $mdDialog, SearchService) {
     var vm = this;
     vm.term = '';
     vm.results = [];
     vm.submit = submit;
 
     function submit() {
-      console.log(vm.term);
       if (vm.term.length < 2) {
-        alert('Debe ingresar un término de búsqueda válido');
+        $mdDialog.show(
+          $mdDialog.alert()
+            .title('Atención')
+            .textContent('Debe ingresar un término de búsqueda válido')
+            .ariaLabel('Ventana de diálogo')
+            .ok('Aceptar')
+        );
         vm.term = '';
         vm.results = [].slice();
       } else {
@@ -59,9 +64,9 @@
     ]
   );
   function SearchService($resource, TokenService) {
-    return $resource(API_BASE_URL + 'search/:term', {}, {
+    return $resource(API_BASE_URL + 'search', {}, {
       query: {
-        method: 'GET',
+        method: 'POST',
         params: {term: 'term'},
         isArray: true//,
         // headers: {
