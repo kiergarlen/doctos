@@ -3,6 +3,35 @@ var app = express();
 var mongodb = require('mongodb');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var passport = require('passport');
+var JwtStrategy = require('passport-jwt').Strategy;
+var ExtractJwt = require('passport-jwt').ExtratJwt;
+var options = {};
+
+options.jwtFromRequest = ExtractJwt.formAuthHeader();
+options.secretOrKey = 'mySecretKey';
+options.issuer = 'my-cool-domain.com';
+options.audience = 'your-site.com';
+
+// passport.use(new JwtStrategy(options, function(jwt_payload, done) {
+//   User.findOne({
+//     id: jwt_payload_sub
+//   }, function(err, user) {
+//     if (err) {
+//       return done(err, false);
+//     }
+//     if (user) {
+//       done(null, user);
+//     } else {
+//       done(null, false);
+//     }
+//   });
+// }));
+
+// app.post('/profile',  passport.authenticate('jwt', {session: false}), function(req, res) {
+//   res.send(req.user.profile);
+// })
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -11,7 +40,7 @@ var Schema = mongoose.Schema;
 
 var uri = 'mongodb://localhost:27017/documents';
 
-app.use(express.static('app'));
+app.use(express.static('public'));
 // app.get('/', function(req, res) {
 //   var basicTemplate = [
 
