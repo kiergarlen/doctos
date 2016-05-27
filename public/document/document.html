@@ -1,0 +1,26 @@
+<div layout="column" layout-padding ng-cloak>
+  <br>
+  <md-content class="autoScroll"
+    layout-padding>
+    <form name="documentForm"
+      ng-submit="$event.preventDefault()">
+      <md-autocomplete
+        md-selected-item="document.selectedItem"
+        md-search-text="document.searchText"
+        md-items="item in document.getMatches(searchText)"
+        md-item-text="item.status"
+        placeholder="Seleccione el status del acuse">
+        <md-item-template>
+          <span
+            md-highlight-text="document.searchText"
+            md-highlight-flags="^i">
+            {{item.status}}
+          </span>
+        </md-item-template>
+        <md-not-found>
+          Sin coincidencias para "{{document.searchText}}"
+        </md-not-found>
+      </md-autocomplete>
+    </form>
+  </md-content>
+</div

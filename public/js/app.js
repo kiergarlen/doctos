@@ -22,11 +22,11 @@
     .module('docsApp')
     .controller('SearchController',
       [
-        '$scope', '$mdDialog', 'SearchService',
+        '$mdDialog', 'SearchService',
         SearchController
       ]
     );
-  function SearchController($scope, $mdDialog, SearchService) {
+  function SearchController($mdDialog, SearchService) {
     var vm = this;
     vm.term = '';
     vm.results = [];
@@ -69,6 +69,131 @@
         method: 'POST',
         params: {term: 'term'},
         isArray: true//,
+        // headers: {
+        //   'Auth-Token': TokenService.getTokenHeader()
+        // }
+      },
+      get: {
+        method: 'GET',
+        params: {},
+        isArray: true//,
+        // headers: {
+        //   'Auth-Token': TokenService.getTokenHeader()
+        // }
+      },
+      update: {
+        method: 'POST',
+        params: {},
+        isArray: false//,
+        // headers: {
+        //   'Auth-Token': TokenService.getTokenHeader()
+        // }
+      },
+      save: {
+        method: 'POST',
+        params: {},
+        isArray: false//,
+        // headers: {
+        //   'Auth-Token': TokenService.getTokenHeader()
+        // }
+      }
+    });
+  }
+
+  //DocumentController.js
+  angular
+    .module('docsApp')
+    .controller('DocumentController',
+      [
+        'DocumentService', 'StatusService',
+        DocumentController
+      ]);
+  function DocumentController(DocumentService, StatusService) {
+    var vm = this;
+    vm.searchText = '';
+    vm.selectItem = {};
+    vm.getMatches = getMatches;
+    vm.isFormValid = isFormValid;
+
+    function getMatches(statusTerm) {
+      var matches = [];
+      StatusService
+      .query({statusTerm: statusTerm})
+      .$promise
+      .then(function success(response) {
+        matches = response;
+      })
+      return matches;
+    }
+
+
+    function isFormValid() {
+      //TODO: create validation structure from DocumentValidationService
+      return true;
+    }
+  }
+
+  //DocumentService.js
+  angular
+  .module('docsApp')
+  .factory('DocumentService',
+    [
+      '$resource', 'TokenService',
+      DocumentService
+    ]
+  );
+  function DocumentService($resource, TokenService) {
+    return $resource(API_BASE_URL + 'document', {}, {
+      query: {
+        method: 'GET',
+        params: {documentId: 'documentId'},
+        isArray: false//,
+        // headers: {
+        //   'Auth-Token': TokenService.getTokenHeader()
+        // }
+      },
+      get: {
+        method: 'GET',
+        params: {},
+        isArray: true//,
+        // headers: {
+        //   'Auth-Token': TokenService.getTokenHeader()
+        // }
+      },
+      update: {
+        method: 'POST',
+        params: {},
+        isArray: false//,
+        // headers: {
+        //   'Auth-Token': TokenService.getTokenHeader()
+        // }
+      },
+      save: {
+        method: 'POST',
+        params: {},
+        isArray: false//,
+        // headers: {
+        //   'Auth-Token': TokenService.getTokenHeader()
+        // }
+      }
+    });
+  }
+
+  //StatusService.js
+  angular
+  .module('docsApp')
+  .factory('StatusService',
+    [
+      '$resource', 'TokenService',
+      StatusService
+    ]
+  );
+  function StatusService($resource, TokenService) {
+    return $resource(API_BASE_URL + 'status', {}, {
+      query: {
+        method: 'GET',
+        params: {statusId: 'statusId'},
+        isArray: false//,
         // headers: {
         //   'Auth-Token': TokenService.getTokenHeader()
         // }

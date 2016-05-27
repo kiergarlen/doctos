@@ -6,13 +6,47 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var JwtStrategy = require('passport-jwt').Strategy;
 var ExtractJwt = require('passport-jwt').ExtratJwt;
-var options = {};
+// var options = {};
 
-options.jwtFromRequest = ExtractJwt.formAuthHeader();
-options.secretOrKey = 'mySecretKey';
-options.issuer = 'my-cool-domain.com';
-options.audience = 'your-site.com';
+// options.jwtFromRequest = ExtractJwt.formAuthHeader();
+// options.secretOrKey = 'mySecretKey';
+// options.issuer = 'my-cool-domain.com';
+// options.audience = 'your-site.com';
 
+/*
+var documentsSchema = new Schema({
+    'status': {
+      'type': String,
+      'enum': [
+        'Acuse original',
+        'Acuse vía correo electrónico',
+        'Acuse duplicado',
+        'Copia del acuse original',
+        'Acuse original en área receptora',
+        'Cancelado',
+        'No definido'
+      ]
+    },
+    'comment': String,
+    'entryUser': String,
+    'reception': {
+      'controlNumbers': Array,
+      'date': {'type': Date, 'default': Date.now},
+      'office': String,
+      'receptionist': String,
+      'url': String,
+      'subject': String,
+      'contents': String
+    },
+    'response': {
+      'date': {'type': Date},
+      'number': String,
+      'senderOrganization': String,
+      'sender': String
+    },
+    'score': Number
+  });
+*/
 // passport.use(new JwtStrategy(options, function(jwt_payload, done) {
 //   User.findOne({
 //     id: jwt_payload_sub
@@ -106,7 +140,56 @@ app.post('/api/v1/search', function(req, res) {
       res.send(JSON.stringify(docs));
     });
   });
+});
 
+app.get('/api/v1/document/:documentId', function(req, res) {
+  var documentId = req.params.documentId;
+  mongodb.MongoClient.connect(uri, function(error, db) {
+    if (error) {
+      console.log('ERROR ' + error);
+    }
+
+    db.collection('docs').findOne({_id: documentId})
+    .toArray(function(error, docs) {
+      if (error) {
+        console.log('ERROR ' + error);
+      }
+      res.send(JSON.stringify(docs[0]));
+    });
+  });
+});
+
+app.get('/api/v1/status/:statusId', function(req, res) {
+  var statusId = req.params.statusId;
+  mongodb.MongoClient.connect(uri, function(error, db) {
+    if (error) {
+      console.log('ERROR ' + error);
+    }
+
+    db.collection('status').findOne({_id: statusId})
+    .toArray(function(error, docs) {
+      if (error) {
+        console.log('ERROR ' + error);
+      }
+      res.send(JSON.stringify(docs[0]));
+    });
+  });
+});
+
+app.get('/api/v1/status', function(req, res) {
+  mongodb.MongoClient.connect(uri, function(error, db) {
+    if (error) {
+      console.log('ERROR ' + error);
+    }
+
+    db.collection('status').find()
+    .toArray(function(error, docs) {
+      if (error) {
+        console.log('ERROR ' + error);
+      }
+      res.send(JSON.stringify(docs));
+    });
+  });
 });
 
 app.listen(3000, function() {
