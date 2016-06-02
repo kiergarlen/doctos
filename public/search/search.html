@@ -1,4 +1,4 @@
-<div layout="column" layout-padding="" ng-cloak="">
+<div layout="column" ng-cloak flex layout-padding>
   <br>
   <md-content class="autoScroll">
     <md-input-container class="md-icon-float md-block">
@@ -14,49 +14,56 @@
     <br>
   </md-content>
 
-  <md-content class="autoScroll">
-    <md-list>
-      <md-subheader class="md-sticky"
-        ng-if="search.results.length > 0">
-        {{search.results.length}} Resultado(s)
-      </md-subheader>
-      <md-list-item class="md-3-line"
-        ng-click="alert($event)"
-        ng-repeat="item in search.results">
-        <div class="md-list-item-text" layout="column">
-          <small class="md-caption">
-            Status: {{item.status}}
-          </small>
-          <small class="md-caption">
-            <i>(Respuesta {{item.response.date | date: 'dd/MM/yyyy'}})</i>
-          </small>
-          <p class="md-body-2">
-            Organización: {{item.response.senderOrganization}}<br>
-            <small>
-              <i>
-              Remitente: {{item.response.sender}}
-              </i>
+  <md-card class="md-default-theme" flex-gt-sm="90" flex-gt-md="75">
+    <md-card-content class="autoScroll">
+      <md-list>
+        <md-subheader class="md-sticky"
+          ng-if="search.results.length > 0">
+          {{search.results.length}} Resultado(s)
+        </md-subheader>
+        <md-subheader class="md-sticky"
+          ng-if="search.results.length < 1">
+          Sin resultados
+        </md-subheader>
+        <md-list-item class="md-3-line"
+          ng-click="alert($event)"
+          ng-repeat="item in search.results">
+          <div class="md-list-item-text" layout="column">
+            <small class="md-caption">
+              Status: {{item.status}}
             </small>
-          </p>
-          <h4 class="md-title">
-            Asunto: {{item.reception.subject}}
-          </h4>
-          <!--
-          <a
-            ng-href="file:{{item.reception.url}}"
-            ng-if="item.reception.url.length > 0">
-            <md-icon class="material-icons" aria-label="archivo">insert_drive_file</md-icon>
-            {{item.reception.url}}
-          </a>
+            <small class="md-caption">
+              <i>(Respuesta {{item.response.date | date: 'dd/MM/yyyy'}})</i>
+            </small>
+            <p class="md-body-2">
+              Organización: {{item.response.senderOrganization}}<br>
+              <small>
+                <i>
+                Remitente: {{item.response.sender}}
+                </i>
+              </small>
+            </p>
+            <h4 class="md-title">
+              Asunto: {{item.reception.subject}}
+            </h4>
+            <!--
+            <a
+              ng-href="file:{{item.reception.url}}"
+              ng-if="item.reception.url.length > 0">
+              <md-icon class="material-icons" aria-label="archivo">insert_drive_file</md-icon>
+              {{item.reception.url}}
+            </a>
+            <br>
+            -->
+            <small>
+              Relevancia:
+              {{item.score | number: 2}}
+            </small>
+          </div>
+          <md-divider ></md-divider>
           <br>
-          -->
-          <small>
-            Relevancia:
-            {{item.score | number: 2}}
-          </small>
-        </div>
-        <md-divider ></md-divider>
-        <br>
-      </md-list-item>
-  </md-content>
+        </md-list-item>
+      </md-list>
+    </md-card-content>
+  </md-card>
 </div>

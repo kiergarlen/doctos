@@ -201,21 +201,68 @@
     });
   }
 
+  //ToolbarController.js
+  angular
+    .module('docsApp')
+    .controller('ToolbarController',
+      [
+        '$scope', '$mdDialog',
+        ToolbarController
+      ]);
+  function ToolbarController($scope, $mdDialog) {
+    var vm = this;
+    vm.isLoggedIn = true;
+    vm.searchText = '';
+
+    vm.openSearch = openSearch;
+    vm.openNewDocument = openNewDocument;
+    vm.openProfile = openProfile;
+
+    function openSearch($event) {
+      $mdDialog.show(
+        $mdDialog.alert()
+          .title('Atención')
+          .textContent('Buscar?')
+          .ariaLabel('Ventana de diálogo')
+          .ok('Ok')
+      );
+    }
+
+    function openNewDocument($event) {
+      $mdDialog.show(
+        $mdDialog.alert()
+          .title('Atención')
+          .textContent('Crear?')
+          .ariaLabel('Ventana de diálogo')
+          .ok('Ok')
+      );
+    }
+
+    function openProfile($event) {
+      $mdDialog.show(
+        $mdDialog.alert()
+          .title('Atención')
+          .textContent('Ver?')
+          .ariaLabel('Ventana de diálogo')
+          .ok('Ok')
+      );
+    }
+  }
 
   // DIRECTIVES
-  //sislabMenu.js
-  function sislabMenu() {
+  //docsToolbar.js
+  angular
+    .module('docsApp')
+    .directive('docsToolbar', docsToolbar);
+  function docsToolbar() {
     return {
       restrict: 'EA',
       require: '^ngModel',
-      templateUrl: 'partials/sistema/menu.html',
-      controller: 'MenuController',
-      controllerAs: 'menu'
+      templateUrl: 'toolbar/toolbar.html',
+      controller: 'ToolbarController',
+      controllerAs: 'toolbar'
     };
   }
-  angular
-    .module('docsApp')
-    .directive('sislabMenu', sislabMenu);
 
   //sislabSearchResults.js
   function sislabSearchResults() {
