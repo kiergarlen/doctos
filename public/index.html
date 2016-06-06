@@ -7,66 +7,16 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <title>Control Doctos</title>
   <link rel="icon" type="image/png" href="img/favicon.png"/>
-  <!--
-  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-  <link rel="stylesheet" href="css/bootstrap.material-red.css">
-  -->
   <link rel="stylesheet" href="css/sislab.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
     rel="stylesheet">
   <link rel="stylesheet"
     href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
-  <style>
-    md-content.md-default-theme {
-      background-color: #eee;
-    }
-
-    md-card {
-      background-color: #fff;
-    }
-    md-card h2:first-of-type {
-      margin-top: 0;
-    }
-
-    md-toolbar .md-button.md-default-theme {
-      border-radius: 99%;
-    }
-
-    h2 {
-      font-weight: 400;
-    }
-
-    .md-toolbar-tools-bottom {
-      font-size: small;
-    }
-    .md-toolbar-tools-bottom :last-child {
-      opacity: 0.8;
-    }
-
-    md-toolbar:not(.md-hue-1),
-    .md-fab {
-      fill: #fff;
-    }
-
-    md-sidenav {
-      fill: #737373;
-    }
-    md-sidenav ng-md-icon {
-      position: relative;
-      top: 5px;
-    }
-
-    .user-avatar {
-      border-radius: 99%;
-    }
-  </style>
 </head>
 <body data-ng-app="docsApp">
-
-
-  <div layout="column">
+  <div layout="column" style="height:100%;" ng-cloak>
     <docs-toolbar ng-cloak></docs-toolbar>
-    <md-content flex layout-padding>
+    <md-content flex>
       <div data-ng-view="" class="view-frame">
       </div>
     </md-content>

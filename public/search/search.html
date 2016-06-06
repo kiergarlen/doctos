@@ -1,25 +1,22 @@
-<div layout="column" ng-cloak flex layout-padding>
-  <br>
-  <md-content class="autoScroll">
-    <md-input-container class="md-icon-float md-block">
-      <label>Ingrese un término de búsqueda</label>
-      <md-icon class="material-icons" aria-label="buscar">search</md-icon>
-      <input
-        type="text"
-        ng-model="search.term"
-        ng-keyup="$event.keyCode === 13 && search.submit()"
-        >
-    </md-input-container>
-    <br>
-    <br>
-  </md-content>
-
-  <md-card class="md-default-theme" flex-gt-sm="90" flex-gt-md="75">
+<md-content layout="row" ng-cloak layout-padding layout-wrap>
+  <div flex hide-sm>
+  </div>
+  <md-card class="md-default-theme" flex-gt-sm="66" flex="100">
     <md-card-content class="autoScroll">
+      <md-input-container class="md-icon-float md-block">
+        <label>Ingrese un término de búsqueda</label>
+        <md-icon class="material-icons" aria-label="buscar">search</md-icon>
+        <input
+          type="text"
+          ng-model="search.term"
+          ng-keyup="$event.keyCode === 13 && search.submit()"
+          >
+      </md-input-container>
+
       <md-list>
         <md-subheader class="md-sticky"
           ng-if="search.results.length > 0">
-          {{search.results.length}} Resultado(s)
+          {{search.results.length}} Resultado(s) para "{{search.term}}""
         </md-subheader>
         <md-subheader class="md-sticky"
           ng-if="search.results.length < 1">
@@ -66,4 +63,6 @@
       </md-list>
     </md-card-content>
   </md-card>
-</div>
+  <div flex hide-sm>
+  </div>
+</md-content>
