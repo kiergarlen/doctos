@@ -1,0 +1,67 @@
+<md-content layout="row"
+  layout-padding layout-wrap
+  layout-align="center center"
+  ng-cloak
+  >
+  <div flex hide-sm>
+  </div>
+  <md-card class="md-default-theme"
+    md-whiteframe="2"
+    flex-gt-sm="66"
+    flex="100">
+    <md-card-content class="autoScroll">
+      <h2>Búsqueda avanzada</h2>
+      <md-input-container class="md-icon-float md-block">
+        <label>Ingrese un término de búsqueda</label>
+        <md-icon class="material-icons" aria-label="buscar">search</md-icon>
+        <input
+          type="text"
+          ng-model="advancedSearch.term"
+          ng-keyup="$event.keyCode === 13 && advancedSearch.submit()"
+          >
+      </md-input-container>
+
+      <md-list>
+        <md-subheader class="md-sticky"
+          ng-if="advancedSearch.results.length > 0">
+          {{advancedSearch.results.length}} Resultado(s) para "{{advancedSearch.term}}""
+        </md-subheader>
+        <md-subheader class="md-sticky"
+          ng-if="advancedSearch.results.length < 1">
+          Sin resultados
+        </md-subheader>
+        <md-list-item class="md-3-line"
+          ng-click="alert($event)"
+          ng-repeat="item in advancedSearch.results">
+          <div class="md-list-item-text" layout="column">
+            <small class="md-caption">
+              Status: {{item.status}}
+            </small>
+            <small class="md-caption">
+              <i>(Respuesta {{item.response.date | date: 'dd/MM/yyyy'}})</i>
+            </small>
+            <p class="md-body-2">
+              Organización: {{item.response.senderOrganization}}<br>
+              <small>
+                <i>
+                Remitente: {{item.response.sender}}
+                </i>
+              </small>
+            </p>
+            <h4 class="md-title">
+              Asunto: {{item.reception.subject}}
+            </h4>
+            <small>
+              Relevancia:
+              {{item.score | number: 2}}
+            </small>
+          </div>
+          <md-divider ng-if="!$last"></md-divider>
+          <br>
+        </md-list-item>
+      </md-list>
+    </md-card-content>
+  </md-card>
+  <div flex hide-sm>
+  </div>
+</md-content>

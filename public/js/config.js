@@ -60,6 +60,11 @@
         controller: 'SearchController',
         controllerAs: 'search'
       })
+      .when('/search/advanced', {
+        templateUrl: 'advanced_search/advanced_search.html',
+        controller: 'AdvancedSearchController',
+        controllerAs: 'advancedSearch'
+      })
       // .when('/sistema/logout', {
       //   templateUrl: 'partials/sistema/logout.html',
       //   controller: 'LogoutController',
