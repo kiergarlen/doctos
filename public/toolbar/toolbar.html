@@ -1,4 +1,5 @@
-<md-toolbar>
+<md-toolbar
+  md-whiteframe="5">
   <div class="md-toolbar-tools">
     <!--
     <md-button ng-click="toggleSidenav('left')" hide-gt-md aria-label="Menu">
@@ -13,21 +14,86 @@
     </h3>
     <span flex></span>
     <div ng-show="toolbar.isLoggedIn">
-      <md-button aria-label="Búsqueda"
-        class="md-icon-button"
-        ng-click="toolbar.openSearch($event)">
-        <md-icon class="material-icons" aria-label="buscar">search</md-icon>
-      </md-button>
+      <md-menu md-position-mode="target-right target">
+        <md-button
+          aria-label="Búsqueda"
+          class="md-icon-button"
+          ng-click="toolbar.openMenu($mdOpenMenu, $event)"
+          >
+          <md-icon
+            class="material-icons"
+            aria-label="Búsqueda">search</md-icon>
+          <md-tooltip>
+            Búsqueda
+          </md-tooltip>
+        </md-button>
+        <md-menu-content width="4">
+          <md-menu-item>
+            <md-button ng-click="toolbar.openSearch($event)">
+              <div layout="row" flex>
+                <p flex>Búsqueda Sencilla</p>
+                <md-icon
+                  class="material-icons"
+                  aria-label="Sencilla">search</md-icon>
+              </div>
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button ng-click="toolbar.openAdvancedSearch($event)">
+              <div layout="row" flex>
+                <p flex>Búsqueda Avanzada</p>
+                <md-icon
+                  class="material-icons"
+                  aria-label="Avanzada">youtube_searched_for</md-icon>
+              </div>
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
       <md-button aria-label="Nuevo"
         class="md-icon-button"
         ng-click="toolbar.openNewDocument($event)">
-        <md-icon class="material-icons" aria-label="buscar">insert_drive_file</md-icon>
+        <md-icon class="material-icons" aria-label="buscar">create</md-icon>
+        <md-tooltip>
+          Agregar registro
+        </md-tooltip>
       </md-button>
-      <md-button aria-label="Perfil"
-        class="md-icon-button"
-        ng-click="toolbar.openProfile($event)">
-        <md-icon class="material-icons" aria-label="buscar">person</md-icon>
-      </md-button>
+      <md-menu md-position-mode="target-right target">
+        <md-button
+          aria-label="Administración"
+          class="md-icon-button"
+          ng-click="toolbar.openMenu($mdOpenMenu, $event)"
+          >
+          <md-icon
+            class="material-icons"
+            aria-label="Menú: Administración">person</md-icon>
+          <md-tooltip>
+            Adminsitración
+          </md-tooltip>
+        </md-button>
+        <md-menu-content width="4">
+          <md-menu-item>
+            <md-button ng-click="toolbar.openProfile($event)">
+              <div layout="row" flex>
+                <p flex>Perfil</p>
+                <md-icon
+                  class="material-icons"
+                  aria-label="Perfil">person</md-icon>
+              </div>
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button ng-click="toolbar.openLogout($event)">
+              <div layout="row" flex>
+                <p flex>Cerrar sesión</p>
+                <md-icon
+                  class="material-icons"
+                  aria-label="Cerrar Sesión">directions_run</md-icon>
+              </div>
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
     </div>
   </div>
 </md-toolbar>

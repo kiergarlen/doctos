@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var JwtStrategy = require('passport-jwt').Strategy;
 var ExtractJwt = require('passport-jwt').ExtratJwt;
+var secret = '30dd4e63d8e077faf6173bedf47b68cbfba5505013cbbed2a9fe80b0f10fef5d';
 // var options = {};
 
 // options.jwtFromRequest = ExtractJwt.formAuthHeader();

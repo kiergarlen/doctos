@@ -1,7 +1,14 @@
-<md-content layout="row" ng-cloak layout-padding layout-wrap>
+<md-content layout="row"
+  layout-padding layout-wrap
+  layout-align="center center"
+  ng-cloak
+  >
   <div flex hide-sm>
   </div>
-  <md-card class="md-default-theme" flex-gt-sm="66" flex="100">
+  <md-card class="md-default-theme"
+    md-whiteframe="2"
+    flex-gt-sm="66"
+    flex="100">
     <md-card-content class="autoScroll">
       <md-input-container class="md-icon-float md-block">
         <label>Ingrese un término de búsqueda</label>
@@ -57,7 +64,7 @@
               {{item.score | number: 2}}
             </small>
           </div>
-          <md-divider ></md-divider>
+          <md-divider ng-if="!$last"></md-divider>
           <br>
         </md-list-item>
       </md-list>

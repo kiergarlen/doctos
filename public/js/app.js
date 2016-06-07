@@ -211,41 +211,85 @@
       ]);
   function ToolbarController($scope, $mdDialog) {
     var vm = this;
+    var originatorEvent;
     vm.isLoggedIn = true;
     vm.searchText = '';
 
+    vm.openMenu = openMenu;
     vm.openSearch = openSearch;
+    vm.openAdvancedSearch = openAdvancedSearch;
     vm.openNewDocument = openNewDocument;
     vm.openProfile = openProfile;
+    vm.openLogout = openLogout;
+
+    function openMenu($mdOpenMenu, ev) {
+      originatorEvent = ev;
+      $mdOpenMenu(ev);
+    }
 
     function openSearch($event) {
       $mdDialog.show(
         $mdDialog.alert()
+          // .targetEvent(originatorEvent)
+          .clickOutsideToClose(true)
           .title('Atención')
           .textContent('Buscar?')
           .ariaLabel('Ventana de diálogo')
           .ok('Ok')
       );
+      originatorEvent = null;
+    }
+
+    function openAdvancedSearch($event) {
+      $mdDialog.show(
+        $mdDialog.alert()
+          // .targetEvent(originatorEvent)
+          .clickOutsideToClose(true)
+          .title('Atención')
+          .textContent('Buscar Avanzada?')
+          .ariaLabel('Ventana de diálogo')
+          .ok('Ok')
+      );
+      originatorEvent = null;
     }
 
     function openNewDocument($event) {
       $mdDialog.show(
         $mdDialog.alert()
+          // .targetEvent(originatorEvent)
+          .clickOutsideToClose(true)
           .title('Atención')
           .textContent('Crear?')
           .ariaLabel('Ventana de diálogo')
           .ok('Ok')
       );
+      // originatorEvent = null;
     }
 
     function openProfile($event) {
       $mdDialog.show(
         $mdDialog.alert()
+          .targetEvent(originatorEvent)
+          .clickOutsideToClose(true)
           .title('Atención')
-          .textContent('Ver?')
+          .textContent('Ver perfil?')
           .ariaLabel('Ventana de diálogo')
           .ok('Ok')
       );
+      originatorEvent = null;
+    }
+
+    function openLogout($event) {
+      $mdDialog.show(
+        $mdDialog.alert()
+          .targetEvent(originatorEvent)
+          .clickOutsideToClose(true)
+          .title('Atención')
+          .textContent('Salir?')
+          .ariaLabel('Ventana de diálogo')
+          .ok('Ok')
+      );
+      originatorEvent = null;
     }
   }
 
@@ -263,77 +307,6 @@
       controllerAs: 'toolbar'
     };
   }
-
-  //sislabSearchResults.js
-  function sislabSearchResults() {
-    return {
-      restrict: 'EA',
-      require: '^ngModel',
-      templateUrl: 'search/search-results.html',
-      controller: 'ResultsController',
-      controllerAs: 'results'
-    };
-  }
-  angular
-    .module('docsApp')
-    .directive('sislabSearchResults', sislabSearchResults);
-  //ResultsController.js
-  function ResultsController() {
-
-  }
-  angular
-    .module('docsApp')
-    .controller('ResultsController',
-      [
-        '$scope', 'TokenService',
-        ResultsController
-      ]
-    );
-
-  //sislabBanner.js
-  /**
-   * @name sislabBanner
-   * @desc Directiva para banner superior
-   */
-  function sislabBanner() {
-    return {
-      restrict: 'EA',
-      templateUrl: 'partials/sistema/banner.html'
-    };
-  }
-  angular
-    .module('docsApp')
-    .directive('sislabBanner', sislabBanner);
-
-  //sislabFooter.js
-  /**
-   * @name sislabFooter
-   * @desc Directiva para pie de página
-   */
-  function sislabFooter() {
-    return {
-      restrict: 'EA',
-      templateUrl: 'partials/sistema/footer.html'
-    };
-  }
-  angular
-    .module('docsApp')
-    .directive('sislabFooter', sislabFooter);
-
-  //sislabBannerBottom.js
-  /**
-   * @name sislabBannerBottom
-   * @desc Directiva para banner inferior
-   */
-  function sislabBannerBottom() {
-    return {
-      restrict: 'EA',
-      templateUrl: 'partials/sistema/banner-bottom.html'
-    };
-  }
-  angular
-    .module('docsApp')
-    .directive('sislabBannerBottom', sislabBannerBottom);
 
   //CONTROLLERS
   //LoginController.js

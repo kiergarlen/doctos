@@ -5,7 +5,7 @@
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, user-scalable=yes"/>
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <title>Control Doctos</title>
+  <title>Control Oficios</title>
   <link rel="icon" type="image/png" href="img/favicon.png"/>
   <link rel="stylesheet" href="css/sislab.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -13,12 +13,14 @@
   <link rel="stylesheet"
     href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
 </head>
-<body data-ng-app="docsApp">
-  <div layout="column" style="height:100%;" ng-cloak>
-    <docs-toolbar ng-cloak></docs-toolbar>
+<body ng-app="docsApp" ng-cloak>
+  <div layout="column" style="height:100%;">
+    <docs-toolbar></docs-toolbar>
     <md-content flex>
-      <div data-ng-view="" class="view-frame">
-      </div>
+      <div data-ng-view="" class="view-frame"></div>
+      <!--
+      <ui-view></ui-view>
+      -->
     </md-content>
   </div>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
@@ -28,6 +30,9 @@
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-route.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-resource.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
+   -->
   <script src="js/angular-locale/angular-locale_es-mx.js"></script>
   <script src="js/angular-jwt/angular-jwt.min.js"></script>
   <script src="js/crypto/sha256.js"></script>

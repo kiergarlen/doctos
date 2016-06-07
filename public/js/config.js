@@ -5,13 +5,22 @@
     .module('docsApp')
     .config(
       [
-        '$routeProvider', '$httpProvider', '$mdThemingProvider',
-        'jwtInterceptorProvider',
+        '$routeProvider', '$httpProvider',
+        '$mdThemingProvider', 'jwtInterceptorProvider',
         config
       ]
     );
-  function config($routeProvider, $httpProvider, $mdThemingProvider,
-    jwtInterceptorProvider) {
+  // angular
+  //   .module('docsApp')
+  //   .config(
+  //     [
+  //       '$stateProvider', '$urlRouterProvider', '$httpProvider',
+  //       '$mdThemingProvider', 'jwtInterceptorProvider',
+  //       config
+  //     ]
+  //   );
+  function config($stateProvider, $urlRouterProvider, $httpProvider,
+    $mdThemingProvider, jwtInterceptorProvider) {
     $mdThemingProvider.definePalette('ceaPalette', {
       '50':'e9f1fa',
       '100':'bed4ef',
@@ -57,6 +66,16 @@
       //   controllerAs: 'logout'
       // })
     ;
+    /*
+    $urlRouterProvider.otherwise("/search");
+    $stateProvider
+      .state('searchView'. {
+        url: '/search',
+        templateUrl: 'search/search.html',
+        controller: 'SearchController',
+        controllerAs: 'search'
+      });
+    */
   }
 )();
 
