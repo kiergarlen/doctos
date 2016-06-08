@@ -1,26 +1,132 @@
-<div layout="column" layout-padding ng-cloak>
-  <br>
-  <md-content class="autoScroll"
-    layout-padding>
-    <form name="documentForm"
-      ng-submit="$event.preventDefault()">
-      <md-autocomplete
-        md-selected-item="document.selectedItem"
-        md-search-text="document.searchText"
-        md-items="item in document.getMatches(searchText)"
-        md-item-text="item.status"
-        placeholder="Seleccione el status del acuse">
-        <md-item-template>
-          <span
-            md-highlight-text="document.searchText"
-            md-highlight-flags="^i">
-            {{item.status}}
-          </span>
-        </md-item-template>
-        <md-not-found>
-          Sin coincidencias para "{{document.searchText}}"
-        </md-not-found>
-      </md-autocomplete>
-    </form>
-  </md-content>
-</div
+<md-content layout="row"
+  layout-padding layout-wrap
+  layout-align="center center"
+  ng-cloak
+  >
+  <div flex hide-sm>
+  </div>
+  <md-card class="md-default-theme"
+    md-whiteframe="2"
+    flex-gt-sm="66"
+    flex="100">
+    <md-card-content class="autoScroll">
+      <h1>Nuevo registro</h1>
+      <form name="newDocForm">
+        <h4>Fecha entrega</h4>
+        <md-datepicker
+          name="dateField"
+          ng-model="document.myDate"
+          md-placeholder="Fecha entrega"
+          required
+          md-min-date="document.minDate"
+          md-max-date="document.maxDate"
+          >
+        </md-datepicker>
+        <div class="validation-messages" ng-messages="newDocForm.dateField.$error">
+          <div ng-message="valid">No es una fecha válida</div>
+          <div ng-message="required">La fecha de entrega es obligatoria</div>
+          <div ng-message="mindate">La fecha es anterior al rango</div>
+          <div ng-message="maxdate">La fecha es posterior al rango</div>
+        </div>
+
+        <h4>Área receptora</h4>
+        <md-autocomplete
+          ng-disabled="document.isDisabled"
+          md-no-cache="document.noCache"
+          md-selected-item="document.selectedItem"
+          md-search-text-change="document.searchTextChange(document.searchText)"
+          md-search-text="document.searchText"
+          md-selected-item-change="document.selectedItemChange(item)"
+          md-items="item in document.querySearch(document.searchText)"
+          md-item-text="item.display"
+          md-min-length="0"
+          placeholder="¿Cuál es el Área responsable?">
+          <md-item-template>
+            <span md-highlight-text="document.searchText" md-highlight-flags="^i">{{item.display}}</span>
+          </md-item-template>
+          <md-not-found>
+            No se encontraron coincidencias para "{{document.searchText}}"
+          </md-not-found>
+        </md-autocomplete>
+      </form>
+
+      <h4>Remitente</h4>
+      <label>
+        Nombre
+      </label>
+      <input type="text"
+        value="Nombre del solicitante"
+        >
+
+
+      <h3>Destino</h3>
+
+      <h4>Fecha de elaboración</h4>
+      <myCalendar>
+        <date></date>
+      </myCalendar>
+
+      <h4>Fecha de recepción</h4>
+      <myCalendar>
+        <date></date>
+      </myCalendar>
+
+      <h4>Dependencia</h4>
+      <select>
+        <option>
+          Dependencia Externa
+        </option>
+      </select>
+
+      <h4>Control correspondencia</h4>
+      <label>
+        Núm. de control
+      </label>
+      <input type="text"
+        value="Número de control del documento en correspondencia"
+        >
+
+      <h4>Oficio</h4>
+      <label>
+        Núm. Oficio
+      </label>
+      <input type="text"
+        value="Número del oficio de respuesta"
+        >
+
+      <h4>Destinatario</h4>
+      <label>
+        Nombre
+      </label>
+      <input type="text"
+        value="Nombre del destinatario de la respuesta"
+        >
+
+      <h4>Texto del oficio</h4>
+      <label>
+        Contenido
+      </label>
+      <textarea></textarea>
+
+      <h4>Status Acuse</h4>
+      <select>
+        <option>
+          Pendiente
+        </option>
+      </select>
+
+      <h4>Ruta a documento</h4>
+      <input type="text"
+        value="url/a/documento/original.pdf"
+        >
+
+
+
+
+
+
+    </md-card-content>
+  </md-card>
+  <div flex hide-sm>
+  </div>
+</md-content>

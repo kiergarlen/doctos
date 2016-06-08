@@ -109,7 +109,6 @@ app.post('/api/v1/login', function(req, res) {
   });
 });
 
-
 app.post('/api/v1/search', function(req, res) {
   var searchedText = req.body.term;
   mongodb.MongoClient.connect(uri, function(error, db) {

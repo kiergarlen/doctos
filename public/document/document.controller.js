@@ -1,0 +1,588 @@
+(function(window, document, undefined) {
+  'use strict';
+
+  angular
+    .module('docsApp')
+    .controller('DocumentController', DocumentController);
+
+  DocumentController.$inject = [
+    '$mdDialog', '$timeout', '$q', '$log', 'DocumentService'
+  ];
+
+  function DocumentController($mdDialog, $timeout, $q, $log, DocumentService) {
+    var vm = this;
+    vm.submit = submit;
+
+    vm.myDate = new Date();
+    vm.minDate = new Date(
+      vm.myDate.getFullYear(),
+      vm.myDate.getMonth() - 2,
+      vm.myDate.getDate());
+    vm.maxDate = new Date(
+      vm.myDate.getFullYear(),
+      vm.myDate.getMonth() + 2,
+      vm.myDate.getDate());
+
+    vm.respondents = respondents();
+    vm.querySearch = querySearch;
+    vm.selectedItemChange = selectedItemChange;
+    vm.searchTextChange = searchTextChange;
+
+    function querySearch (query) {
+      var results = query ? vm.respondents.filter( createFilterFor(query) ) : vm.respondents, deferred;
+      if (true) {
+        deferred = $q.defer();
+        $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
+        return deferred.promise;
+      } else {
+        return results;
+      }
+    }
+
+    function searchTextChange(text) {
+      $log.info('Text changed to ' + text);
+    }
+    function selectedItemChange(item) {
+      $log.info('Item changed to ' + JSON.stringify(item));
+    }
+
+    function createFilterFor(query) {
+      var lowercaseQuery = angular.lowercase(query);
+      return function filterFn(state) {
+        return (state.value.indexOf(lowercaseQuery) === 0);
+      };
+    }
+
+    function respondents() {
+      var respondentsArray = [
+        {
+          "officeId":1,
+          "areaId":34,
+          "categoryId":1,
+          "direction":"Dirección General",
+          "office":"Dirección General",
+          "manager": {
+            "employeeId":1417,
+            "firstName":"Felipe",
+            "middleName":"Tito",
+            "lastName":"Lugo",
+            "secondLastName":"Arias",
+            "position":"Director General"
+          }
+        },
+        {
+          "officeId":1,
+          "areaId":34,
+          "categoryId":2,
+          "direction":"Dirección General",
+          "office":"Secretaría Técnica",
+          "manager": {
+            "employeeId":1440,
+            "firstName":"Uriel",
+            "middleName":"Alejandro",
+            "lastName":"Parga",
+            "secondLastName":"Ramírez",
+            "position":"Secretario Técnico"
+          }
+        },
+        {
+          "officeId":1,
+          "areaId":34,
+          "categoryId":3,
+          "direction":"Dirección General",
+          "office":"Gerencia de Estudios Técnicos",
+          "manager": {
+            "employeeId":200,
+            "firstName":"Aldo",
+            "lastName":"García",
+            "secondLastName":"Rodríguez",
+            "position":"Gerente de Estudios Técnicos"
+          }
+        },
+        {
+          "officeId":1,
+          "areaId":34,
+          "categoryId":3,
+          "direction":"Dirección General",
+          "office":"Secretaría Particular",
+          "manager": {
+            "employeeId":69,
+            "firstName":"Martha",
+            "middleName":"Erika",
+            "lastName":"Miranda",
+            "secondLastName":"Torres",
+            "position":"Secretaria Particular"
+          }
+        },
+        {
+          "officeId":2,
+          "areaId":35,
+          "categoryId":2,
+          "direction":"Contraloría Interna",
+          "office":"Contraloría Interna",
+          "manager": {
+            "employeeId":1407,
+            "firstName":"Miriam",
+            "middleName":"Astrid",
+            "lastName":"Beltrán",
+            "secondLastName":"Fernández",
+            "position":"Contralor Interno"
+          }
+        },
+        {
+          "officeId":2,
+          "areaId":33,
+          "categoryId":3,
+          "direction":"Contraloría Interna",
+          "office":"Gerencia de Auditoría Interna",
+          "manager": {
+            "employeeId":1774,
+            "firstName":"Emmanuel",
+            "lastName":"Rojas",
+            "secondLastName":"Dávila",
+            "position":"Gerente de Auditoría Interna"
+          }
+        },
+        {
+          "officeId":3,
+          "areaId":40,
+          "categoryId":2,
+          "direction":"Dirección de Administración",
+          "office":"Dirección de Administración",
+          "manager": {
+            "employeeId":1470,
+            "firstName":"Hector",
+            "middleName":"Manuel",
+            "lastName":"Salas",
+            "secondLastName":"Barba",
+            "position":"Director de Administración"
+          }
+        },
+        {
+          "officeId":3,
+          "areaId":21,
+          "categoryId":3,
+          "direction":"Dirección de Administración",
+          "office":"Gerencia de Contabilidad",
+          "manager": {
+            "employeeId":1562,
+            "firstName":"Roberto",
+            "lastName":"Maldonado",
+            "secondLastName":"Hernández",
+            "position":"Gerente de Contabilidad"
+          }
+        },
+        {
+          "officeId":3,
+          "areaId":22,
+          "categoryId":3,
+          "direction":"Dirección de Administración",
+          "office":"Gerencia de Informática",
+          "manager": {
+            "employeeId":331,
+            "firstName":"Julio",
+            "middleName":"César",
+            "lastName":"Blancas",
+            "secondLastName":"Nava",
+            "position":"Gerente de Informática"
+          }
+        },
+        {
+          "officeId":3,
+          "areaId":23,
+          "categoryId":3,
+          "direction":"Dirección de Administración",
+          "office":"Gerencia de Servicios Generales",
+          "manager": {
+            "employeeId":1415,
+            "firstName":"Enrique",
+            "lastName":"Peredo",
+            "secondLastName":"Avalos",
+            "position":"Gerente de Servicios Generales"
+          }
+        },
+        {
+          "officeId":3,
+          "areaId":24,
+          "categoryId":3,
+          "direction":"Dirección de Administración",
+          "office":"Gerencia de Personal",
+          "manager": {
+            "employeeId":299,
+            "firstName":"Leticia",
+            "middleName":"Fabiola",
+            "lastName":"Cuán",
+            "secondLastName":"Ramírez",
+            "position":"Gerente de Personal"
+          }
+        },
+        {
+          "officeId":3,
+          "areaId":25,
+          "categoryId":3,
+          "direction":"Dirección de Administración",
+          "office":"Gerencia Jurídica",
+          "manager": {
+            "employeeId":179,
+            "firstName":"Carlos",
+            "middleName":"Roberto",
+            "lastName":"Rojas",
+            "secondLastName":"Dávila",
+            "position":"Gerente Jurídico"
+          }
+        },
+        {
+          "officeId":4,
+          "areaId":5,
+          "categoryId":2,
+          "direction":"Dirección de Comunicación Institucional",
+          "office":"Dirección de Comunicación Institucional",
+          "manager": {
+            "employeeId":1737,
+            "firstName":"Azahar",
+            "middleName":"Margarita",
+            "lastName":"Alcázar",
+            "secondLastName":"Pérez",
+            "position":"Director de Comunicación Institucional"
+          }
+        },
+        {
+          "officeId":5,
+          "areaId":42,
+          "categoryId":2,
+          "direction":"Dirección de la Unidad Ejecutora de Abastecimiento y Saneamiento",
+          "office":"Dirección de la Unidad Ejecutora de Abastecimiento y Saneamiento",
+          "manager": {
+            "employeeId":1602,
+            "firstName":"Salvador",
+            "lastName":"Delgado",
+            "secondLastName":"Sánchez",
+            "position":"Director de la Unidad Ejecutora de Abastecimiento y Saneamiento"
+          }
+        },
+        {
+          "officeId":5,
+          "areaId":29,
+          "categoryId":3,
+          "direction":"Dirección de la Unidad Ejecutora de Abastecimiento y Saneamiento",
+          "office":"Gerencia de Ingeniería",
+          "manager": {
+            "employeeId":1422,
+            "firstName":"Carlos",
+            "middleName":"Alberto",
+            "lastName":"Hernández",
+            "secondLastName":"Solís",
+            "position":"Gerente de Ingeniería"
+          }
+        },
+        {
+          "officeId":5,
+          "areaId":31,
+          "categoryId":3,
+          "direction":"Dirección de la Unidad Ejecutora de Abastecimiento y Saneamiento",
+          "office":"Gerencia Administrativa",
+          "manager": {
+            "employeeId":1409,
+            "firstName":"Juan",
+            "lastName":"Delgadillo",
+            "secondLastName":"González",
+            "position":"Gerente Administrativo"
+          }
+        },
+        {
+          "officeId":6,
+          "areaId":41,
+          "categoryId":2,
+          "direction":"Dirección de Operación de PTAR’s",
+          "office":"Dirección de Operación de PTAR’s",
+          "manager": {
+            "employeeId":220,
+            "firstName":"Luis",
+            "lastName":"Aceves",
+            "secondLastName":"Martínez",
+            "position":"Director de Operación de PTAR’s"
+          }
+        },
+        {
+          "officeId":6,
+          "areaId":10,
+          "categoryId":3,
+          "direction":"Dirección de Operación de PTAR’s",
+          "office":"Gerencia de Laboratorio",
+          "manager": {
+            "employeeId":461,
+            "firstName":"Reyna",
+            "lastName":"García",
+            "secondLastName":"Meneses",
+            "position":"Gerente de Laboratorio"
+          }
+        },
+        {
+          "officeId":6,
+          "areaId":27,
+          "categoryId":3,
+          "direction":"Dirección de Operación de PTAR’s",
+          "office":"Gerencia de Plantas de Tratamiento",
+          "manager": {
+            "employeeId":456,
+            "firstName":"Víctor",
+            "middleName":"Ignacio",
+            "lastName":"Méndez",
+            "secondLastName":"Gómez",
+            "position":"Gerente de Plantas de Tratamiento"
+          }
+        },
+        {
+          "officeId":7,
+          "areaId":37,
+          "categoryId":2,
+          "direction":"Dirección de Planeación Estratégica",
+          "office":"Dirección de Planeación Estratégica",
+          "manager": {
+            "employeeId":618,
+            "firstName":"Linda",
+            "lastName":"Michel",
+            "secondLastName":"Ramírez",
+            "position":"Director de Planeación Estratégica"
+          }
+        },
+        {
+          "officeId":7,
+          "areaId":6,
+          "categoryId":3,
+          "direction":"Dirección de Planeación Estratégica",
+          "office":"Gerencia de Programación y Presupuesto",
+          "manager": {
+            "employeeId":682,
+            "firstName":"Roberto",
+            "middleName":"Javier",
+            "lastName":"Olivares",
+            "secondLastName":"Gutiérrez",
+            "position":"Gerente de Programación y Presupuesto"
+          }
+        },
+        {
+          "officeId":7,
+          "areaId":7,
+          "categoryId":3,
+          "direction":"Dirección de Planeación Estratégica",
+          "office":"Gerencia de Planeación y Programación Hídrica",
+          "manager": {
+            "employeeId":1411,
+            "firstName":"Mayra",
+            "middleName":"Raquel",
+            "lastName":"Gaeta",
+            "secondLastName":"de León",
+            "position":"Gerente de Planeación y Programación Hídrica"
+          }
+        },
+        {
+          "officeId":7,
+          "areaId":50,
+          "categoryId":3,
+          "direction":"Dirección de Planeación Estratégica",
+          "office":"Gerencia de Financiamiento",
+          "manager": {
+            "employeeId":1550,
+            "firstName":"Wolfkan",
+            "middleName":"Ulises",
+            "lastName":"Rojas",
+            "secondLastName":"Dávila",
+            "position":"Gerente de Financiamiento"
+          }
+        },
+        {
+          "officeId":8,
+          "areaId":38,
+          "categoryId":2,
+          "direction":"Dirección de Cuencas y Sustentabilidad",
+          "office":"Dirección de Cuencas y Sustentabilidad",
+          "manager": {
+            "employeeId":51,
+            "firstName":"Armando",
+            "middleName":"Brígido",
+            "lastName":"Muñoz",
+            "secondLastName":"Juárez",
+            "position":"Director de Cuencas y Sustentabilidad"
+          }
+        },
+        {
+          "officeId":8,
+          "areaId":12,
+          "categoryId":3,
+          "direction":"Dirección de Cuencas y Sustentabilidad",
+          "office":"Gerencia de Gestión de Cuencas",
+          "manager": {
+            "employeeId":1622,
+            "firstName":"Javier",
+            "middleName":"Alejandro",
+            "lastName":"Martínez",
+            "secondLastName":"Ruíz",
+            "position":"Gerente de Gestión de Cuencas"
+          }
+        },
+        {
+          "officeId":8,
+          "areaId":13,
+          "categoryId":3,
+          "direction":"Dirección de Cuencas y Sustentabilidad",
+          "office":"Gerencia de Cultura del Agua",
+          "manager": {
+            "employeeId":1484,
+            "firstName":"Daniel",
+            "lastName":"Muñoz",
+            "secondLastName":"Rodríguez",
+            "position":"Gerente de Cultura del Agua"
+          }
+        },
+        {
+          "officeId":8,
+          "areaId":14,
+          "categoryId":3,
+          "direction":"Dirección de Cuencas y Sustentabilidad",
+          "office":"Gerencia de Administración del Agua",
+          "manager": {
+            "employeeId":224,
+            "firstName":"María",
+            "middleName":"del Carmen",
+            "lastName":"Ramos",
+            "secondLastName":"Rodríguez",
+            "position":"Gerente de Administración del Agua"
+          }
+        },
+        {
+          "officeId":8,
+          "areaId":15,
+          "categoryId":3,
+          "direction":"Dirección de Cuencas y Sustentabilidad",
+          "office":"Gerencia Ambiental y Desarrollo Sustentable",
+          "manager": {
+            "employeeId":737,
+            "firstName":"Sofía",
+            "lastName":"Hernández",
+            "secondLastName":"Morales",
+            "position":"Gerente Ambiental y Desarrollo Sustentable"
+          }
+        },
+        {
+          "officeId":9,
+          "areaId":39,
+          "categoryId":2,
+          "direction":"Dirección de Apoyo a Municipios",
+          "office":"Dirección de Apoyo a Municipios",
+          "manager": {
+            "employeeId":1408,
+            "firstName":"Ernesto",
+            "lastName":"Marroquín",
+            "secondLastName":"Álvarez",
+            "position":"Director de Apoyo a Municipios"
+          }
+        },
+        {
+          "officeId":9,
+          "areaId":8,
+          "categoryId":3,
+          "direction":"Dirección de Apoyo a Municipios",
+          "office":"Gerencia de Formulación de Proyectos",
+          "manager": {
+            "employeeId":1451,
+            "firstName":"Gustavo",
+            "lastName":"Luna",
+            "secondLastName":"González",
+            "position":"Gerente de Formulación de Proyectos"
+          }
+        },
+        {
+          "officeId":9,
+          "areaId":17,
+          "categoryId":3,
+          "direction":"Dirección de Apoyo a Municipios",
+          "office":"Gerencia de Desarrollo de Organismos Operadores",
+          "manager": {
+            "employeeId":1414,
+            "firstName":"Alejandro",
+            "lastName":"Alcázar",
+            "secondLastName":"Pellicer",
+            "position":"Gerente de Desarrollo de Organismos Operadores"
+          }
+        },
+        {
+          "officeId":9,
+          "areaId":18,
+          "categoryId":3,
+          "direction":"Dirección de Apoyo a Municipios",
+          "office":"Gerencia de Obras",
+          "manager": {
+            "employeeId":1444,
+            "firstName":"Mario",
+            "lastName":"Ríos",
+            "secondLastName":"Plascencia",
+            "position":"Gerente de Obras"
+          }
+        },
+        {
+          "officeId":9,
+          "areaId":19,
+          "categoryId":3,
+          "direction":"Dirección de Apoyo a Municipios",
+          "office":"Gerencia de Gestión de Programas",
+          "manager": {
+            "employeeId":79,
+            "firstName":"José",
+            "middleName":"Enrique",
+            "lastName":"Pelayo",
+            "secondLastName":"Ruíz",
+            "position":"Gerente de Gestión de Programas"
+          }
+        },
+        {
+          "officeId":9,
+          "areaId":20,
+          "categoryId":3,
+          "direction":"Dirección de Apoyo a Municipios",
+          "office":"Gerencia de Servicio a Municipios",
+          "manager": {
+            "employeeId":1438,
+            "firstName":"José",
+            "middleName":"Manuel",
+            "lastName":"Gómez",
+            "secondLastName":"Padilla",
+            "position":"Gerente de Servicio a Municipios"
+          }
+        },
+        {
+          "direction":"SIAPA",
+          "office":"Sistema Intermunicipal de Agua Potable",
+          "manager": {
+            "firstName":"Sin Nombre",
+            "lastName":"Sin apellido",
+            "position":"Recepcionista"
+          }
+        }
+      ];
+      return respondentsArray;
+    }
+
+
+    function submit() {
+      if (vm.term.length < 2) {
+        $mdDialog.show(
+          $mdDialog.alert()
+            .title('Atención')
+            .textContent('Debe ingresar un término de búsqueda válido')
+            .ariaLabel('Ventana de diálogo')
+            .ok('Aceptar')
+        );
+        vm.term = '';
+        vm.results = [].slice();
+      } else {
+        DocumentService
+          .query({term: vm.term})
+          .$promise
+          .then(function success(response) {
+            vm.results = response;
+          });
+      }
+    }
+  }
+})();

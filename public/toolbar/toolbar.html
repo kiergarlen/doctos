@@ -29,7 +29,7 @@
         </md-button>
         <md-menu-content width="4">
           <md-menu-item>
-            <md-button ng-click="toolbar.openSearch($event)">
+            <md-button ng-href="#/search">
               <div layout="row" flex>
                 <p flex>Búsqueda Sencilla</p>
                 <md-icon
@@ -39,7 +39,7 @@
             </md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button ng-click="toolbar.openAdvancedSearch($event)">
+            <md-button ng-href="#/advanced/search">
               <div layout="row" flex>
                 <p flex>Búsqueda Avanzada</p>
                 <md-icon
@@ -50,10 +50,14 @@
           </md-menu-item>
         </md-menu-content>
       </md-menu>
-      <md-button aria-label="Nuevo"
+      <md-button
+        aria-label="Nuevo"
         class="md-icon-button"
-        ng-click="toolbar.openNewDocument($event)">
-        <md-icon class="material-icons" aria-label="buscar">create</md-icon>
+        ng-click="toolbar.openDocument($event)"
+        >
+        <md-icon
+          class="material-icons"
+          aria-label="Nuevo">create</md-icon>
         <md-tooltip>
           Agregar registro
         </md-tooltip>
