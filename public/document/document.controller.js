@@ -12,6 +12,8 @@
   function DocumentController($mdDialog, $timeout, $q, $log, DocumentService) {
     var vm = this;
     vm.submit = submit;
+    vm.reception = {};
+    vm.response = {};
 
     vm.myDate = new Date();
     vm.minDate = new Date(
@@ -43,7 +45,12 @@
       $log.info('Text changed to ' + text);
     }
     function selectedItemChange(item) {
-      $log.info('Item changed to ' + JSON.stringify(item));
+      if (typeof item != 'undefined') {
+        $log.info('Item changed to ' + JSON.stringify(item));
+        vm.reception.office = item.office;
+      } else {
+        vm.reception.office = null;
+      }
     }
 
     function createFilterFor(query) {
