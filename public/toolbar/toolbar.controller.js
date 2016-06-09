@@ -16,12 +16,17 @@
 
     vm.openMenu = openMenu;
     vm.openProfile = openProfile;
+    vm.openSearch = openSearch;
     vm.openDocument = openDocument;
     vm.openLogout = openLogout;
 
     function openMenu($mdOpenMenu, ev) {
       originatorEvent = ev;
       $mdOpenMenu(ev);
+    }
+
+    function openSearch($event) {
+      $location.path('/search');
     }
 
     function openDocument($event) {

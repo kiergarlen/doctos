@@ -32,7 +32,7 @@
 
     $mdThemingProvider.theme('default')
       .primaryPalette('ceaPalette')
-      .accentPalette('indigo')
+      .accentPalette('blue')
       .warnPalette('red');
 
     $routeProvider

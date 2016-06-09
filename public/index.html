@@ -6,7 +6,7 @@
     content="width=device-width, initial-scale=1.0, user-scalable=yes"/>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <title>Control Oficios</title>
-  <link rel="icon" type="image/png" href="img/favicon.png"/>
+  <link rel="icon" type="image/png" href="img/favicon.png">
   <link
     href="https://fonts.googleapis.com/icon?family=Material+Icons"
     rel="stylesheet">
@@ -21,12 +21,13 @@
       color:#666666;
       background-color:#ffffff
     }
+    .mainBg{background-image:url('img/bg.jpg'); background-size: cover;}
   </style>
 </head>
 <body ng-app="docsApp" ng-cloak>
   <div layout="column" style="height:100%;">
     <docs-toolbar></docs-toolbar>
-    <md-content flex>
+    <md-content flex class="mainBg">
       <div data-ng-view="" class="view-frame"></div>
     </md-content>
   </div>

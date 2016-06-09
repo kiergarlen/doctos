@@ -12,8 +12,58 @@
   function DocumentController($mdDialog, $timeout, $q, $log, DocumentService) {
     var vm = this;
     vm.submit = submit;
-    vm.reception = {};
-    vm.response = {};
+    vm.doc = {
+      status:'',
+      comment: '',
+      entryUser: '',
+      reception: {
+        controlNumbers:[''],
+        controlNumber:'',
+        date: new Date(),
+        office: '',
+        receptionist: '',
+        url: '',
+        subject: '',
+        contents: ''
+      },
+      response: {
+        date: new Date(),
+        number: '',
+        senderOrganization: '',
+        sender:''
+      }
+    };
+
+    vm.status = [
+      {
+        "_id":"574725d24c2ec4f3ad6ce136",
+        "status": "Acuse original"
+      },
+      {
+        "_id":"574725d24c2ec4f3ad6ce137",
+        "status": "Acuse duplicado"
+      },
+      {
+        "_id":"574725d24c2ec4f3ad6ce138",
+        "status": "Acuse vía correo electrónico"
+      },
+      {
+        "_id":"574725d24c2ec4f3ad6ce139",
+        "status": "Acuse original en área receptora"
+      },
+      {
+        "_id":"574725d24c2ec4f3ad6ce13a",
+        "status": "Cancelado"
+      },
+      {
+        "_id":"574725d24c2ec4f3ad6ce13b",
+        "status": "No definido"
+      },
+      {
+        "_id":"574725d24c2ec4f3ad6ce13c",
+        "status": "Copia del acuse original"
+      }
+    ];
 
     vm.myDate = new Date();
     vm.minDate = new Date(
