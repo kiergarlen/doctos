@@ -21,6 +21,14 @@
           >
       </md-input-container>
 
+      <div
+        layout="column"
+        layout-align="center center"
+        ng-if="search.isLoading">
+        <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+        Cargando...
+      </div>
+
       <md-list>
         <md-subheader class="md-sticky"
           ng-if="search.results.length > 0">

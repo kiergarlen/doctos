@@ -12,9 +12,11 @@
     var vm = this;
     vm.term = '';
     vm.results = [];
+    vm.isLoading = false;
     vm.submit = submit;
 
     function submit() {
+      vm.isLoading = true;
       if (vm.term.length < 2) {
         $mdDialog.show(
           $mdDialog.alert()
@@ -25,11 +27,13 @@
         );
         vm.term = '';
         vm.results = [].slice();
+        vm.isLoading = false;
       } else {
         SearchService
           .query({term: vm.term})
           .$promise
           .then(function success(response) {
+            vm.isLoading = false;
             vm.results = response;
           });
       }
