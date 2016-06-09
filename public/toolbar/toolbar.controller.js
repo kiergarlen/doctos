@@ -47,16 +47,8 @@
     }
 
     function openLogout($event) {
-      $mdDialog.show(
-        $mdDialog.alert()
-          .targetEvent(originatorEvent)
-          .clickOutsideToClose(true)
-          .title('Atención')
-          .textContent('Salir?')
-          .ariaLabel('Ventana de diálogo')
-          .ok('Ok')
-      );
       originatorEvent = null;
+      $location.path('/login');
     }
   }
 })();

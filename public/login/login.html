@@ -1,0 +1,44 @@
+<md-content layout="row"
+  layout-padding layout-wrap
+  layout-align="center center"
+  ng-cloak
+  style="background: transparent;"
+  >
+  <div flex hide-sm>
+  </div>
+  <md-card class="md-default-theme"
+    md-whiteframe="2"
+    flex-gt-sm="50"
+    flex="100">
+    <md-card-content class="autoScroll">
+      <form name="loginForm">
+        <md-input-container class="md-icon-float md-block">
+          <label>Usuario / email</label>
+          <md-icon class="material-icons" aria-label="Usuario">person</md-icon>
+          <input
+            type="text"
+            ng-model="login.userName"
+            >
+        </md-input-container>
+        <md-input-container class="md-icon-float md-block">
+          <label>Contraseña</label>
+          <md-icon class="material-icons" aria-label="Contraseña">vpn_key</md-icon>
+          <input
+            type="text"
+            ng-model="login.userPassword"
+            >
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-xs>
+          <md-button
+            class="md-raised md-accent md-hue-2"
+            ng-click="login.submitForm($event)">
+            Ingresar
+          </md-button>
+          <br>
+        </md-input-container>
+      </form>
+    </md-card-content>
+  </md-card>
+  <div flex hide-sm>
+  </div>
+</md-content>
