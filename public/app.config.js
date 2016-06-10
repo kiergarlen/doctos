@@ -37,7 +37,7 @@
 
     $routeProvider
       .otherwise({
-        redirectTo: '/search'
+        redirectTo: '/login'
       })
       .when('/login', {
         templateUrl: 'login/login.html',

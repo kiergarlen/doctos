@@ -5,10 +5,10 @@
     .controller('LoginController', LoginController);
 
   LoginController.$inject = [
-    '$scope', '$location', '$mdDialog'
+    '$scope', '$location'
   ];
 
-  function LoginController($scope, $location, $mdDialog) {
+  function LoginController($scope, $location) {
     var vm = this;
     vm.isLoggedIn = false;
     vm.userData = {};
@@ -18,11 +18,6 @@
     vm.submitForm = submitForm;
 
     function submitForm(e) {
-      console.log(e);
-      alert('login');
-    }
-
-    function openSearch($event) {
       $location.path('/search');
     }
   }
