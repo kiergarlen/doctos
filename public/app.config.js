@@ -44,6 +44,11 @@
         controller: 'LoginController',
         controllerAs: 'login'
       })
+      .when('/profile', {
+        templateUrl: 'profile/profile.html',
+        controller: 'ProfileController',
+        controllerAs: 'profile'
+      })
       .when('/search', {
         templateUrl: 'search/search.html',
         controller: 'SearchController',

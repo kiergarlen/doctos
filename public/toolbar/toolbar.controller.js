@@ -34,15 +34,7 @@
     }
 
     function openProfile($event) {
-      $mdDialog.show(
-        $mdDialog.alert()
-          .targetEvent(originatorEvent)
-          .clickOutsideToClose(true)
-          .title('Atención')
-          .textContent('Ver perfil?')
-          .ariaLabel('Ventana de diálogo')
-          .ok('Ok')
-      );
+      $location.path('/profile');
       originatorEvent = null;
     }
 

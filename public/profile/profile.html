@@ -1,0 +1,57 @@
+<md-content layout="row"
+  layout-padding layout-wrap
+  layout-align="center center"
+  ng-cloak
+  style="background: transparent;"
+  >
+  <div flex hide-sm>
+  </div>
+  <md-card class="md-default-theme"
+    md-whiteframe="2"
+    flex-gt-sm="50"
+    flex="100">
+    <md-card-content class="autoScroll">
+      <div layout="row" flex>
+        <img
+          alt="Usuario"
+          ng-src="img/avatar.png"
+          class="md-avatar"
+          width="64" height="64"
+          />
+        <div layout="column" flex>
+          <h2>Nombre de usuario<br>
+          </h2>
+        </div>
+      </div>
+
+      <form name="passwordForm">
+        <md-input-container class="md-icon-float md-block">
+          <label>Contraseña actual</label>
+          <md-icon class="material-icons" aria-label="Contraseña Actual">lock_outline</md-icon>
+          <input
+            type="password"
+            ng-model="profile.currentPassword"
+            >
+        </md-input-container>
+        <md-input-container class="md-icon-float md-block">
+          <label>Contraseña nueva</label>
+          <md-icon class="material-icons" aria-label="Contraseña Nueva">lock</md-icon>
+          <input
+            type="password"
+            ng-model="profile.newPassword"
+            >
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-xs>
+          <md-button
+            class="md-raised md-accent md-hue-2"
+            ng-click="profile.submitForm($event)">
+            Guardar
+          </md-button>
+          <br>
+        </md-input-container>
+      </form>
+    </md-card-content>
+  </md-card>
+  <div flex hide-sm>
+  </div>
+</md-content>
