@@ -3,10 +3,24 @@ var app = express();
 var mongodb = require('mongodb');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var morgan = require('morgan');
 var passport = require('passport');
+var jwt = require('jsonwebtoken');
 var JwtStrategy = require('passport-jwt').Strategy;
 var ExtractJwt = require('passport-jwt').ExtratJwt;
 var secret = '30dd4e63d8e077faf6173bedf47b68cbfba5505013cbbed2a9fe80b0f10fef5d';
+var port = 3000;
+var Schema = mongoose.Schema;
+var uri = 'mongodb://localhost:27017/documents';
+var config = require('./config/config');
+var User = require('./app/models/user');
+require('.config/passport')(passport);
+var apiRoutes = express.Router();
+
+
+
+
+
 // var options = {};
 
 // options.jwtFromRequest = ExtractJwt.formAuthHeader();
@@ -71,14 +85,69 @@ var documentsSchema = new Schema({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var Schema = mongoose.Schema;
+app.use(morgan('dev'));
 
-var uri = 'mongodb://localhost:27017/documents';
+app.use(passport.initialize());
 
-app.use(express.static('public'));
+
+mongoose.connect(config.database);
+
+apiRoutes.post('/register', function(req, res) {
+  if (!req.body.email || !req.body.password) {
+    res.json({success: false, message: 'Please entar an email and password to register'});
+  } else {
+    var newuser = new User({
+      email: req.body.email,
+      password: req.body.password
+    });
+
+    newUser.save(function(err) {
+      if (err) {
+        return res.json({success: false, message: 'Email already taken'});
+      }
+      res.json({success: true, message: 'great success!'});
+    });
+  }
+});
+
+apiRoutes.post('/autheticate', function(req, res) {
+  User.findOne({
+    email: req.body.email
+  }, function(err, user) {
+    if (err) {
+      throw err;
+    }
+    if (!user) {
+      res.send({success: false, message: 'Authentication failed. User not found'});
+    } else {
+      user.comparePassword(req.bosy.password, function(err, isMatch) {
+        if (isMatch && !err) {
+          var token = jwt.sign(user, config.secret, {
+            expiresIn: 100800
+          });
+          res.json({success: true, token: 'JWT ' + token});
+        } else{
+          res.send({success: false, message: 'Authentication failed. Password not found'});
+        }
+      });
+    }
+  });
+});
+
+apiRoutes.get('/dashboard', passport.authenticate('jwt', {session: false}), function(req, res) {
+  res.send('It worked. User id: ' + req.user._id);
+});
+
+app.use('/api', apiRoutes);
+
+app.get('/', function(req, res, err) {
+  res.send('this is your homepage');
+});
+
+
+// app.use(express.static('public'));
 // app.get('/', function(req, res) {
 //   var basicTemplate = [
-
 //     '<form role="form" name="searchForm">',
 //     '<input type="text name="searchTerms">',
 //     '<br>',
@@ -192,7 +261,7 @@ app.get('/api/v1/status', function(req, res) {
   });
 });
 
-app.listen(3000, function() {
+app.listen(port, function() {
   console.log('Server listening on port 3000');
 });
 

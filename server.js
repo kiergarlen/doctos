@@ -1,3 +1,27 @@
+const express = require('express')
+const app = express()
+const mongodb = require('mongodb')
+const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
+const passport = require('passport')
+const JwtStrategy = require('passport-jwt')(Strategy)
+const ExtractJwt = require('passport-jwt')(ExtratJwt)
+const secret = '30dd4e63d8e077faf6173bedf47b68cbfba5505013cbbed2a9fe80b0f10fef5d'
+
+
+app.use(session({
+  store: new RedisStore({
+    url: config.redisStore.url
+  }),
+  secret: config.redisStore.secret,
+  resave: false,
+  saveUnitialized: false
+}))
+
+app.use(passport.initialize(()))
+app.use(passport.session())
+
+
 // db.oficios.find(
 //   {$text: {$search: 'CUENCAS'}},
 //   {score: {$meta:'textScore'}}
@@ -81,9 +105,9 @@ app.get('/profile',
 
 app.listen(3000);
 */
-module.exports = function() {
-  var app = express();
-  app.use(express.static('app'));
+// module.exports = function() {
+//   var app = express();
+//   app.use(express.static('app'));
 
   // app.get('/', function(req, res) {
   //   res.send('Hello, world!');
@@ -104,5 +128,5 @@ module.exports = function() {
   //   res.send(response);
   // });
 
-  return app;
-};
+//   return app;
+// };
