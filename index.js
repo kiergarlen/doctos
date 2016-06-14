@@ -14,7 +14,7 @@ var Schema = mongoose.Schema;
 var uri = 'mongodb://localhost:27017/documents';
 var config = require('./config/config');
 var User = require('./app/models/user');
-require('.config/passport')(passport);
+require('./config/passport')(passport);
 var apiRoutes = express.Router();
 
 
@@ -110,7 +110,7 @@ apiRoutes.post('/register', function(req, res) {
   }
 });
 
-apiRoutes.post('/autheticate', function(req, res) {
+apiRoutes.post('/authenticate', function(req, res) {
   User.findOne({
     email: req.body.email
   }, function(err, user) {

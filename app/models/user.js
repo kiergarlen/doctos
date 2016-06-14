@@ -1,4 +1,3 @@
-// user.js
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 
@@ -33,10 +32,10 @@ UserSchema.pre('save', function(next) {
         }
         user.password = hash;
         next();
-      }
-    );
+      });
+    });
   }
-);
+});
 
 UserSchema.methods.comparePassword = function(pw, cb) {
   bcrypt.compare(pw, this.password, function(err, isMatch) {
