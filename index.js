@@ -17,12 +17,7 @@ var User = require('./app/models/user');
 require('./config/passport')(passport);
 var apiRoutes = express.Router();
 
-
-
-
-
 // var options = {};
-
 // options.jwtFromRequest = ExtractJwt.formAuthHeader();
 // options.secretOrKey = 'mySecretKey';
 // options.issuer = 'my-cool-domain.com';
@@ -81,14 +76,12 @@ var documentsSchema = new Schema({
 //   res.send(req.user.profile);
 // })
 
-
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(morgan('dev'));
 
 app.use(passport.initialize());
-
 
 mongoose.connect(config.database);
 
@@ -96,7 +89,7 @@ apiRoutes.post('/register', function(req, res) {
   if (!req.body.email || !req.body.password) {
     res.json({success: false, message: 'Please entar an email and password to register'});
   } else {
-    var newuser = new User({
+    var newUser = new User({
       email: req.body.email,
       password: req.body.password
     });
@@ -120,14 +113,14 @@ apiRoutes.post('/authenticate', function(req, res) {
     if (!user) {
       res.send({success: false, message: 'Authentication failed. User not found'});
     } else {
-      user.comparePassword(req.bosy.password, function(err, isMatch) {
+      user.comparePassword(req.body.password, function(err, isMatch) {
         if (isMatch && !err) {
           var token = jwt.sign(user, config.secret, {
             expiresIn: 100800
           });
           res.json({success: true, token: 'JWT ' + token});
-        } else{
-          res.send({success: false, message: 'Authentication failed. Password not found'});
+        } else {
+          res.send({success: false, message: 'Authentication failed. Password mismatch'});
         }
       });
     }
@@ -143,7 +136,6 @@ app.use('/api', apiRoutes);
 app.get('/', function(req, res, err) {
   res.send('this is your homepage');
 });
-
 
 // app.use(express.static('public'));
 // app.get('/', function(req, res) {
@@ -188,11 +180,11 @@ app.post('/api/v1/search', function(req, res) {
     db.collection('docs').find(
       {$text: {$search: searchedText}},
       {
-          'status': 1,
-          'response': 1,
-          'reception.subject': 1,
-          'reception.url': 1,
-          'score': {$meta:'textScore'}
+        'status': 1,
+        'response': 1,
+        'reception.subject': 1,
+        'reception.url': 1,
+        'score': {$meta:'textScore'}
       }
     )
     .sort({score:{$meta:'textScore'}})

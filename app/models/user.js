@@ -34,6 +34,8 @@ UserSchema.pre('save', function(next) {
         next();
       });
     });
+  } else {
+    return next();
   }
 });
 
