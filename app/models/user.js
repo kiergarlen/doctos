@@ -14,15 +14,15 @@ var UserSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['Client', 'Manager', 'Admin'],
-    default:  'Client'
+    enum: ['Guest', 'Author', 'Admin'],
+    default:  'Guest'
   }
 });
 
 UserSchema.pre('save', function(next) {
   var user = this;
-  if (user.idModified('password') || this.isNew) {
-    bcrypt.getSalt(10, function(err, salt) {
+  if (user.isModified('password') || this.isNew) {
+    bcrypt.genSalt(10, function(err, salt) {
       if (err) {
         return next(err);
       }
