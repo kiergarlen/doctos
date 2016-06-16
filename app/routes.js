@@ -3,12 +3,17 @@ var passport = require('passport');
 var express = require('express');
 var config = require('../config/config');
 var jwt = require('jsonwebtoken');
+var bodyParser = require('body-parser');
+var mongodb = require('mongodb');
 
 var User = require('./models/user');
+var Document = require('./models/document');
 
 // Export the routes for our app to use
 module.exports = function(app) {
   app.use(passport.initialize());
+  app.use(bodyParser.urlencoded({extended: true}));
+  app.use(bodyParser.json());
 
   require('../config/passport')(passport);
 
@@ -56,13 +61,31 @@ module.exports = function(app) {
     });
   });
 
-  //Protect dashboard route with JWT
   apiRoutes.get('/dashboard', passport.authenticate('jwt', {session: false}),
     function(req, res) {
       res.send('It worked! User id is: ' + req.user._id);
     }
   );
 
-  //Set Url for API group routes
+  // );
+  // TODO: When JWT authentication is implemented, add auth middleware
+  // apiRoutes.post('/search', passport.authenticate('jwt', {session: false}),
+  apiRoutes.post('/search',
+    function(req, res) {
+      var searchedText = req.body.term;
+      Document.find(
+        {$text: {$search: searchedText}},
+        {score: {$meta: 'textScore'}}
+      )
+      .sort({score:{$meta: 'textScore'}})
+      .exec(function(err, docs) {
+        if (err) {
+          res.send({success: false, message: 'Query failed. Error: ' + err});
+        }
+        res.send(JSON.stringify(docs));
+      });
+    }
+  );
+
   app.use('/api', apiRoutes)
 }

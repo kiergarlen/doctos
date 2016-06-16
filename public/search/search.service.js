@@ -8,13 +8,13 @@
   ];
 
   function SearchService($resource, TokenService) {
-    return $resource('api/v1/search', {}, {
+    return $resource('api/search', {}, {
       query: {
         method: 'POST',
         params: {term: 'term'},
         isArray: true//,
         // headers: {
-        //   'Auth-Token': TokenService.getTokenHeader()
+        //   'Authorization': 'JWT ' + TokenService.getToken()
         // }
       }
     });

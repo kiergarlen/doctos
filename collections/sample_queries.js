@@ -14,8 +14,10 @@ db.getCollection('docs').find(
             "$gte":ISODate("2015-10-23T09:00:00.000Z"),
             "$lte":ISODate("2015-12-23T09:00:00.000Z")
            }
+        }
       ]
-  });
+  }
+);
 
 db.docs.ensureIndex(
   {
