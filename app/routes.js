@@ -50,7 +50,7 @@ module.exports = function(app) {
         user.comparePassword(req.body.password, function(err, isMatch) {
           if (isMatch && !err) {
             var token = jwt.sign(user, config.secret, {
-              expiresIn: 3600
+              expiresIn: 86400
             });
             res.json({success: true, token: 'JWT ' + token});
           } else {
@@ -67,7 +67,6 @@ module.exports = function(app) {
     }
   );
 
-  // );
   // TODO: When JWT authentication is implemented, add auth middleware
   // apiRoutes.post('/search', passport.authenticate('jwt', {session: false}),
   apiRoutes.post('/search',
@@ -77,6 +76,7 @@ module.exports = function(app) {
         {$text: {$search: searchedText}},
         {score: {$meta: 'textScore'}}
       )
+      .select('status response reception.subject reception.url')
       .sort({score:{$meta: 'textScore'}})
       .exec(function(err, docs) {
         if (err) {

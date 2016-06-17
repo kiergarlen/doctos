@@ -5,10 +5,10 @@
     .controller('LoginController', LoginController);
 
   LoginController.$inject = [
-    '$scope', '$location'
+    '$scope', '$location', 'TokenService'
   ];
 
-  function LoginController($scope, $location) {
+  function LoginController($scope, $location, TokenService) {
     var vm = this;
     vm.isLoggedIn = false;
     vm.userData = {};
@@ -18,7 +18,21 @@
     vm.submitForm = submitForm;
 
     function submitForm(e) {
-      $location.path('/search');
+      // if (!$scope.loginForm.$valid) {
+      //   console.log('Ingrese usuario y/o contraseña');
+      //   return;
+      // }
+      if (vm.userName.length > 1 && vm.userPassword.length > 1) {
+        $location.path('/search');
+        // console.log(TokenService.authenticate(
+        //   vm.userName,
+        //   vm.userPassword
+        // ));
+        // if (TokenService.isAuthenticated()) {
+        // } else {
+        //   // TODO: flash authentication error, clean up form
+        // }
+      }
     }
   }
 })();

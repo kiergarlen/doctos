@@ -14,7 +14,7 @@
         params: {term: 'term'},
         isArray: true//,
         // headers: {
-        //   'Authorization': 'JWT ' + TokenService.getToken()
+        //   'Authorization': TokenService.getToken()
         // }
       }
     });

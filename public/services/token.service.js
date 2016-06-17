@@ -15,9 +15,9 @@
     var Token = {};
 
     Token.hashMessage = hashMessage;
-    Token.authenticateUser = authenticateUser;
+    Token.authenticate = authenticate;
     Token.isAuthenticated = isAuthenticated;
-    Token.setToken = setToken;
+    // Token.setToken = setToken;
     Token.getToken = getToken;
     Token.clearToken = clearToken;
     Token.decodeToken = decodeToken;
@@ -27,18 +27,18 @@
       return CryptoJS.SHA256(message);
     }
 
-    function authenticateUser(username, password) {
+    function authenticate(username, password) {
       $http({
-        url: 'api/v1/login',
+        url: 'api/authenticate',
         method: 'POST',
         data: {
-          username: username,
+          email: username,
           password: password
         }
       }).then(function success(response) {
         var token = response.data || null;
         setToken(token);
-        $location.path('main');
+        $location.path('/search');
       }, function error(response) {
         if (response.status === 404) {
           return 'Sin enlace al servidor';
