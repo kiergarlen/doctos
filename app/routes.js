@@ -61,6 +61,36 @@ module.exports = function(app) {
     });
   });
 
+  apiRoutes.get('/user', passport.authenticate('jwt', {session: false}),
+    function(req, res) {
+      User.find({}, function(err, users) {
+        if (err) {
+          throw err;
+        }
+        if (!user) {
+          res.send({success: false, message: 'Users not found'});
+        } else {
+          res.json(users);
+        }
+      });
+    }
+  );
+
+  apiRoutes.get('/user/:userId', passport.authenticate('jwt', {session: false}),
+    function(req, res) {
+      User.findOne({_id: req.params.userId}, function(err, user) {
+        if (err) {
+          throw err;
+        }
+        if (!user) {
+          res.send({success: false, message: 'User not found'});
+        } else {
+          res.json(user);
+        }
+      });
+    }
+  );
+
   apiRoutes.get('/dashboard', passport.authenticate('jwt', {session: false}),
     function(req, res) {
       res.send('It worked! User id is: ' + req.user._id);
@@ -83,6 +113,70 @@ module.exports = function(app) {
           res.send({success: false, message: 'Query failed. Error: ' + err});
         }
         res.send(JSON.stringify(docs));
+      });
+    }
+  );
+
+  // TODO: When JWT authentication is implemented, add auth middleware
+  // apiRoutes.get('/document', passport.authenticate('jwt', {session: false}),
+  apiRoutes.get('/document',
+    function(req, res) {
+      Document.find({}, function(err, docs) {
+        if (err) {
+          res.send({success: false, message: 'Not found'});
+        }
+        res.json(docs);
+      });
+    }
+  );
+
+  // TODO: When JWT authentication is implemented, add auth middleware
+  // apiRoutes.post('/document', passport.authenticate('jwt', {session: false}),
+  apiRoutes.post('/document',
+    function(req, res) {
+      var doc = new Document();
+      doc.entryUser = req.body;
+      doc.entryUser = req.user._id;
+
+      doc.save(function(err) {
+        if (err) {
+          res.send({success: false, message: 'Error: ' + err});
+        }
+        res.json({success: true, message: 'Document saved'});
+      });
+    }
+  );
+
+  // TODO: When JWT authentication is implemented, add auth middleware
+  // apiRoutes.post('/document/:documentId', passport.authenticate('jwt', {session: false}),
+  apiRoutes.post('/document/:documentId',
+    function(req, res) {
+      Document.findOne({_id: req.params.documentId}, function(err, doc) {
+        if (err) {
+          res.send({success: false, message: 'Error: ' + err});
+        }
+
+        doc = req.body;
+
+        doc.save(function(err) {
+          if (err) {
+            res.send({success: false, message: 'Error: ' + err});
+          }
+          res.json({success: true, message: 'Document updated'});
+        });
+      });
+    }
+  );
+
+  // TODO: When JWT authentication is implemented, add auth middleware
+  // apiRoutes.delete('/document/:documentId', passport.authenticate('jwt', {session: false}),
+  apiRoutes.delete('/document/:documentId',
+    function(req, res) {
+      Document.findOneAndRemove({_id: req.params.documentId}, function(err, doc) {
+        if (err) {
+          res.send({success: false, message: 'Error: ' + err});
+        }
+        res.json({success: true, message: 'Document removed'});
       });
     }
   );

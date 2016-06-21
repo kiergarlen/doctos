@@ -15,7 +15,7 @@ var DocumentSchema = new mongoose.Schema({
   },
   entryUser: {
     type: String,
-    required: true
+    required: false
   },
   reception: {
     controlNumber: {
@@ -65,6 +65,9 @@ var DocumentSchema = new mongoose.Schema({
       required: true
     }
   }
+},
+{
+  timestamps: true
 });
 
 module.exports = mongoose.model('Doc', DocumentSchema);
