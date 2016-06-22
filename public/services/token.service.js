@@ -10,7 +10,7 @@
 
   function TokenService($window, $http, $location, jwtHelper) {
     var tokenKey = 'token';
-    var storage = $window.localStorage;
+    var storage = $window.sessionStorage;
     var cachedToken;
     var Token = {};
 
@@ -36,7 +36,7 @@
           password: password
         }
       }).then(function success(response) {
-        var token = response.data || null;
+        var token = response.data.token || null;
         setToken(token);
         $location.path('/search');
       }, function error(response) {
