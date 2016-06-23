@@ -21,7 +21,7 @@
         TokenService.authenticate(
           vm.userName,
           vm.userPassword
-        ));
+        );
       }
     }
   }

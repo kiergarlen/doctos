@@ -131,11 +131,24 @@ module.exports = function(app) {
   );
 
   // TODO: When JWT authentication is implemented, add auth middleware
+  // apiRoutes.get('/document', passport.authenticate('jwt', {session: false}),
+  apiRoutes.get('/document/:documentId',
+    function(req, res) {
+      Document.findOne({_id: req.params.documentId}, function(err, doc) {
+        if (err) {
+          res.send({success: false, message: 'Not found'});
+        }
+        res.json(doc);
+      });
+    }
+  );
+
+  // TODO: When JWT authentication is implemented, add auth middleware
   // apiRoutes.post('/document', passport.authenticate('jwt', {session: false}),
   apiRoutes.post('/document',
     function(req, res) {
       var doc = new Document();
-      doc.entryUser = req.body;
+      // doc = req.body.doc;
       doc.entryUser = req.user._id;
 
       doc.save(function(err) {
