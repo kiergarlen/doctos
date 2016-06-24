@@ -5,13 +5,13 @@
     .controller('ToolbarController', ToolbarController);
 
   ToolbarController.$inject = [
-    '$scope', '$location', '$mdDialog'
+    '$scope', '$location', '$mdDialog', 'TokenService'
   ];
 
-  function ToolbarController($scope, $location, $mdDialog) {
+  function ToolbarController($scope, $location, $mdDialog, TokenService) {
     var vm = this;
     var originatorEvent;
-    vm.isLoggedIn = true;
+    vm.isLoggedIn = false;
     vm.searchText = '';
 
     vm.openMenu = openMenu;

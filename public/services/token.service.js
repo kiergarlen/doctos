@@ -17,7 +17,7 @@
     Token.hashMessage = hashMessage;
     Token.authenticate = authenticate;
     Token.isAuthenticated = isAuthenticated;
-    // Token.setToken = setToken;
+    Token.setToken = setToken;
     Token.getToken = getToken;
     Token.clearToken = clearToken;
     Token.decodeToken = decodeToken;
