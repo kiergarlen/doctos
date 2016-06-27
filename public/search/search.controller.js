@@ -14,6 +14,7 @@
     vm.results = [];
     vm.isLoading = false;
     vm.submit = submit;
+    vm.viewDocument = viewDocument;
 
     function submit() {
       vm.isLoading = true;
@@ -37,6 +38,10 @@
             vm.results = response;
           });
       }
+    }
+
+    function viewDocument(e) {
+      console.log(e);
     }
   }
 })();
