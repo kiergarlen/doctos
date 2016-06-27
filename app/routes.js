@@ -98,8 +98,8 @@ module.exports = function(app) {
   );
 
   // TODO: When JWT authentication is implemented, add auth middleware
-  // apiRoutes.post('/search', passport.authenticate('jwt', {session: false}),
-  apiRoutes.post('/search',
+  // apiRoutes.post('/search',
+  apiRoutes.post('/search', passport.authenticate('jwt', {session: false}),
     function(req, res) {
       var searchedText = req.body.term;
       Document.find(
@@ -118,8 +118,8 @@ module.exports = function(app) {
   );
 
   // TODO: When JWT authentication is implemented, add auth middleware
-  // apiRoutes.get('/document', passport.authenticate('jwt', {session: false}),
-  apiRoutes.get('/document',
+  // apiRoutes.get('/document',
+  apiRoutes.get('/document', passport.authenticate('jwt', {session: false}),
     function(req, res) {
       Document.find({}, function(err, docs) {
         if (err) {
@@ -131,8 +131,8 @@ module.exports = function(app) {
   );
 
   // TODO: When JWT authentication is implemented, add auth middleware
-  // apiRoutes.get('/document', passport.authenticate('jwt', {session: false}),
-  apiRoutes.get('/document/:documentId',
+  // apiRoutes.get('/document/:documentId',
+  apiRoutes.get('/document', passport.authenticate('jwt', {session: false}),
     function(req, res) {
       Document.findOne({_id: req.params.documentId}, function(err, doc) {
         if (err) {
@@ -144,8 +144,8 @@ module.exports = function(app) {
   );
 
   // TODO: When JWT authentication is implemented, add auth middleware
-  // apiRoutes.post('/document', passport.authenticate('jwt', {session: false}),
-  apiRoutes.post('/document',
+  // apiRoutes.post('/document',
+  apiRoutes.post('/document', passport.authenticate('jwt', {session: false}),
     function(req, res) {
       var doc = new Document();
       // doc = req.body.doc;
@@ -161,8 +161,8 @@ module.exports = function(app) {
   );
 
   // TODO: When JWT authentication is implemented, add auth middleware
-  // apiRoutes.post('/document/:documentId', passport.authenticate('jwt', {session: false}),
-  apiRoutes.post('/document/:documentId',
+  // apiRoutes.post('/document/:documentId',
+  apiRoutes.post('/document/:documentId', passport.authenticate('jwt', {session: false}),
     function(req, res) {
       Document.findOne({_id: req.params.documentId}, function(err, doc) {
         if (err) {
@@ -182,8 +182,8 @@ module.exports = function(app) {
   );
 
   // TODO: When JWT authentication is implemented, add auth middleware
-  // apiRoutes.delete('/document/:documentId', passport.authenticate('jwt', {session: false}),
-  apiRoutes.delete('/document/:documentId',
+  // apiRoutes.delete('/document/:documentId',
+  apiRoutes.delete('/document/:documentId', passport.authenticate('jwt', {session: false}),
     function(req, res) {
       Document.findOneAndRemove({_id: req.params.documentId}, function(err, doc) {
         if (err) {

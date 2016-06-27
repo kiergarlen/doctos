@@ -14,11 +14,16 @@
     vm.isLoggedIn = false;
     vm.searchText = '';
 
+    vm.checkIfLoggedIn = checkIfLoggedIn;
     vm.openMenu = openMenu;
     vm.openProfile = openProfile;
     vm.openSearch = openSearch;
     vm.openDocument = openDocument;
     vm.openLogout = openLogout;
+
+    function checkIfLoggedIn() {
+      return TokenService.isAuthenticated();
+    }
 
     function openMenu($mdOpenMenu, ev) {
       originatorEvent = ev;
@@ -40,6 +45,7 @@
 
     function openLogout($event) {
       originatorEvent = null;
+      TokenService.clearToken();
       $location.path('/login');
     }
   }

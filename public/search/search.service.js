@@ -12,10 +12,10 @@
       query: {
         method: 'POST',
         params: {term: 'term'},
-        isArray: true//,
-        // headers: {
-        //   'Authorization': TokenService.getToken()
-        // }
+        isArray: true,
+        headers: {
+           'Authorization': TokenService.getToken()
+        }
       }
     });
   }

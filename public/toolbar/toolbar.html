@@ -7,11 +7,11 @@
     </h3>
     <h3 hide-gt-xs>
       Oficios
-      {{toolbar.isLoggedIn}}
+      {{toolbar.checkIfLoggedIn()}}
     </h3>
     <span flex></span>
     <div
-      ng-if="toolbar.isLoggedIn">
+      ng-if="toolbar.checkIfLoggedIn()">
       <md-button
         aria-label="Búsqueda"
         class="md-icon-button"

@@ -12,7 +12,7 @@
     var vm = this;
     vm.isLoggedIn = false;
     vm.userData = {};
-    vm.currentPassword = 'password';
+    vm.currentPassword = '';
     vm.newPassword = '';
 
     vm.submitForm = submitForm;
