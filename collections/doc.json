@@ -1,0 +1,42 @@
+  {
+    "number": "OFC.DG-001\/2015",
+    "status":"ACUSE ORIGINAL",
+    "written_at": {
+      "$date": "2015-01-08T00:00:00.000+05:00"
+    },
+    "signed_at": {
+      "$date": "2015-01-08T00:00:00.000+05:00"
+    },
+    "sent_at": {
+      "$date": "2015-01-08T00:00:00.000+05:00"
+    },
+    "url":"..\\..\\..\\Escaneados\\OFICIOS 2015\\OFICIO DG-001-201512923720150108100858.pdf",
+    "receiver": {
+      "type": "Dependencia",
+      "organization": "Secretaría de Planeación, Administración y Finanzas (SEPAF)",
+      "name": "Secretario Juan Pérez Sosa"
+    },
+    "reception": {
+      "control": "26919",
+      "office": "Dirección de Cuencas y Sustentabilidad",
+      "receptionist": "Martha Patricia Gutiérrez Osorio",
+      "received_at": {"$date": "2015-01-08T00:00:00.000+05:00"},
+      "subject": "Asunto del documento original"
+    },
+    "created_by": {
+      "_id": 12346,
+      "name": "usuario captura"
+    },
+    "created_at": {
+      "$date": "2015-01-08T00:00:00.000+05:00"
+    },
+    "updated_by": {
+      "_id": 12346,
+      "name": "usuario captura"
+    },
+    "updated_at": {
+      "$date": "2015-01-08T00:00:00.000+05:00"
+    }
+    "subject":"asunto del oficio de respuesta",
+    "contents":"texto plano con el contenido integral del ofcio o documento firmado",
+  }
