@@ -1,4 +1,5 @@
-(function(window, document, undefined) {
+/*global angular*/
+(function(window, document) {
   'use strict';
   angular
     .module('docsApp')
@@ -15,7 +16,7 @@
         params: {documentId: 'documentId'},
         isArray: false//,
         // headers: {
-        //   'Auth-Token': TokenService.getTokenHeader()
+        //   'Authorization': TokenService.getToken()
         // }
       },
       get: {
@@ -23,24 +24,24 @@
         params: {},
         isArray: true,
         // headers: {
-        //   'Auth-Token': TokenService.getTokenHeader()
+        //   'Authorization': TokenService.getToken()
         // }
       },
       update: {
         method: 'POST',
         params: {},
-        isArray: false//,
-        // headers: {
-        //   'Auth-Token': TokenService.getTokenHeader()
-        // }
+        isArray: false,
+        headers: {
+          'Authorization': TokenService.getToken()
+        }
       },
       save: {
         method: 'POST',
         params: {},
-        isArray: false//,
-        // headers: {
-        //   'Auth-Token': TokenService.getTokenHeader()
-        // }
+        isArray: false,
+        headers: {
+          'Authorization': TokenService.getToken()
+        }
       }
     });
   }

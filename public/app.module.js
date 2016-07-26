@@ -1,7 +1,6 @@
-/*global angular, CryptoJS*/
-(function(window, document, undefined) {
+/*global angular*/
+(function(window, document) {
   'use strict';
-
   angular
     .module('docsApp', [
       'ngRoute',

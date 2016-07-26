@@ -1,10 +1,11 @@
-(function(window, document, undefined) {
+/*global angular, CryptoJS*/
+(function(window, document) {
   'use strict';
   angular
     .module('docsApp')
     .factory('TokenService', TokenService);
 
-  TokenService.$inject =[
+  TokenService.$inject = [
     '$window', '$http', '$location', 'jwtHelper'
   ];
 

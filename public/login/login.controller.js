@@ -1,4 +1,5 @@
-(function(window, document, undefined) {
+/*global angular*/
+(function(window, document) {
   'use strict';
   angular
     .module('docsApp')
@@ -18,6 +19,7 @@
 
     function submitForm(e) {
       if (vm.userName.length > 1 && vm.userPassword.length > 1) {
+        e.preventDefault();
         TokenService.authenticate(
           vm.userName,
           vm.userPassword

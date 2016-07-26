@@ -11,37 +11,81 @@
     flex-gt-sm="66"
     flex="100">
     <md-card-content class="autoScroll md-padding">
-      <h1>Nuevo registro</h1>
+      <h1>Documento</h1>
       <form name="newDocForm">
         <md-card class="md-default-theme"
           md-whiteframe="1">
           <md-card-content>
             <md-card-title-text>
-              <span class="md-headline">Recepción</span>
+              <span class="md-headline">Respuesta</span>
             </md-card-title-text>
+            <md-input-container class="md-block" flex-gt-xs>
+              <label>Número de Oficio</label>
+              <input ng-model="document.doc.number">
+            </md-input-container>
             <md-input-container class="md-block" flex-gt-xs>
               <label>Status acuse</label>
               <md-select ng-model="document.doc.status">
                 <md-option
-                  ng-repeat="item in document.status">
-                  {{item.status}}
+                  ng-repeat="item in document.statusTypes">
+                  {{::item.status}}
                 </md-option>
               </md-select>
             </md-input-container>
-            <div layout-gt-xs="row">
-              <md-input-container class="md-block" flex-gt-xs>
-                <label>Número de Control</label>
-                <input ng-model="document.doc.reception.controlNumber">
-              </md-input-container>
-              <md-datepicker
-                name="receptionDateField"
-                ng-model="document.doc.reception.date"
-                md-placeholder="Fecha recepción"
-                required
-                md-min-date="document.minDate"
-                md-max-date="document.maxDate"
+            <h4>Destinatario</h4>
+            <md-input-container class="md-block" flex-gt-xs>
+              <label>Tipo</label>
+              <md-select ng-model="document.doc.receiver.type">
+                <md-option
+                  ng-repeat="item in document.receiverTypes">
+                  {{::item.type}}
+                </md-option>
+              </md-select>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-xs>
+              <label>Dependencia/Organización</label>
+              <input ng-model="document.doc.receiver.organization">
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-xs>
+              <label>Encargado/Nombre</label>
+              <input ng-model="document.doc.receiver.name">
+            </md-input-container>
+            <h4>Datos respuesta</h4>
+            <md-input-container class="md-block" flex-gt-xs>
+              <label>Asunto</label>
+              <input
+                ng-model="document.doc.subject"
+                md-maxlength="200"
                 >
-              </md-datepicker>
+            </md-input-container>
+            <md-input-container class="md-block">
+              <label>Contenido</label>
+              <textarea
+                ng-model="document.doc.content"
+                rows="10"
+                >
+              </textarea>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-xs>
+              <label>Hipervínculo</label>
+              <!--
+              <input type="file" onchange="handleFiles(this.files)">
+              -->
+              <input type="text"
+                ng-model="document.doc.url"
+                >
+            </md-input-container>
+            <label>Fecha elaboración</label>
+            <md-datepicker
+              name="draftDateField"
+              ng-model="document.doc.draftDate"
+              md-placeholder="Fecha elaboración"
+              required
+              md-min-date="document.minDate"
+              md-max-date="document.maxDate"
+              >
+            </md-datepicker>
+            <div>
               <div layout="column"
                 class="validation-messages"
                 ng-messages="newDocForm.receptionDateField.$error">
@@ -54,70 +98,52 @@
                 </div>
               </div>
             </div>
-            <md-autocomplete
-              md-selected-item="document.selectedItem"
-              md-search-text-change="document.searchTextChange(document.searchText)"
-              md-search-text="document.searchText"
-              md-selected-item-change="document.selectedItemChange(item)"
-              md-items="item in document.querySearch(document.searchText)"
-              md-item-text="item.office"
-              md-min-length="0"
-              placeholder="¿Cuál es el Área receptora?">
-              <md-item-template>
-                <span
-                  md-highlight-text="document.searchText"
-                  md-highlight-flags="^i">{{item.office}}</span>
-              </md-item-template>
-              <md-not-found>
-                Sin coincidencias para "{{document.searchText}}"
-              </md-not-found>
-            </md-autocomplete>
-            <md-input-container class="md-block" flex-gt-xs>
-              <label>Recepcionista</label>
-              <input ng-model="document.doc.reception.receptionist">
-            </md-input-container>
-            <md-input-container class="md-block" flex-gt-xs>
-              <label>Ruta del archivo original</label>
-              <!--
-              <input type="file" onchange="handleFiles(this.files)">
-              -->
-              <input type="text"
-                ng-model="document.doc.reception.url"
-                >
-            </md-input-container>
-            <md-input-container class="md-block" flex-gt-xs>
-              <label>Asunto</label>
-              <input
-                ng-model="document.doc.reception.subject"
-                md-maxlength="200"
-                >
-            </md-input-container>
-            <md-input-container class="md-block">
-              <label>Contenido</label>
-              <textarea
-                ng-model="document.doc.reception.contents"
-                rows="10"
-                >
-              </textarea>
-            </md-input-container>
+            <br>
+            <label>Fecha recepción (Firma)</label>
+            <md-datepicker
+              name="signDateField"
+              ng-model="document.doc.signDate"
+              md-placeholder="Fecha recepción (Firma)"
+              required
+              md-min-date="document.minDate"
+              md-max-date="document.maxDate"
+              >
+            </md-datepicker>
+            <div>
+              <div layout="column"
+                class="validation-messages"
+                ng-messages="newDocForm.receptionDateField.$error">
+                <div ng-message="valid">No es una fecha válida</div>
+                <div ng-message="mindate">
+                  La fecha es anterior al rango permitido
+                </div>
+                <div ng-message="maxdate">
+                  La fecha es posterior al rango permitido
+                </div>
+              </div>
+            </div>
+            <br>
+            <br>
           </md-card-content>
         </md-card>
         <md-card class="md-default-theme"
           md-whiteframe="1">
           <md-card-content>
             <md-card-title-text>
-              <span class="md-headline">Respuesta</span>
+              <span class="md-headline">Recepción</span>
             </md-card-title-text>
             <div layout-gt-xs="row">
               <md-input-container class="md-block" flex-gt-xs>
-                <label>Número de Oficio</label>
-                <input ng-model="document.doc.response.number">
+                <label>Número de Control</label>
+                <input ng-model="document.doc.reception.controlNumber">
               </md-input-container>
-
+            </div>
+            <div layout-gt-xs="row">
+              <label>Fecha recepción (Original)</label>
               <md-datepicker
-                name="responseDateField"
-                ng-model="document.doc.response.date"
-                md-placeholder="Fecha respuesta"
+                name="receptionDateField"
+                ng-model="document.doc.reception.receptionDate"
+                md-placeholder="Fecha recepción (Original)"
                 required
                 md-min-date="document.minDate"
                 md-max-date="document.maxDate"
@@ -125,19 +151,40 @@
               </md-datepicker>
               <div layout="column"
                 class="validation-messages"
-                ng-messages="newDocForm.responseDateField.$error">
+                ng-messages="newDocForm.receptionDateField.$error">
                 <div ng-message="valid">No es una fecha válida</div>
                 <div ng-message="mindate">La fecha es anterior al rango</div>
                 <div ng-message="maxdate">La fecha es posterior al rango</div>
               </div>
             </div>
+            <md-autocomplete
+              md-selected-item="document.selectedItem"
+              md-search-text-change="document.searchChange(document.search)"
+              md-search-text="document.search"
+              md-selected-item-change="document.selectedItemChange(item)"
+              md-items="item in document.querySearch(document.search)"
+              md-item-text="item.office"
+              md-min-length="0"
+              placeholder="Área receptora">
+              <md-item-template>
+                <span
+                  md-highlight-text="document.search"
+                  md-highlight-flags="^i">{{item.office}}</span>
+              </md-item-template>
+              <md-not-found>
+                Sin coincidencias para "{{document.search}}"
+              </md-not-found>
+            </md-autocomplete>
             <md-input-container class="md-block" flex-gt-xs>
-              <label>Remitente</label>
-              <input ng-model="document.doc.response.sender">
+              <label>Recepcionista</label>
+              <input ng-model="document.doc.reception.receptionist">
             </md-input-container>
             <md-input-container class="md-block" flex-gt-xs>
-              <label>Organización del Remitente</label>
-              <input ng-model="document.doc.response.senderOrganization">
+              <label>Asunto (Original)</label>
+              <input
+                ng-model="document.doc.reception.subject"
+                md-maxlength="200"
+                >
             </md-input-container>
           </md-card-content>
         </md-card>

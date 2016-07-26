@@ -146,7 +146,6 @@ app.post('/api/v1/search', function(req, res) {
         console.log('ERROR ' + error);
       }
 
-      // console.log('Found docs');
       // docs.forEach(function(doc) {
       //   console.log(JSON.stringify(doc));
       // });

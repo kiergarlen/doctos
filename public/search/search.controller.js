@@ -1,4 +1,5 @@
-(function(window, document, undefined) {
+/*global angular*/
+(function(window, document) {
   'use strict';
   angular
     .module('docsApp')
@@ -41,7 +42,8 @@
     }
 
     function viewDocument(e) {
-      console.log(e);
+      //console.log(e);
+      return e;
     }
   }
 })();

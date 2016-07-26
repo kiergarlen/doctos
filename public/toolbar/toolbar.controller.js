@@ -1,4 +1,5 @@
-(function(window, document, undefined) {
+/*global angular*/
+(function(window, document) {
   'use strict';
   angular
     .module('docsApp')
@@ -10,7 +11,6 @@
 
   function ToolbarController($scope, $location, $mdDialog, TokenService) {
     var vm = this;
-    var originatorEvent;
     vm.isLoggedIn = false;
     vm.searchText = '';
 
@@ -26,27 +26,28 @@
     }
 
     function openMenu($mdOpenMenu, ev) {
-      originatorEvent = ev;
       $mdOpenMenu(ev);
     }
 
-    function openSearch($event) {
+    function openSearch(e) {
       $location.path('/search');
+      return e;
     }
 
-    function openDocument($event) {
+    function openDocument(e) {
       $location.path('/document/add');
+      return e;
     }
 
-    function openProfile($event) {
+    function openProfile(e) {
       $location.path('/profile');
-      originatorEvent = null;
+      return e;
     }
 
-    function openLogout($event) {
-      originatorEvent = null;
+    function openLogout(e) {
       TokenService.clearToken();
       $location.path('/login');
+      return e;
     }
   }
 })();

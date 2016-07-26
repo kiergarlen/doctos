@@ -43,34 +43,35 @@
           ng-repeat="item in search.results">
           <div class="md-list-item-text" layout="column">
             <small class="md-caption">
-              Status: {{item.status}}
+              Status: {{::item.status}}
             </small>
             <small class="md-caption">
-              <i>(Respuesta {{item.response.date | date: 'dd/MM/yyyy'}})</i>
+              <i>(Respuesta {{::item.response.date | date: 'dd/MM/yyyy'}})</i>
             </small>
             <p class="md-body-2">
-              Organización: {{item.response.senderOrganization}}<br>
+              Organización: {{::item.response.senderOrganization}}<br>
               <small>
                 <i>
-                Remitente: {{item.response.sender}}
+                Remitente: {{::item.response.sender}}
                 </i>
               </small>
             </p>
             <h4 class="md-title">
-              Asunto: {{item.reception.subject}}
+              Asunto: {{::item.reception.subject}}
             </h4>
             <!--
             <a
-              ng-href="file:{{item.reception.url}}"
+              ng-href="file:{{::item.reception.url}}"
               ng-if="item.reception.url.length > 0">
-              <md-icon class="material-icons" aria-label="archivo">insert_drive_file</md-icon>
-              {{item.reception.url}}
+              <md-icon class="material-icons"
+                aria-label="archivo">insert_drive_file</md-icon>
+              {{::item.reception.url}}
             </a>
             <br>
             -->
             <small>
               Relevancia:
-              {{item.score | number: 2}}
+              {{::item.score | number: 2}}
             </small>
           </div>
           <md-divider ng-if="!$last"></md-divider>

@@ -1,10 +1,11 @@
-(function(window, document, undefined) {
+/*global angular*/
+(function(window, document) {
   'use strict';
   angular
     .module('docsApp')
     .factory('SearchService', SearchService);
-  SearchService.$inject =[
-      '$resource', 'TokenService'
+  SearchService.$inject = [
+    '$resource', 'TokenService'
   ];
 
   function SearchService($resource, TokenService) {
@@ -16,6 +17,14 @@
         // headers: {
         //    'Authorization': TokenService.getToken()
         // }
+      },
+      save: {
+        method: 'POST',
+        params: {},
+        isArray: false,
+        headers: {
+          'Authorization': TokenService.getToken()
+        }
       }
     });
   }

@@ -1,15 +1,19 @@
-(function(window, document, undefined) {
+/*global angular*/
+(function(window, document) {
   'use strict';
   angular
     .module('docsApp')
-    .config(
-      [
-        '$routeProvider', '$mdThemingProvider', 'jwtInterceptorProvider',
-        config
-      ]
-    );
+    .config([
+      '$routeProvider', '$mdThemingProvider',
+      config
+    ]);
+    // .config([
+    //   '$routeProvider', '$mdThemingProvider', 'jwtInterceptorProvider',
+    //   config
+    // ]);
 
-  function config($routeProvider, $mdThemingProvider, jwtInterceptorProvider) {
+  //function config($routeProvider, $mdThemingProvider, jwtInterceptorProvider) {
+  function config($routeProvider, $mdThemingProvider) {
     $mdThemingProvider.definePalette('ceaPalette', {
       '50':'e9f1fa',
       '100':'bed4ef',

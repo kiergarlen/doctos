@@ -1,1 +1,1 @@
-logout.controller.js
+'use strict';
