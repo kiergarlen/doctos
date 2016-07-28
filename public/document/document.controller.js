@@ -82,10 +82,10 @@
     );
 
     function querySearch (query) {
-      var results = query ? vm.respondents.filter( createFilterFor(query) ) : vm.respondents, deferred;
+      var results = query ? vm.respondents.filter(createFilterFor(query)) : vm.respondents, deferred;
       if (results) {
         deferred = $q.defer();
-        $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
+        $timeout(function() { deferred.resolve(results); }, Math.random() * 1000, false);
         return deferred.promise;
       } else {
         return results;

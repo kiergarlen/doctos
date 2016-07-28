@@ -75,7 +75,7 @@
                 ng-model="document.doc.url"
                 >
             </md-input-container>
-            <label>Fecha elaboración</label>
+            <label>Fecha elaboración</label><br>
             <md-datepicker
               name="draftDateField"
               ng-model="document.doc.draftDate"
@@ -88,7 +88,7 @@
             <div>
               <div layout="column"
                 class="validation-messages"
-                ng-messages="newDocForm.receptionDateField.$error">
+                ng-messages="newDocForm.draftDateField.$error">
                 <div ng-message="valid">No es una fecha válida</div>
                 <div ng-message="mindate">
                   La fecha es anterior al rango permitido
@@ -99,7 +99,7 @@
               </div>
             </div>
             <br>
-            <label>Fecha recepción (Firma)</label>
+            <label>Fecha recepción (Firma)</label><br>
             <md-datepicker
               name="signDateField"
               ng-model="document.doc.signDate"
@@ -112,7 +112,7 @@
             <div>
               <div layout="column"
                 class="validation-messages"
-                ng-messages="newDocForm.receptionDateField.$error">
+                ng-messages="newDocForm.signDateField.$error">
                 <div ng-message="valid">No es una fecha válida</div>
                 <div ng-message="mindate">
                   La fecha es anterior al rango permitido
@@ -138,24 +138,22 @@
                 <input ng-model="document.doc.reception.controlNumber">
               </md-input-container>
             </div>
-            <div layout-gt-xs="row">
-              <label>Fecha recepción (Original)</label>
-              <md-datepicker
-                name="receptionDateField"
-                ng-model="document.doc.reception.receptionDate"
-                md-placeholder="Fecha recepción (Original)"
-                required
-                md-min-date="document.minDate"
-                md-max-date="document.maxDate"
-                >
-              </md-datepicker>
-              <div layout="column"
-                class="validation-messages"
-                ng-messages="newDocForm.receptionDateField.$error">
-                <div ng-message="valid">No es una fecha válida</div>
-                <div ng-message="mindate">La fecha es anterior al rango</div>
-                <div ng-message="maxdate">La fecha es posterior al rango</div>
-              </div>
+            <label>Fecha recepción (Original)</label><br>
+            <md-datepicker
+              name="receptionDateField"
+              ng-model="document.doc.reception.receptionDate"
+              md-placeholder="Fecha recepción (Original)"
+              required
+              md-min-date="document.minDate"
+              md-max-date="document.maxDate"
+              >
+            </md-datepicker>
+            <div layout="column"
+              class="validation-messages"
+              ng-messages="newDocForm.receptionDateField.$error">
+              <div ng-message="valid">No es una fecha válida</div>
+              <div ng-message="mindate">La fecha es anterior al rango</div>
+              <div ng-message="maxdate">La fecha es posterior al rango</div>
             </div>
             <md-autocomplete
               md-selected-item="document.selectedItem"
