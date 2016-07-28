@@ -5,24 +5,64 @@ var DocumentSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     required: true
   },
+  number: {
+    type: String,
+    required: false
+  },
   status: {
     type: String,
     required: true
   },
-  comment: {
+  receiver: {
+    kind: {
+      type: String,
+      required: true
+    },
+    organization: {
+      type: String,
+      required: false
+    },
+    name: {
+      type: String,
+      required: true
+    }
+  },
+  url: {
     type: String,
     required: false
   },
-  entryUser: {
+  draftDate: {
+    type: Date,
+    default: Date.now
+  },
+  signDate: {
+    type: Date,
+    default: Date.now
+  },
+  subject: {
     type: String,
-    required: false
+    required: true
+  },
+  content: {
+    type: String,
+    required: true
+  },
+  entryUser: {
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true
+    },
+    name: {
+      type: String,
+      required: true
+    }
   },
   reception: {
     controlNumber: {
       type: String,
       required: false
     },
-    date: {
+    receptionDate: {
       type: Date,
       default: Date.now
     },
@@ -32,37 +72,11 @@ var DocumentSchema = new mongoose.Schema({
     },
     receptionist: {
       type: String,
-      required: true
-    },
-    url: {
-      type: String,
       required: false
     },
     subject: {
       type: String,
-      required: true
-    },
-    contents: {
-      type: String,
       required: false
-    }
-  },
-  response: {
-    date: {
-      type: Date,
-      default: Date.now
-    },
-    number: {
-      type: String,
-      required: false
-    },
-    senderOrganization: {
-      type: String,
-      required: true
-    },
-    sender: {
-      type: String,
-      required: true
     }
   }
 },

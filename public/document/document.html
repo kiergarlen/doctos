@@ -155,24 +155,15 @@
               <div ng-message="mindate">La fecha es anterior al rango</div>
               <div ng-message="maxdate">La fecha es posterior al rango</div>
             </div>
-            <md-autocomplete
-              md-selected-item="document.selectedItem"
-              md-search-text-change="document.searchChange(document.search)"
-              md-search-text="document.search"
-              md-selected-item-change="document.selectedItemChange(item)"
-              md-items="item in document.querySearch(document.search)"
-              md-item-text="item.office"
-              md-min-length="0"
-              placeholder="Área receptora">
-              <md-item-template>
-                <span
-                  md-highlight-text="document.search"
-                  md-highlight-flags="^i">{{item.office}}</span>
-              </md-item-template>
-              <md-not-found>
-                Sin coincidencias para "{{document.search}}"
-              </md-not-found>
-            </md-autocomplete>
+            <md-input-container class="md-block" flex-gt-xs>
+              <label>Status acuse</label>
+              <md-select ng-model="document.doc.reception.office">
+                <md-option
+                  ng-repeat="item in document.respondents">
+                  {{::item.office}}
+                </md-option>
+              </md-select>
+            </md-input-container>
             <md-input-container class="md-block" flex-gt-xs>
               <label>Recepcionista</label>
               <input ng-model="document.doc.reception.receptionist">
