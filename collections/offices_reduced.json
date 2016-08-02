@@ -1,0 +1,203 @@
+        {
+          'officeId':1,
+          'areaId':34,
+          'categoryId':1,
+          'direction':'Dirección General',
+          'office':'Dirección General',
+          'manager': {
+            'employeeId':1417,
+            'firstName':'Felipe',
+            'middleName':'Tito',
+            'lastName':'Lugo',
+            'secondLastName':'Arias',
+            'position':'Director General'
+          }
+        }
+
+        {
+          'officeId':1,
+          'areaId':34,
+          'categoryId':2,
+          'direction':'Dirección General',
+          'office':'Secretaría Técnica',
+          'manager': {
+            'employeeId':1440,
+            'firstName':'Uriel',
+            'middleName':'Alejandro',
+            'lastName':'Parga',
+            'secondLastName':'Ramírez',
+            'position':'Secretario Técnico'
+          }
+        }
+
+        {
+          'officeId':1,
+          'areaId':34,
+          'categoryId':3,
+          'direction':'Dirección General',
+          'office':'Gerencia de Estudios Técnicos',
+          'manager': {
+            'employeeId':200,
+            'firstName':'Aldo',
+            'lastName':'García',
+            'secondLastName':'Rodríguez',
+            'position':'Gerente de Estudios Técnicos'
+          }
+        }
+
+        {
+          'officeId':1,
+          'areaId':34,
+          'categoryId':3,
+          'direction':'Dirección General',
+          'office':'Secretaría Particular',
+          'manager': {
+            'employeeId':69,
+            'firstName':'Martha',
+            'middleName':'Erika',
+            'lastName':'Miranda',
+            'secondLastName':'Torres',
+            'position':'Secretaria Particular'
+          }
+        }
+
+        {
+          'officeId':2,
+          'areaId':35,
+          'categoryId':2,
+          'direction':'Contraloría Interna',
+          'office':'Contraloría Interna',
+          'manager': {
+            'employeeId':1407,
+            'firstName':'Miriam',
+            'middleName':'Astrid',
+            'lastName':'Beltrán',
+            'secondLastName':'Fernández',
+            'position':'Contralor Interno'
+          }
+        }
+
+        {
+          'officeId':3,
+          'areaId':40,
+          'categoryId':2,
+          'direction':'Dirección de Administración',
+          'office':'Dirección de Administración',
+          'manager': {
+            'employeeId':1470,
+            'firstName':'Hector',
+            'middleName':'Manuel',
+            'lastName':'Salas',
+            'secondLastName':'Barba',
+            'position':'Director de Administración'
+          }
+        }
+
+        {
+          'officeId':3,
+          'areaId':25,
+          'categoryId':3,
+          'direction':'Dirección de Administración',
+          'office':'Gerencia Jurídica',
+          'manager': {
+            'employeeId':179,
+            'firstName':'Carlos',
+            'middleName':'Roberto',
+            'lastName':'Rojas',
+            'secondLastName':'Dávila',
+            'position':'Gerente Jurídico'
+          }
+        }
+
+        {
+          'officeId':4,
+          'areaId':5,
+          'categoryId':2,
+          'direction':'Dirección de Comunicación Institucional',
+          'office':'Dirección de Comunicación Institucional',
+          'manager': {
+            'employeeId':1737,
+            'firstName':'Azahar',
+            'middleName':'Margarita',
+            'lastName':'Alcázar',
+            'secondLastName':'Pérez',
+            'position':'Director de Comunicación Institucional'
+          }
+        }
+
+        {
+          'officeId':5,
+          'areaId':42,
+          'categoryId':2,
+          'direction':'Dirección de la UEAS',
+          'office':'Dirección de la UEAS',
+          'manager': {
+            'employeeId':1602,
+            'firstName':'Salvador',
+            'lastName':'Delgado',
+            'secondLastName':'Sánchez',
+            'position':'Director de la UEAS'
+          }
+        }
+
+        {
+          'officeId':6,
+          'areaId':41,
+          'categoryId':2,
+          'direction':'Dirección de Operación de PTAR’s',
+          'office':'Dirección de Operación de PTAR’s',
+          'manager': {
+            'employeeId':220,
+            'firstName':'Luis',
+            'lastName':'Aceves',
+            'secondLastName':'Martínez',
+            'position':'Director de Operación de PTAR’s'
+          }
+        }
+
+        {
+          'officeId':7,
+          'areaId':37,
+          'categoryId':2,
+          'direction':'Dirección de Planeación Estratégica',
+          'office':'Dirección de Planeación Estratégica',
+          'manager': {
+            'employeeId':618,
+            'firstName':'Linda',
+            'lastName':'Michel',
+            'secondLastName':'Ramírez',
+            'position':'Director de Planeación Estratégica'
+          }
+        }
+
+        {
+          'officeId':8,
+          'areaId':38,
+          'categoryId':2,
+          'direction':'Dirección de Cuencas y Sustentabilidad',
+          'office':'Dirección de Cuencas y Sustentabilidad',
+          'manager': {
+            'employeeId':51,
+            'firstName':'Armando',
+            'middleName':'Brígido',
+            'lastName':'Muñoz',
+            'secondLastName':'Juárez',
+            'position':'Director de Cuencas y Sustentabilidad'
+          }
+        }
+
+        {
+          'officeId':9,
+          'areaId':39,
+          'categoryId':2,
+          'direction':'Dirección de Apoyo a Municipios',
+          'office':'Dirección de Apoyo a Municipios',
+          'manager': {
+            'employeeId':1408,
+            'firstName':'Ernesto',
+            'lastName':'Marroquín',
+            'secondLastName':'Álvarez',
+            'position':'Director de Apoyo a Municipios'
+          }
+        }
+      ];

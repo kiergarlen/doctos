@@ -39,14 +39,6 @@ var DocumentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  subject: {
-    type: String,
-    required: true
-  },
-  content: {
-    type: String,
-    required: true
-  },
   entryUser: {
     id: {
       type: mongoose.Schema.Types.ObjectId,
@@ -78,6 +70,14 @@ var DocumentSchema = new mongoose.Schema({
       type: String,
       required: false
     }
+  },
+  subject: {
+    type: String,
+    required: true
+  },
+  content: {
+    type: String,
+    required: true
   }
 },
 {

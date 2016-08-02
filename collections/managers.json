@@ -1,0 +1,124 @@
+{
+    'employeeId':1417,
+    'firstName':'Felipe',
+    'middleName':'Tito',
+    'lastName':'Lugo',
+    'secondLastName':'Arias',
+    'area':'Director General'
+    'position':'Director General'
+}
+
+{
+    'employeeId':1440,
+    'firstName':'Uriel',
+    'middleName':'Alejandro',
+    'lastName':'Parga',
+    'secondLastName':'Ramírez',
+    'area':'Secretario Técnico'
+    'position':'Secretario Técnico'
+}
+
+{
+    'employeeId':200,
+    'firstName':'Aldo',
+    'lastName':'García',
+    'secondLastName':'Rodríguez',
+    'area':'Gerente de Estudios Técnicos'
+    'position':'Gerente de Estudios Técnicos'
+}
+
+{
+    'employeeId':69,
+    'firstName':'Martha',
+    'middleName':'Erika',
+    'lastName':'Miranda',
+    'secondLastName':'Torres',
+    'area':'Secretaria Particular'
+    'position':'Secretaria Particular'
+}
+
+{
+    'employeeId':1407,
+    'firstName':'Miriam',
+    'middleName':'Astrid',
+    'lastName':'Beltrán',
+    'secondLastName':'Fernández',
+    'area':'Contralor Interno'
+    'position':'Contralor Interno'
+}
+
+{
+    'employeeId':1470,
+    'firstName':'Hector',
+    'middleName':'Manuel',
+    'lastName':'Salas',
+    'secondLastName':'Barba',
+    'area':'Director de Administración'
+    'position':'Director de Administración'
+}
+
+{
+    'employeeId':179,
+    'firstName':'Carlos',
+    'middleName':'Roberto',
+    'lastName':'Rojas',
+    'secondLastName':'Dávila',
+    'area':'Gerente Jurídico'
+    'position':'Gerente Jurídico'
+}
+
+{
+    'employeeId':1737,
+    'firstName':'Azahar',
+    'middleName':'Margarita',
+    'lastName':'Alcázar',
+    'secondLastName':'Pérez',
+    'area':'Director de Comunicación Institucional'
+    'position':'Director de Comunicación Institucional'
+}
+
+{
+    'employeeId':1602,
+    'firstName':'Salvador',
+    'lastName':'Delgado',
+    'secondLastName':'Sánchez',
+    'area':'Director de la UEAS'
+    'position':'Director de la UEAS'
+}
+
+{
+    'employeeId':220,
+    'firstName':'Luis',
+    'lastName':'Aceves',
+    'secondLastName':'Martínez',
+    'area':'Director de Operación de PTAR’s'
+    'position':'Director de Operación de PTAR’s'
+}
+
+{
+    'employeeId':618,
+    'firstName':'Linda',
+    'lastName':'Michel',
+    'secondLastName':'Ramírez',
+    'area':'Director de Planeación Estratégica'
+    'position':'Director de Planeación Estratégica'
+}
+
+{
+    'employeeId':51,
+    'firstName':'Armando',
+    'middleName':'Brígido',
+    'lastName':'Muñoz',
+    'secondLastName':'Juárez',
+    'area':'Director de Cuencas y Sustentabilidad'
+    'position':'Director de Cuencas y Sustentabilidad'
+}
+
+{
+    'employeeId':1408,
+    'firstName':'Ernesto',
+    'lastName':'Marroquín',
+    'secondLastName':'Álvarez',
+    'area':'Director de Apoyo a Municipios'
+    'position':'Director de Apoyo a Municipios'
+}

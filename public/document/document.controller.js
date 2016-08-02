@@ -154,7 +154,8 @@
         signDate: new Date(),
         entryUser: {
           '_id': 12346,
-          'name': 'Oscar Gonzalez'
+          'name': 'Oscar Gonzalez',
+          'email': 'ogonzalez@ceajalisco.gob.mx'
         },
         reception: {
           controlNumber:'26919',
@@ -284,21 +285,6 @@
         },
         {
           'officeId':3,
-          'areaId':24,
-          'categoryId':3,
-          'direction':'Dirección de Administración',
-          'office':'Gerencia de Personal',
-          'manager': {
-            'employeeId':299,
-            'firstName':'Leticia',
-            'middleName':'Fabiola',
-            'lastName':'Cuán',
-            'secondLastName':'Ramírez',
-            'position':'Gerente de Personal'
-          }
-        },
-        {
-          'officeId':3,
           'areaId':25,
           'categoryId':3,
           'direction':'Dirección de Administración',
@@ -397,15 +383,6 @@
             'secondLastName':'Álvarez',
             'position':'Director de Apoyo a Municipios'
           }
-        },
-        {
-          'direction':'SIAPA',
-          'office':'Sistema Intermunicipal de Agua Potable',
-          'manager': {
-            'firstName':'Sin Nombre',
-            'lastName':'Sin apellido',
-            'position':'Recepcionista'
-          }
         }
       ];
       return respondentsArray;
@@ -414,13 +391,16 @@
     function getReceiverKinds() {
       var receiversArray = [
         {
-          'kind': 'Empresa'
+          '_id':'57a1040dfb3b62ab3198fa0d',
+          'kind':'Dependencia'
         },
         {
-          'kind': 'Dependencia'
+          '_id':'57a1040dfb3b62ab3198fa0e',
+          'kind':'Empresa'
         },
         {
-          'kind': 'Persona física'
+          '_id':'57a1040dfb3b62ab3198fa0f',
+          'kind':'Persona física'
         }
       ];
       return receiversArray;
