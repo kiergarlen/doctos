@@ -1,5 +1,5 @@
 /*global angular, CryptoJS*/
-(function(window, document) {
+(function() {
   'use strict';
   angular
     .module('docsApp')
@@ -76,19 +76,10 @@
     }
 
     function getUserFromToken() {
-      var decodedJwt;
-      var userData;
       if (isAuthenticated()) {
-        decodedJwt = decodeToken();
-        userData = {
-          name: decodedJwt.nam,
-          id: decodedJwt.uid,
-          level: decodedJwt.ulv,
-          role: decodedJwt.uro,
-          area: decodedJwt.uar
-        };
+        decodeToken();
       }
-      return userData;
+      return decodeToken();
     }
 
     return Token;

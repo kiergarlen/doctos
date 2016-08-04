@@ -76,14 +76,9 @@ var documentsSchema = new Schema({
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-
 app.use(morgan('dev'));
-
 app.use(passport.initialize());
-
 mongoose.connect(config.database);
-
-
 
 // app.get('/', function(req, res, err) {
 //   res.send('this is your homepage');
@@ -107,7 +102,6 @@ app.post('/api/v1/login', function(req, res) {
   mongodb.MongoClient.connect(uri, function(error, db) {
     if (error) {
       console.log('ERROR ' + error);
-      // process.exit(1);
     }
 
     db.collection('users').find(
@@ -161,13 +155,14 @@ app.get('/api/v1/document/:documentId', function(req, res) {
       console.log('ERROR ' + error);
     }
 
-    db.collection('docs').findOne({_id: documentId})
-    .toArray(function(error, docs) {
-      if (error) {
-        console.log('ERROR ' + error);
-      }
-      res.send(JSON.stringify(docs[0]));
-    });
+    db.collection('docs')
+      .findOne({_id: documentId})
+      .toArray(function(error, docs) {
+        if (error) {
+          console.log('ERROR ' + error);
+        }
+        res.send(JSON.stringify(docs[0]));
+      });
   });
 });
 

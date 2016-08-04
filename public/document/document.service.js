@@ -1,5 +1,5 @@
 /*global angular*/
-(function(window, document) {
+(function() {
   'use strict';
   angular
     .module('docsApp')
@@ -14,18 +14,18 @@
       query: {
         method: 'GET',
         params: {documentId: 'documentId'},
-        isArray: false//,
-        // headers: {
-        //   'Authorization': TokenService.getToken()
-        // }
+        isArray: false,
+        headers: {
+          'Authorization': TokenService.getToken()
+        }
       },
       get: {
         method: 'GET',
         params: {},
         isArray: true,
-        // headers: {
-        //   'Authorization': TokenService.getToken()
-        // }
+        headers: {
+          'Authorization': TokenService.getToken()
+        }
       },
       update: {
         method: 'POST',

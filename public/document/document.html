@@ -80,7 +80,6 @@
               name="draftDateField"
               ng-model="document.doc.draftDate"
               md-placeholder="Fecha elaboración"
-              required
               md-min-date="document.minDate"
               md-max-date="document.maxDate"
               >
@@ -104,7 +103,6 @@
               name="signDateField"
               ng-model="document.doc.signDate"
               md-placeholder="Fecha recepción (Firma)"
-              required
               md-min-date="document.minDate"
               md-max-date="document.maxDate"
               >
@@ -122,6 +120,7 @@
                 </div>
               </div>
             </div>
+            <br>
           </md-card-content>
         </md-card>
         <md-card class="md-default-theme"
