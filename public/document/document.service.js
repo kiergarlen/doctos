@@ -10,7 +10,7 @@
   ];
 
   function DocumentService($resource, TokenService) {
-    return $resource('api/v1/document', {}, {
+    return $resource('api/document', {}, {
       query: {
         method: 'GET',
         params: {documentId: 'documentId'},
@@ -36,7 +36,7 @@
         }
       },
       save: {
-        method: 'POST',
+        method: 'PUT',
         params: {},
         isArray: false,
         headers: {

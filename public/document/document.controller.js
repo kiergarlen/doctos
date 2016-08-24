@@ -20,6 +20,10 @@
     vm.maxDate = {};
     vm.respondents = getRespondents();
     vm.receiverKinds = getReceiverKinds();
+    vm.doSomething = function doSomething () {
+      alert('done');
+      console.log("message");
+    }
 
     vm.minDate = new Date(
       vm.myDate.getFullYear(),
@@ -406,24 +410,21 @@
       return receiversArray;
     }
 
+    function isValidDoc() {
+      return true;
+    }
+
+    function isNewDoc() {
+      return true;
+    }
+
     function submit() {
-      if (vm.term.length < 2) {
-        $mdDialog.show(
-          $mdDialog.alert()
-            .title('Atención')
-            .textContent('Debe ingresar un término de búsqueda válido')
-            .ariaLabel('Ventana de diálogo')
-            .ok('Aceptar')
-        );
-        vm.term = '';
-        vm.results = [].slice();
-      } else {
-        DocumentService
-          .query({term: vm.term})
-          .$promise
-          .then(function success(response) {
-            vm.results = response;
-          });
+      if (isValidDoc()) {
+        if (isNewDoc()) {
+          //TO DO: save to service
+        } else {
+          //TO DO: update to service
+        }
       }
     }
   }

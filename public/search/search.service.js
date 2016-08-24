@@ -13,7 +13,7 @@
     return $resource('api/search', {}, {
       query: {
         method: 'POST',
-        params: {term: 'term'},
+        params: {},
         isArray: true,
         headers: {
            'Authorization': TokenService.getToken()

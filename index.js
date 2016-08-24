@@ -166,6 +166,11 @@ app.get('/api/v1/document/:documentId', function(req, res) {
   });
 });
 
+app.post('/api/v1/document/', function (req, res) {
+  //TO DO: implement save and update methods
+  console.log(req.params);
+});
+
 app.get('/api/v1/status/:statusId', function(req, res) {
   var statusId = req.params.statusId;
   mongodb.MongoClient.connect(uri, function(error, db) {
