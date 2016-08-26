@@ -28,7 +28,7 @@
         }
       },
       update: {
-        method: 'POST',
+        method: 'PUT',
         params: {},
         isArray: false,
         headers: {
@@ -36,7 +36,7 @@
         }
       },
       save: {
-        method: 'PUT',
+        method: 'POST',
         params: {},
         isArray: false,
         headers: {

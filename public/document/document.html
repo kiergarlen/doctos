@@ -4,7 +4,6 @@
   ng-cloak
   style="background: transparent;"
   >
-
   <md-card class="md-default-theme"
     md-whiteframe="2"
     flex-offset-gt-sm="15"
@@ -18,7 +17,9 @@
         </md-card-title-text>
         <md-input-container class="md-block" flex-gt-xs>
           <label>Número de Oficio</label>
-          <input ng-model="document.doc.number">
+          <input ng-model="document.doc.number"
+            required
+            >
         </md-input-container>
         <md-input-container class="md-block" flex-gt-xs>
           <label>Status acuse</label>
@@ -41,7 +42,9 @@
         </md-input-container>
         <md-input-container class="md-block" flex-gt-xs>
           <label>Dependencia/Organización</label>
-          <input ng-model="document.doc.receiver.organization">
+          <input ng-model="document.doc.receiver.organization"
+            required
+            >
         </md-input-container>
         <md-input-container class="md-block" flex-gt-xs>
           <label>Encargado/Nombre</label>
@@ -51,8 +54,11 @@
         <md-input-container class="md-block" flex-gt-xs>
           <label>Asunto</label>
           <input
+            name="subjectInput"
             ng-model="document.doc.subject"
+            md-placeholder="Asunto del documento"
             md-maxlength="200"
+            required
             >
         </md-input-container>
         <md-input-container class="md-block">
@@ -65,9 +71,6 @@
         </md-input-container>
         <md-input-container class="md-block" flex-gt-xs>
           <label>Hipervínculo</label>
-          <!--
-          <input type="file" onchange="handleFiles(this.files)">
-          -->
           <input type="text"
             ng-model="document.doc.url"
             >
@@ -79,12 +82,14 @@
           md-placeholder="Fecha elaboración"
           md-min-date="document.minDate"
           md-max-date="document.maxDate"
+          required
           >
         </md-datepicker>
         <div>
           <div layout="column"
             class="validation-messages"
-            ng-messages="newDocForm.draftDateField.$error">
+            ng-messages="newDocForm.draftDateField.$error"
+            >
             <div ng-message="valid">No es una fecha válida</div>
             <div ng-message="mindate">
               La fecha es anterior al rango permitido
@@ -118,14 +123,16 @@
           </div>
         </div>
         <br>
-
         <md-card-title-text>
           <span class="md-headline">Recepción</span>
         </md-card-title-text>
         <div layout-gt-xs="row">
           <md-input-container class="md-block" flex-gt-xs>
             <label>Número de Control</label>
-            <input ng-model="document.doc.reception.controlNumber">
+            <input
+              ng-model="document.doc.reception.controlNumber"
+              required
+              >
           </md-input-container>
         </div>
         <label>Fecha recepción (Original)</label><br>
@@ -133,9 +140,9 @@
           name="receptionDateField"
           ng-model="document.doc.reception.receptionDate"
           md-placeholder="Fecha recepción (Original)"
-          required
           md-min-date="document.minDate"
           md-max-date="document.maxDate"
+          required
           >
         </md-datepicker>
         <div layout="column"
@@ -147,7 +154,10 @@
         </div>
         <md-input-container class="md-block" flex-gt-xs>
           <label>Área receptora</label>
-          <md-select ng-model="document.doc.reception.office">
+          <md-select
+            ng-model="document.doc.reception.office"
+            required
+            >
             <md-option
               ng-repeat="item in document.respondents">
               {{::item.office}}
@@ -169,16 +179,12 @@
           <md-button class="md-raised md-accent md-hue-2"
           ng-click="document.submit()"
           >
-            <md-icon
-              class="material-icons"
-              aria-label="Guardar"
-
-              >save</md-icon>
+            <md-icon class="material-icons"
+              aria-label="Guardar">save</md-icon>
             Guardar
           </md-button>
           <br>
         </md-input-container>
-
       </form>
     </md-card-content>
   </md-card>

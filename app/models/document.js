@@ -1,10 +1,6 @@
 var mongoose = require('mongoose');
 
 var DocumentSchema = new mongoose.Schema({
-  _id: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true
-  },
   number: {
     type: String,
     required: false
@@ -40,11 +36,11 @@ var DocumentSchema = new mongoose.Schema({
     default: Date.now
   },
   entryUser: {
-    id: {
-      type: mongoose.Schema.Types.ObjectId,
+    name: {
+      type: String,
       required: true
     },
-    name: {
+    email: {
       type: String,
       required: true
     }

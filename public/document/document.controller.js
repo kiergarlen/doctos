@@ -1,5 +1,5 @@
 /*global angular*/
-(function(window, document) {
+(function() {
   'use strict';
 
   angular
@@ -7,12 +7,29 @@
     .controller('DocumentController', DocumentController);
 
   DocumentController.$inject = [
-    '$mdDialog', '$timeout', '$q', '$log', 'DocumentService'
+    '$scope',
+    '$location',
+    '$mdDialog',
+    '$timeout',
+    '$q',
+    '$log',
+    'DateUtilsService',
+    'DocumentService'
   ];
 
-  function DocumentController($mdDialog, $timeout, $q, $log, DocumentService) {
+  function DocumentController(
+      $scope,
+      $location,
+      $mdDialog,
+      $timeout,
+      $q,
+      $log,
+      DateUtilsService,
+      DocumentService
+    ) {
     var vm = this;
     vm.submit = submit;
+    vm.file = null;
     vm.doc = getBaseDoc();
     vm.statusTypes = getStatusTypes();
     vm.myDate = new Date();
@@ -20,10 +37,13 @@
     vm.maxDate = {};
     vm.respondents = getRespondents();
     vm.receiverKinds = getReceiverKinds();
-    vm.doSomething = function doSomething () {
-      alert('done');
-      console.log("message");
-    }
+
+    // $scope.upload = function () {
+    //   console.log($scope.file);
+    //   var path = ($window.URL || $window.webkitURL)
+    //     .createObjectURL($scope.file);
+    //   console.log('path', path);
+    // };
 
     vm.minDate = new Date(
       vm.myDate.getFullYear(),
@@ -157,7 +177,6 @@
         draftDate: new Date(),
         signDate: new Date(),
         entryUser: {
-          '_id': 12346,
           'name': 'Oscar Gonzalez',
           'email': 'ogonzalez@ceajalisco.gob.mx'
         },
@@ -411,20 +430,65 @@
     }
 
     function isValidDoc() {
+      if (!vm.doc) {
+        console.log('invalid doc');
+        return false
+      }
+      if (!vm.doc.receiver.organization) {
+        console.log('invalid receiver organization');
+        return false;
+      }
+      if (!vm.doc.receiver.name) {
+        console.log('invalid receiver name');
+        return false;
+      }
+      if (!DateUtilsService.isValidDate(vm.doc.draftDate)) {
+        console.log('invalid draft date');
+        return false;
+      }
+      if (!vm.doc.reception.controlNumber) {
+        console.log('invalid original control number');
+        return false;
+      }
+      if (!DateUtilsService.isValidDate(vm.doc.reception.receptionDate)) {
+        console.log('invalid reception date');
+        return false;
+      }
       return true;
     }
 
     function isNewDoc() {
-      return true;
+      return !vm.doc._id;
     }
 
     function submit() {
       if (isValidDoc()) {
         if (isNewDoc()) {
           //TO DO: save to service
+          // console.log('new doc. saving...');
+          // console.log(JSON.stringify(vm.doc));
+          var returnPath = '/search';
+          DocumentService
+            .save(JSON.stringify(vm.doc))
+            .$promise
+            .then(function success(response) {
+                //$location.path(returnPath);
+                console.log(response);
+                return response;
+              }, function error(response) {
+                if (response.status === 404) {
+                  return 'Recurso no encontrado';
+                } else {
+                  return 'Error no especificado';
+                }
+              }
+            );
         } else {
           //TO DO: update to service
+          console.log('existing doc. updating...');
         }
+      } else {
+        console.log('doc has errors. do nothing');
       }
     }
   }

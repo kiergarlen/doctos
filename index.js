@@ -96,113 +96,113 @@ app.use(express.static('public'));
 //   res.send(basicTemplate);
 // });
 
-app.post('/api/v1/login', function(req, res) {
-  var username = req.body.username;
-  var userpass = req.body.userpass;
-  mongodb.MongoClient.connect(uri, function(error, db) {
-    if (error) {
-      console.log('ERROR ' + error);
-    }
+// app.post('/api/v1/login', function(req, res) {
+//   var username = req.body.username;
+//   var userpass = req.body.userpass;
+//   mongodb.MongoClient.connect(uri, function(error, db) {
+//     if (error) {
+//       console.log('ERROR ' + error);
+//     }
 
-    db.collection('users').find(
-      {username: username},
-      {password: userpass}
-    ).toArray(function(error, docs) {
-      if (error) {
-        console.log('ERROR ' + error);
-      }
-      res.send(JSON.stringify(docs));
-    });
-  });
-});
+//     db.collection('users').find(
+//       {username: username},
+//       {password: userpass}
+//     ).toArray(function(error, docs) {
+//       if (error) {
+//         console.log('ERROR ' + error);
+//       }
+//       res.send(JSON.stringify(docs));
+//     });
+//   });
+// });
 
-app.post('/api/v1/search', function(req, res) {
-  var searchedText = req.body.term;
-  mongodb.MongoClient.connect(uri, function(error, db) {
-    if (error) {
-      console.log('ERROR ' + error);
-    }
+// app.post('/api/v1/search', function(req, res) {
+//   var searchedText = req.body.term;
+//   mongodb.MongoClient.connect(uri, function(error, db) {
+//     if (error) {
+//       console.log('ERROR ' + error);
+//     }
 
-    db.collection('docs').find(
-      {$text: {$search: searchedText}},
-      {
-        'status': 1,
-        'response': 1,
-        'reception.subject': 1,
-        'reception.url': 1,
-        'score': {$meta:'textScore'}
-      }
-    )
-    .sort({score:{$meta:'textScore'}})
-    // .limit(50)
-    .toArray(function(error, docs) {
-      if (error) {
-        console.log('ERROR ' + error);
-      }
+//     db.collection('docs').find(
+//       {$text: {$search: searchedText}},
+//       {
+//         'status': 1,
+//         'response': 1,
+//         'reception.subject': 1,
+//         'reception.url': 1,
+//         'score': {$meta:'textScore'}
+//       }
+//     )
+//     .sort({score:{$meta:'textScore'}})
+//     // .limit(50)
+//     .toArray(function(error, docs) {
+//       if (error) {
+//         console.log('ERROR ' + error);
+//       }
 
-      // docs.forEach(function(doc) {
-      //   console.log(JSON.stringify(doc));
-      // });
-      res.send(JSON.stringify(docs));
-    });
-  });
-});
+//       // docs.forEach(function(doc) {
+//       //   console.log(JSON.stringify(doc));
+//       // });
+//       res.send(JSON.stringify(docs));
+//     });
+//   });
+// });
 
-app.get('/api/v1/document/:documentId', function(req, res) {
-  var documentId = req.params.documentId;
-  mongodb.MongoClient.connect(uri, function(error, db) {
-    if (error) {
-      console.log('ERROR ' + error);
-    }
+// app.get('/api/v1/document/:documentId', function(req, res) {
+//   var documentId = req.params.documentId;
+//   mongodb.MongoClient.connect(uri, function(error, db) {
+//     if (error) {
+//       console.log('ERROR ' + error);
+//     }
 
-    db.collection('docs')
-      .findOne({_id: documentId})
-      .toArray(function(error, docs) {
-        if (error) {
-          console.log('ERROR ' + error);
-        }
-        res.send(JSON.stringify(docs[0]));
-      });
-  });
-});
+//     db.collection('docs')
+//       .findOne({_id: documentId})
+//       .toArray(function(error, docs) {
+//         if (error) {
+//           console.log('ERROR ' + error);
+//         }
+//         res.send(JSON.stringify(docs[0]));
+//       });
+//   });
+// });
 
-app.post('/api/v1/document/', function (req, res) {
-  //TO DO: implement save and update methods
-  console.log(req.params);
-});
+// app.post('/api/document/', function (req, res) {
+//   //TO DO: implement save and update methods
+//   console.log(req.params);
+// });
 
-app.get('/api/v1/status/:statusId', function(req, res) {
-  var statusId = req.params.statusId;
-  mongodb.MongoClient.connect(uri, function(error, db) {
-    if (error) {
-      console.log('ERROR ' + error);
-    }
+// app.get('/api/status/:statusId', function(req, res) {
+//   var statusId = req.params.statusId;
+//   mongodb.MongoClient.connect(uri, function(error, db) {
+//     if (error) {
+//       console.log('ERROR ' + error);
+//     }
 
-    db.collection('status').findOne({_id: statusId})
-    .toArray(function(error, docs) {
-      if (error) {
-        console.log('ERROR ' + error);
-      }
-      res.send(JSON.stringify(docs[0]));
-    });
-  });
-});
+//     db.collection('status').findOne({_id: statusId})
+//     .toArray(function(error, docs) {
+//       if (error) {
+//         console.log('ERROR ' + error);
+//       }
+//       res.send(JSON.stringify(docs[0]));
+//     });
+//   });
+// });
 
-app.get('/api/v1/status', function(req, res) {
-  mongodb.MongoClient.connect(uri, function(error, db) {
-    if (error) {
-      console.log('ERROR ' + error);
-    }
+// app.get('/api/v1/status', function(req, res) {
+//   mongodb.MongoClient.connect(uri, function(error, db) {
+//     if (error) {
+//       console.log('ERROR ' + error);
+//     }
 
-    db.collection('status').find()
-    .toArray(function(error, docs) {
-      if (error) {
-        console.log('ERROR ' + error);
-      }
-      res.send(JSON.stringify(docs));
-    });
-  });
-});
+//     db.collection('status').find()
+//     .toArray(function(error, docs) {
+//       if (error) {
+//         console.log('ERROR ' + error);
+//       }
+//       res.send(JSON.stringify(docs));
+//     });
+//   });
+// });
 
 app.listen(port, function() {
   console.log('Server listening on port 3000');

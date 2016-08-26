@@ -41,9 +41,9 @@
       }
     }
 
-    function viewDocument(e) {
-      //console.log(e);
-      return e;
+    function viewDocument(id) {
+      console.log(id);
+      return id;
     }
   }
 })();

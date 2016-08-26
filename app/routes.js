@@ -45,7 +45,7 @@ module.exports = function(app) {
         throw err;
       }
       if (!user) {
-        res.send({success: false, message: 'Authentication failed, User not found'});
+        res.send({success: false, message: 'Not found'});
       } else {
         user.comparePassword(req.body.password, function(err, isMatch) {
           if (isMatch && !err) {
@@ -54,7 +54,7 @@ module.exports = function(app) {
             });
             res.json({success: true, token: 'JWT ' + token});
           } else {
-            res.send({success: false, message: 'Authentication failed. Password mismatch'});
+            res.send({success: false, message: 'Authentication failed.'});
           }
         });
       }
@@ -97,16 +97,16 @@ module.exports = function(app) {
     }
   );
 
-  // TODO: When JWT authentication is implemented, add auth middleware
-  // apiRoutes.post('/search', passport.authenticate('jwt', {session: false}),
-  apiRoutes.post('/search',
+  apiRoutes.post(
+    '/search',
+    passport.authenticate('jwt', {session: false}),
     function(req, res) {
       var searchedText = req.body.term;
       Document.find(
         {$text: {$search: searchedText}},
         {score: {$meta: 'textScore'}}
       )
-      .select('status response reception.subject reception.url')
+      .select('_id number status receiver reception subject signDate')
       .sort({score:{$meta: 'textScore'}})
       .exec(function(err, docs) {
         if (err) {
@@ -144,24 +144,26 @@ module.exports = function(app) {
   );
 
   // TODO: When JWT authentication is implemented, add auth middleware
-  // apiRoutes.post('/document', passport.authenticate('jwt', {session: false}),
+  // apiRoutes.post(
+  //   '/document',
+  //   passport.authenticate('jwt', {session: false}),
   apiRoutes.post('/document',
     function(req, res) {
-      var doc = new Document();
-      // doc = req.body.doc;
-      doc.entryUser = req.user._id;
-
-      doc.save(function(err) {
+      var doc = new Document(req.body);
+      //console.log(doc);
+      doc.save(function (err) {
         if (err) {
           res.send({success: false, message: 'Error: ' + err});
+        } else {
+          res.json({success: true, messge: 'Document saved'});
         }
-        res.json({success: true, message: 'Document saved'});
       });
     }
   );
 
   // TODO: When JWT authentication is implemented, add auth middleware
-  // apiRoutes.post('/document/:documentId', passport.authenticate('jwt', {session: false}),
+  // apiRoutes.post('/document/:documentId', passport.authenticate('jwt',
+  // {session: false}),
   apiRoutes.post('/document/:documentId',
     function(req, res) {
       Document.findOne({_id: req.params.documentId}, function(err, doc) {
@@ -183,14 +185,18 @@ module.exports = function(app) {
 
   // TODO: When JWT authentication is implemented, add auth middleware
   // apiRoutes.delete('/document/:documentId',
-  apiRoutes.delete('/document/:documentId', passport.authenticate('jwt', {session: false}),
+  apiRoutes.delete(
+    '/document/:documentId',
+    passport.authenticate('jwt', {session: false}),
     function(req, res) {
-      Document.findOneAndRemove({_id: req.params.documentId}, function(err, doc) {
-        if (err) {
-          res.send({success: false, message: 'Error: ' + err});
+      Document.findOneAndRemove({_id: req.params.documentId},
+        function(err, doc) {
+          if (err) {
+            res.send({success: false, message: 'Error: ' + err});
+          }
+          res.json({success: true, message: 'Document removed'});
         }
-        res.json({success: true, message: 'Document removed'});
-      });
+      );
     }
   );
 

@@ -21,27 +21,27 @@ db.getCollection('docs').find(
 
 db.docs.ensureIndex(
   {
-    'comment':'text',
-    'reception.office': 'text',
+    'number':'text',
+    'subject':'text',
+    'contents':'text',
+    'receiver.organization': 'text',
+    'reception.controlNumber':'text',
     'reception.subject':'text',
-    'reception.contents':'text',
-    'response.number':'text',
-    'response.senderOrganization':'text',
-    'response.sender':'text'
+    'reception.sender':'text'
   },
   {
     sparse: true,
     weights:
     {
-      'comment': 1,
-      'reception.office':2,
-      'reception.subject':10,
-      'reception.contents': 5,
-      'response.number':1,
-      'response.senderOrganization':2,
-      'response.sender':2
+      'number': 15,
+      'subject': 10,
+      'contents': 5,
+      'receiver.organization': 2,
+      'reception.controlNumber': 2,
+      'reception.subject':2
     },
     name: 'ContentTextIndex',
     default_language: 'spanish'
   }
 );
+
