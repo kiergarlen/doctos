@@ -6,16 +6,24 @@
     .controller('SearchController', SearchController);
 
   SearchController.$inject = [
-    '$mdDialog', 'SearchService'
+    '$location',
+    '$mdDialog',
+    'SearchService'
   ];
 
-  function SearchController($mdDialog, SearchService) {
+  function SearchController(
+      $location,
+      $mdDialog,
+      SearchService
+    ) {
     var vm = this;
     vm.term = '';
     vm.results = [];
     vm.isLoading = false;
     vm.submit = submit;
     vm.viewDocument = viewDocument;
+    vm.editDocument = editDocument;
+    vm.deleteDocument = deleteDocument;
 
     function submit() {
       vm.isLoading = true;
@@ -42,8 +50,15 @@
     }
 
     function viewDocument(id) {
-      console.log(id);
-      return id;
+      $location.path('document/view/' + id);
+    }
+
+    function editDocument(id) {
+      $location.path('document/view/' + id);
+    }
+
+    function deleteDocument(id) {
+      $location.path('document/view/' + id);
     }
   }
 })();

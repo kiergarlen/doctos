@@ -3,14 +3,14 @@
   'use strict';
   angular
     .module('docsApp')
-    .factory('DocumentService', DocumentService);
+    .factory('DocumentDetailService', DocumentDetailService);
 
-  DocumentService.$inject = [
+  DocumentDetailService.$inject = [
     '$resource', 'TokenService'
   ];
 
-  function DocumentService($resource, TokenService) {
-    return $resource('api/document/:documentId', {}, {
+  function DocumentDetailService($resource, TokenService) {
+    return $resource('api/document', {}, {
       query: {
         method: 'GET',
         params: {documentId: 'documentId'},

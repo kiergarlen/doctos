@@ -39,14 +39,13 @@
           Sin resultados
         </md-subheader>
         <md-list-item class="md-3-line"
-          ng-click="search.viewDocument($event)"
           ng-repeat="item in search.results"
           >
           <div
             class="md-list-item-text"
             layout="row"
             >
-            <div layout="column">
+            <div layout="column" flex="80">
               <b>
                 {{::item.number}}
               </b>
@@ -72,17 +71,41 @@
                 {{::item.score | number: 2}}
               </small>
             </div>
-            <div>
+            <div flex layout="column">
               <md-button
-                aria-label="Administración"
+                aria-label="Ver documento"
                 class="md-icon-button"
                 ng-click="search.viewDocument(item._id)"
                 >
                 <md-icon
                   class="material-icons"
-                  aria-label="Ver">eye</md-icon>
+                  aria-label="Ver documento">visibility</md-icon>
                 <md-tooltip>
-                  Ver
+                  Ver documento
+                </md-tooltip>
+              </md-button>
+              <md-button
+                aria-label="Editar documento"
+                class="md-icon-button"
+                ng-click="search.editDocument(item._id)"
+                >
+                <md-icon
+                  class="material-icons"
+                  aria-label="Editar documento">create</md-icon>
+                <md-tooltip>
+                  Editar documento
+                </md-tooltip>
+              </md-button>
+              <md-button
+                aria-label="Eliminar documento"
+                class="md-icon-button"
+                ng-click="search.deleteDocument(item._id)"
+                >
+                <md-icon
+                  class="material-icons"
+                  aria-label="Eliminar documento">delete</md-icon>
+                <md-tooltip>
+                  Eliminar documento
                 </md-tooltip>
               </md-button>
             </div>

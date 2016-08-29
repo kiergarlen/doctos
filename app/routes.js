@@ -19,49 +19,55 @@ module.exports = function(app) {
 
   var apiRoutes = express.Router();
 
-  apiRoutes.post('/register', function(req, res) {
-    if (!req.body.email || !req.body.password) {
-      res.json({success: false, message: 'Please enter email and password'});
-    } else {
-      var newUser = new User({
-        email: req.body.email,
-        password: req.body.password
-      });
-
-      newUser.save(function(err) {
-        if (err) {
-          return res.json({success: false, message: 'Email already exists'});
-        }
-        res.json({success: true, message: 'Successfully created new user'});
-      });
-    }
-  });
-
-  apiRoutes.post('/authenticate', function(req, res) {
-    User.findOne({
-      email: req.body.email
-    }, function(err, user) {
-      if (err) {
-        throw err;
-      }
-      if (!user) {
-        res.send({success: false, message: 'Not found'});
+  apiRoutes.post(
+    '/register',
+    function(req, res) {
+      if (!req.body.email || !req.body.password) {
+        res.json({success: false, message: 'Please enter email and password'});
       } else {
-        user.comparePassword(req.body.password, function(err, isMatch) {
-          if (isMatch && !err) {
-            var token = jwt.sign(user, config.secret, {
-              expiresIn: 86400
-            });
-            res.json({success: true, token: 'JWT ' + token});
-          } else {
-            res.send({success: false, message: 'Authentication failed.'});
+        var newUser = new User({
+          email: req.body.email,
+          password: req.body.password
+        });
+
+        newUser.save(function(err) {
+          if (err) {
+            return res.json({success: false, message: 'Email already exists'});
           }
+          res.json({success: true, message: 'Successfully created new user'});
         });
       }
     });
-  });
 
-  apiRoutes.get('/user', passport.authenticate('jwt', {session: false}),
+  apiRoutes.post(
+    '/authenticate',
+    function(req, res) {
+      User.findOne({
+        email: req.body.email
+      }, function(err, user) {
+        if (err) {
+          throw err;
+        }
+        if (!user) {
+          res.send({success: false, message: 'Not found'});
+        } else {
+          user.comparePassword(req.body.password, function(err, isMatch) {
+            if (isMatch && !err) {
+              var token = jwt.sign(user, config.secret, {
+                expiresIn: 86400
+              });
+              res.json({success: true, token: 'JWT ' + token});
+            } else {
+              res.send({success: false, message: 'Authentication failed.'});
+            }
+          });
+        }
+      });
+    });
+
+  apiRoutes.get(
+    '/user',
+    passport.authenticate('jwt', {session: false}),
     function(req, res) {
       User.find({}, function(err, users) {
         if (err) {
@@ -76,7 +82,9 @@ module.exports = function(app) {
     }
   );
 
-  apiRoutes.get('/user/:userId', passport.authenticate('jwt', {session: false}),
+  apiRoutes.get(
+    '/user/:userId',
+    passport.authenticate('jwt', {session: false}),
     function(req, res) {
       User.findOne({_id: req.params.userId}, function(err, user) {
         if (err) {
@@ -91,7 +99,9 @@ module.exports = function(app) {
     }
   );
 
-  apiRoutes.get('/dashboard', passport.authenticate('jwt', {session: false}),
+  apiRoutes.get(
+    '/dashboard',
+    passport.authenticate('jwt', {session: false}),
     function(req, res) {
       res.send('It worked! User id is: ' + req.user._id);
     }
@@ -117,9 +127,9 @@ module.exports = function(app) {
     }
   );
 
-  // TODO: When JWT authentication is implemented, add auth middleware
-  // apiRoutes.get('/document', passport.authenticate('jwt', {session: false}),
-  apiRoutes.get('/document',
+  apiRoutes.get(
+    '/document',
+    passport.authenticate('jwt', {session: false}),
     function(req, res) {
       Document.find({}, function(err, docs) {
         if (err) {
@@ -130,9 +140,9 @@ module.exports = function(app) {
     }
   );
 
-  // TODO: When JWT authentication is implemented, add auth middleware
-  // apiRoutes.get('/document', passport.authenticate('jwt', {session: false}),
-  apiRoutes.get('/document/:documentId',
+  apiRoutes.get(
+    '/document/:documentId',
+    passport.authenticate('jwt', {session: false}),
     function(req, res) {
       Document.findOne({_id: req.params.documentId}, function(err, doc) {
         if (err) {
@@ -143,15 +153,13 @@ module.exports = function(app) {
     }
   );
 
-  // TODO: When JWT authentication is implemented, add auth middleware
-  // apiRoutes.post(
-  //   '/document',
-  //   passport.authenticate('jwt', {session: false}),
-  apiRoutes.post('/document',
+  apiRoutes.post(
+    '/document',
+    passport.authenticate('jwt', {session: false}),
     function(req, res) {
       var doc = new Document(req.body);
       //console.log(doc);
-      doc.save(function (err) {
+      doc.save(function(err) {
         if (err) {
           res.send({success: false, message: 'Error: ' + err});
         } else {
@@ -161,30 +169,27 @@ module.exports = function(app) {
     }
   );
 
-  // TODO: When JWT authentication is implemented, add auth middleware
-  // apiRoutes.post('/document/:documentId', passport.authenticate('jwt',
-  // {session: false}),
-  apiRoutes.post('/document/:documentId',
+  apiRoutes.post(
+    '/document/:documentId',
+    passport.authenticate('jwt', {session: false}),
     function(req, res) {
-      Document.findOne({_id: req.params.documentId}, function(err, doc) {
-        if (err) {
-          res.send({success: false, message: 'Error: ' + err});
-        }
-
-        doc = req.body;
-
-        doc.save(function(err) {
+      Document.findOne({_id: req.params.documentId},
+        function(err, doc) {
           if (err) {
             res.send({success: false, message: 'Error: ' + err});
           }
-          res.json({success: true, message: 'Document updated'});
-        });
-      });
+          doc = req.body;
+          doc.save(function(err) {
+            if (err) {
+              res.send({success: false, message: 'Error: ' + err});
+            }
+            res.json({success: true, message: 'Document updated'});
+          });
+        }
+      );
     }
   );
 
-  // TODO: When JWT authentication is implemented, add auth middleware
-  // apiRoutes.delete('/document/:documentId',
   apiRoutes.delete(
     '/document/:documentId',
     passport.authenticate('jwt', {session: false}),

@@ -68,10 +68,10 @@
         controller: 'DocumentController',
         controllerAs: 'document'
       })
-      .when('/document/read/:documentId', {
-        templateUrl: 'document/document.html',
-        controller: 'DocumentController',
-        controllerAs: 'document'
+      .when('/document/view/:documentId', {
+        templateUrl: 'document-detail/document-detail.html',
+        controller: 'DocumentDetailController',
+        controllerAs: 'detail'
       })
     ;
   }

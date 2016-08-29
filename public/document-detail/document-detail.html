@@ -1,0 +1,67 @@
+<md-content layout="row"
+  layout-padding layout-wrap
+  layout-align="center center"
+  ng-cloak
+  style="background: transparent;"
+  >
+  <md-card class="md-default-theme"
+    md-whiteframe="2"
+    flex-offset-gt-sm="15"
+    flex-gt-sm="70"
+    flex="100">
+    <md-card-content class="autoScroll md-padding">
+      <div layout="column">
+        <h1>Documento Dirección General</h1>
+          <h2>Respuesta</h2>
+          <b>Número de Oficio: </b>
+          {{detail.doc.number}}
+
+          <b>Status acuse: </b>
+          {{detail.doc.status}}
+
+          <h3>Destinatario</h3>
+          <b>Tipo: </b>
+          {{detail.doc.receiver.kind}}
+
+          <b>Dependencia/Organización: </b>
+          {{detail.doc.receiver.organization}}
+
+          <b>Encargado/Nombre: </b>
+          {{detail.doc.receiver.name}}
+
+          <h3>Datos respuesta</h3>
+          <b>Asunto: </b>
+          {{detail.doc.subject}}
+          <b>Contenido: </b>
+          {{detail.doc.content}}
+
+          <b>Hipervínculo: </b>
+          {{detail.doc.url}}
+
+          <b>Fecha elaboración: </b>
+          {{detail.doc.draftDate}}
+
+          <b>Fecha recepción (Firma): </b>
+          {{detail.doc.signDate}}
+
+          <h2>Recepción</h2>
+          <b>Número de Control: </b>
+          {{detail.doc.reception.controlNumber}}
+
+          <b>Fecha recepción (Original): </b>
+          {{detail.doc.reception.receptionDate}}
+
+          <b>Área receptora: </b>
+          {{detail.doc.reception.office}}
+
+          <b>Recepcionista: </b>
+          {{detail.doc.reception.receptionist}}
+
+          <b>Asunto (Original): </b>
+          {{detail.doc.reception.subject}}
+        </div>
+    </md-card-content>
+  </md-card>
+  <div flex hide-sm>
+  </div>
+</md-content>
