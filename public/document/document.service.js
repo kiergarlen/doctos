@@ -28,7 +28,7 @@
         }
       },
       update: {
-        method: 'PUT',
+        method: 'POST',
         params: {},
         isArray: false,
         headers: {

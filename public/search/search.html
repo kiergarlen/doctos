@@ -38,40 +38,54 @@
           ng-if="search.results.length < 1">
           Sin resultados
         </md-subheader>
-        <md-list-item class="md-3-line"
+        <md-list-item
+          class="md-3-line"
           ng-repeat="item in search.results"
           >
           <div
             class="md-list-item-text"
             layout="row"
             >
-            <div layout="column" flex="80">
-              <b>
+            <div layout="column" flex="90">
+              <h2 class="md-display-1">
                 {{::item.number}}
-              </b>
-              <small class="md-caption">
-                Status acuse: {{::item.status}}
-              </small>
-              <small class="md-caption" ng-if="item.signDate">
-                <i>(Firma {{::item.signDate | date: 'dd/MM/yyyy'}})</i>
-              </small>
-              <p class="md-body-2">
-                Dependencia: {{::item.receiver.organization}}<br>
-                <small ng-if="item.receiver.name">
-                  <i>
-                    Responsable: {{::item.receiver.name}}
-                  </i>
+              </h2>
+              <p class="md-caption">
+                <div>
+                  <b>Status acuse:</b>
+                  {{::item.status}}
+                </div>
+                <div ng-if="!item.signDate">
+                  <b>Firma:</b>
+                  {{::item.signDate | date: 'dd/MM/yyyy'}}
+                </div>
+                <div ng-if="item.signDate">
+                  <b>Firma:</b>
+                  <span style="color:red;">
+                    Pendiente de Firma
+                  </span>
+                </div>
+                <div>
+                  <b>Dependencia:</b>
+                  {{::item.receiver.organization}}
+                </div>
+                <div ng-if="item.receiver.name">
+                  <b>Responsable:</b>
+                   {{::item.receiver.name}}
+                </div>
+                <div>
+                  <b>Asunto:</b>
+                   {{::item.subject}}
+                </div>
+                <small>
+                  Relevancia:
+                  {{::item.score | number: 3}}
                 </small>
               </p>
-              <h4 class="md-title">
-                Asunto: {{::item.subject}}
-              </h4>
-              <small>
-                Relevancia:
-                {{::item.score | number: 2}}
-              </small>
             </div>
-            <div flex layout="column">
+            <div flex layout="column"
+              class="md-secondary"
+              >
               <md-button
                 aria-label="Ver documento"
                 class="md-icon-button"

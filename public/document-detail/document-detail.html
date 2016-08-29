@@ -10,55 +10,66 @@
     flex-gt-sm="70"
     flex="100">
     <md-card-content class="autoScroll md-padding">
-      <div layout="column">
-        <h1>Documento Dirección General</h1>
-          <h2>Respuesta</h2>
-          <b>Número de Oficio: </b>
-          {{detail.doc.number}}
-
-          <b>Status acuse: </b>
-          {{detail.doc.status}}
-
+      <div>
+          <h2
+            class="md-display-1"
+            aria-label="Número de Oficio"
+            >
+            {{::documentDetail.doc.number}}
+            <md-tooltip>
+              Número de Oficio
+            </md-tooltip>
+          </h2>
+         <md-divider></md-divider>
+          <b>Status acuse:</b>
+          {{::documentDetail.doc.status}}
+          <br>
+          <b>Fecha elaboración:</b>
+          {{::documentDetail.doc.draftDate | date: 'dd/MM/yyyy'}}
+          <br>
+          <b>Fecha recepción (Firma):</b>
+          {{::documentDetail.doc.signDate | date: 'dd/MM/yyyy'}}
+          <br>
           <h3>Destinatario</h3>
-          <b>Tipo: </b>
-          {{detail.doc.receiver.kind}}
-
-          <b>Dependencia/Organización: </b>
-          {{detail.doc.receiver.organization}}
-
-          <b>Encargado/Nombre: </b>
-          {{detail.doc.receiver.name}}
-
+          <b>Tipo:</b>
+          {{::documentDetail.doc.receiver.kind}}
+          <br>
+          <b>Dependencia/Organización:</b>
+          {{::documentDetail.doc.receiver.organization}}
+          <br>
+          <b>Encargado/Nombre:</b>
+          {{::documentDetail.doc.receiver.name}}
+          <br>
           <h3>Datos respuesta</h3>
-          <b>Asunto: </b>
-          {{detail.doc.subject}}
-          <b>Contenido: </b>
-          {{detail.doc.content}}
-
-          <b>Hipervínculo: </b>
-          {{detail.doc.url}}
-
-          <b>Fecha elaboración: </b>
-          {{detail.doc.draftDate}}
-
-          <b>Fecha recepción (Firma): </b>
-          {{detail.doc.signDate}}
-
-          <h2>Recepción</h2>
-          <b>Número de Control: </b>
-          {{detail.doc.reception.controlNumber}}
-
-          <b>Fecha recepción (Original): </b>
-          {{detail.doc.reception.receptionDate}}
-
-          <b>Área receptora: </b>
-          {{detail.doc.reception.office}}
-
-          <b>Recepcionista: </b>
-          {{detail.doc.reception.receptionist}}
-
-          <b>Asunto (Original): </b>
-          {{detail.doc.reception.subject}}
+          <b>Asunto:</b>
+          <br>
+          {{::documentDetail.doc.subject}}
+          <br>
+          <b>Contenido:</b>
+          <br>
+          {{::documentDetail.doc.content}}
+          <br>
+          <b>Hipervínculo:</b>
+          <br>
+          <a ng-href="{{::documentDetail.doc.url}}">
+            {{::documentDetail.doc.url}}
+          </a>
+          <br>
+          <h3>Recepción</h3>
+          <b>Número de Control:</b>
+          {{::documentDetail.doc.reception.controlNumber}}
+          <br>
+          <b>Fecha recepción (Original):</b>
+          {{::documentDetail.doc.reception.receptionDate | date: 'dd/MM/yyyy'}}
+          <br>
+          <b>Área receptora:</b>
+          {{::documentDetail.doc.reception.office}}
+          <br>
+          <b>Recepcionista:</b>
+          {{::documentDetail.doc.reception.receptionist}}
+          <br>
+          <b>Asunto (Original):</b>
+          {{::documentDetail.doc.reception.subject}}
         </div>
     </md-card-content>
   </md-card>

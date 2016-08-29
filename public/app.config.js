@@ -71,12 +71,12 @@
       .when('/document/view/:documentId', {
         templateUrl: 'document-detail/document-detail.html',
         controller: 'DocumentDetailController',
-        controllerAs: 'detail'
+        controllerAs: 'documentDetail'
       })
       .when('/document/edit/:documentId', {
-        templateUrl: 'document-edit/document-edit.html',
-        controller: 'DocumentEditController',
-        controllerAs: 'edit'
+        templateUrl: 'document/document.html',
+        controller: 'DocumentController',
+        controllerAs: 'document'
       })
     ;
   }

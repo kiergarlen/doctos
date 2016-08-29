@@ -26,7 +26,8 @@ module.exports = function(app) {
       } else {
         var newUser = new User({
           email: req.body.email,
-          password: req.body.password
+          password: req.body.password,
+          role: 'Guest'
         });
 
         newUser.save(function(err) {
@@ -157,33 +158,55 @@ module.exports = function(app) {
     passport.authenticate('jwt', {session: false}),
     function(req, res) {
       var doc = new Document(req.body);
-      //console.log(doc);
       doc.save(function(err) {
         if (err) {
           res.send({success: false, message: 'Error: ' + err});
         } else {
-          res.json({success: true, messge: 'Document saved'});
+          res.json({success: true, message: doc._id});
         }
       });
     }
   );
 
+  // apiRoutes.post(
+  //   '/document/:documentId',
+  //   passport.authenticate('jwt', {session: false}),
+  //   function(req, res) {
+  //     Document.findOne({_id: req.params.documentId},
+  //       function(err, doc) {
+  //         if (err) {
+  //           res.send({success: false, message: 'Error: ' + err});
+  //         } else {
+  //           doc = req.body;
+  //           doc.save(
+  //             function(err) {
+  //               if (err) {
+  //                 res.send({success: false, message: 'Error: ' + err});
+  //               }
+  //               res.json({success: true, message: req.params.documentId});
+  //             }
+  //           );
+  //         }
+  //       }
+  //     );
+  //   }
+  // );
+
   apiRoutes.post(
-    '/document/:documentId',
+    '/document',
     passport.authenticate('jwt', {session: false}),
     function(req, res) {
-      Document.findOne({_id: req.params.documentId},
+      var newDoc = new Document(req.body);
+      Document.findOneAndUpdate(
+        {_id: req.body._id},
+        newDoc,
+        {new: true, upsert: true},
         function(err, doc) {
           if (err) {
             res.send({success: false, message: 'Error: ' + err});
+          } else {
+            res.json({success: true, message: doc._id});
           }
-          doc = req.body;
-          doc.save(function(err) {
-            if (err) {
-              res.send({success: false, message: 'Error: ' + err});
-            }
-            res.json({success: true, message: 'Document updated'});
-          });
         }
       );
     }
@@ -193,7 +216,8 @@ module.exports = function(app) {
     '/document/:documentId',
     passport.authenticate('jwt', {session: false}),
     function(req, res) {
-      Document.findOneAndRemove({_id: req.params.documentId},
+      Document.findOneAndRemove(
+        {_id: req.params.documentId},
         function(err, doc) {
           if (err) {
             res.send({success: false, message: 'Error: ' + err});

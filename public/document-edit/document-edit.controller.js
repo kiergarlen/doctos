@@ -10,7 +10,7 @@
     '$scope',
     '$location',
     '$routeParams',
-    'TokenService',
+    '$mdDialog',
     'DateUtilsService',
     'DocumentService'
   ];
@@ -19,13 +19,12 @@
       $scope,
       $location,
       $routeParams,
-      TokenService,
+      $mdDialog,
       DateUtilsService,
       DocumentService
     ) {
     var vm = this;
-    vm.currentUser = getCurrentUser();
-    vm.doc = {};
+    vm.doc = getBaseDoc();
     vm.maxDate = {};
     vm.minDate = {};
     vm.myDate = new Date();
@@ -39,36 +38,11 @@
       vm.myDate.getMonth() - 2,
       vm.myDate.getDate()
     );
-
     vm.maxDate = new Date(
       vm.myDate.getFullYear(),
       vm.myDate.getMonth() + 2,
       vm.myDate.getDate()
     );
-
-    function getCurrentUser() {
-      var userToken = TokenService.getUserFromToken();
-      return  {
-        name: userToken._doc.name,
-        email: userToken._doc.email
-      }
-    }
-
-    if ($routeParams.documentId) {
-      DocumentService
-        .query({documentId: $routeParams.documentId})
-        .$promise
-        .then(function success(response) {
-          vm.doc = response;
-          vm.doc.draftDate = new Date(vm.doc.draftDate);
-          vm.doc.signDate = new Date(vm.doc.signDate);
-          vm.doc.reception.receptionDate = new Date(vm.doc.reception.receptionDate);
-          vm.doc.created_at = new Date(vm.doc.created_at);
-          vm.doc.updated_at = new Date(vm.doc.updated_at);
-        });
-    } else {
-      vm.doc = getBaseDoc();
-    }
 
     function getBaseDoc() {
       var data = {
@@ -83,8 +57,8 @@
         draftDate: new Date(),
         signDate: new Date(),
         entryUser: {
-          name: '',
-          email: ''
+          'name': '',
+          'email': ''
         },
         reception: {
           controlNumber:'',
@@ -98,8 +72,14 @@
         created_at: new Date(),
         updated_at: new Date()
       };
-      data.entryUser.name = vm.currentUser.name;
-      data.entryUser.email = vm.currentUser.email;
+      if ($routeParams.documentId) {
+        DocumentService
+          .query({documentId: $routeParams.documentId})
+          .$promise
+          .then(function success(response) {
+            data = response;
+          });
+      }
       return data;
     };
 
@@ -371,16 +351,15 @@
     }
 
     function submit() {
-      var returnPath = '/document/view/';
       if (isValidDoc()) {
         if (isNewDoc()) {
+          var returnPath = '/search';
           DocumentService
             .save(JSON.stringify(vm.doc))
             .$promise
             .then(function success(response) {
-                 if (response.success) {
-                  $location.path(returnPath + response.success);
-                }
+                //$location.path(returnPath);
+                console.log(response);
                 return response;
               }, function error(response) {
                 if (response.status === 404) {
@@ -391,24 +370,8 @@
               }
             );
         } else {
+          //TO DO: update to service
           console.log('existing doc. updating...');
-          DocumentService
-            .update(JSON.stringify(vm.doc))
-            .$promise
-            .then(function success(response) {
-                console.log(response);
-                // if (response.success) {
-                //   $location.path(returnPath + response.success);
-                // }
-                // return response;
-              }, function error(response) {
-                if (response.status === 404) {
-                  return 'Recurso no encontrado';
-                } else {
-                  return 'Error no especificado';
-                }
-              }
-            );
         }
       } else {
         console.log('doc has errors. do nothing');

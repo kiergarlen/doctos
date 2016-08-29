@@ -8,7 +8,7 @@
   SearchController.$inject = [
     '$location',
     '$mdDialog',
-    'DocumentService'
+    'DocumentService',
     'SearchService'
   ];
 

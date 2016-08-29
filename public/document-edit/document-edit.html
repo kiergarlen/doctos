@@ -17,15 +17,15 @@
         </md-card-title-text>
         <md-input-container class="md-block" flex-gt-xs>
           <label>Número de Oficio</label>
-          <input ng-model="document.doc.number"
+          <input ng-model="documentEdit.doc.number"
             required
             >
         </md-input-container>
         <md-input-container class="md-block" flex-gt-xs>
           <label>Status acuse</label>
-          <md-select ng-model="document.doc.status">
+          <md-select ng-model="documentEdit.doc.status">
             <md-option
-              ng-repeat="item in document.statusTypes">
+              ng-repeat="item in documentEdit.statusTypes">
               {{::item.status}}
             </md-option>
           </md-select>
@@ -33,10 +33,10 @@
         <label>Fecha elaboración</label><br>
         <md-datepicker
           name="draftDateField"
-          ng-model="document.doc.draftDate"
+          ng-model="documentEdit.doc.draftDate"
           md-placeholder="Fecha elaboración"
-          md-min-date="document.minDate"
-          md-max-date="document.maxDate"
+          md-min-date="documentEdit.minDate"
+          md-max-date="documentEdit.maxDate"
           required
           >
         </md-datepicker>
@@ -58,10 +58,10 @@
         <label>Fecha recepción (Firma)</label><br>
         <md-datepicker
           name="signDateField"
-          ng-model="document.doc.signDate"
+          ng-model="documentEdit.doc.signDate"
           md-placeholder="Fecha recepción (Firma)"
-          md-min-date="document.minDate"
-          md-max-date="document.maxDate"
+          md-min-date="documentEdit.minDate"
+          md-max-date="documentEdit.maxDate"
           >
         </md-datepicker>
         <div>
@@ -81,29 +81,29 @@
         <h4>Destinatario</h4>
         <md-input-container class="md-block" flex-gt-xs>
           <label>Tipo</label>
-          <md-select ng-model="document.doc.receiver.kind">
+          <md-select ng-model="documentEdit.doc.receiver.kind">
             <md-option
-              ng-repeat="item in document.receiverKinds">
+              ng-repeat="item in documentEdit.receiverKinds">
               {{::item.kind}}
             </md-option>
           </md-select>
         </md-input-container>
         <md-input-container class="md-block" flex-gt-xs>
           <label>Dependencia/Organización</label>
-          <input ng-model="document.doc.receiver.organization"
+          <input ng-model="documentEdit.doc.receiver.organization"
             required
             >
         </md-input-container>
         <md-input-container class="md-block" flex-gt-xs>
           <label>Encargado/Nombre</label>
-          <input ng-model="document.doc.receiver.name">
+          <input ng-model="documentEdit.doc.receiver.name">
         </md-input-container>
         <h4>Datos documento de respuesta</h4>
         <md-input-container class="md-block" flex-gt-xs>
           <label>Asunto</label>
           <input
             name="subjectInput"
-            ng-model="document.doc.subject"
+            ng-model="documentEdit.doc.subject"
             md-placeholder="Asunto del documento"
             md-maxlength="200"
             required
@@ -112,7 +112,7 @@
         <md-input-container class="md-block">
           <label>Contenido</label>
           <textarea
-            ng-model="document.doc.content"
+            ng-model="documentEdit.doc.content"
             rows="10"
             >
           </textarea>
@@ -120,7 +120,7 @@
         <md-input-container class="md-block" flex-gt-xs>
           <label>Hipervínculo</label>
           <input type="text"
-            ng-model="document.doc.url"
+            ng-model="documentEdit.doc.url"
             >
         </md-input-container>
         <md-card-title-text>
@@ -130,7 +130,7 @@
           <md-input-container class="md-block" flex-gt-xs>
             <label>Número de Control</label>
             <input
-              ng-model="document.doc.reception.controlNumber"
+              ng-model="documentEdit.doc.reception.controlNumber"
               required
               >
           </md-input-container>
@@ -138,10 +138,10 @@
         <label>Fecha recepción (Original)</label><br>
         <md-datepicker
           name="receptionDateField"
-          ng-model="document.doc.reception.receptionDate"
+          ng-model="documentEdit.doc.reception.receptionDate"
           md-placeholder="Fecha recepción (Original)"
-          md-min-date="document.minDate"
-          md-max-date="document.maxDate"
+          md-min-date="documentEdit.minDate"
+          md-max-date="documentEdit.maxDate"
           required
           >
         </md-datepicker>
@@ -155,29 +155,29 @@
         <md-input-container class="md-block" flex-gt-xs>
           <label>Área receptora</label>
           <md-select
-            ng-model="document.doc.reception.office"
+            ng-model="documentEdit.doc.reception.office"
             required
             >
             <md-option
-              ng-repeat="item in document.respondents">
+              ng-repeat="item in documentEdit.respondents">
               {{::item.office}}
             </md-option>
           </md-select>
         </md-input-container>
         <md-input-container class="md-block" flex-gt-xs>
           <label>Recepcionista</label>
-          <input ng-model="document.doc.reception.receptionist">
+          <input ng-model="documentEdit.doc.reception.receptionist">
         </md-input-container>
         <md-input-container class="md-block" flex-gt-xs>
           <label>Asunto (Original)</label>
           <input
-            ng-model="document.doc.reception.subject"
+            ng-model="documentEdit.doc.reception.subject"
             md-maxlength="200"
             >
         </md-input-container>
         <md-input-container class="md-block" flex-gt-xs>
           <md-button class="md-raised md-accent md-hue-2"
-          ng-click="document.submit()"
+          ng-click="documentEdit.submit()"
           >
             <md-icon class="material-icons"
               aria-label="Guardar">save</md-icon>
