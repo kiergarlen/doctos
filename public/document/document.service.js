@@ -42,6 +42,14 @@
         headers: {
           'Authorization': TokenService.getToken()
         }
+      },
+      delete: {
+        method: 'DELETE',
+        params: {documentId: 'documentId'},
+        isArray: false,
+        headers: {
+          'Authorization': TokenService.getToken()
+        }
       }
     });
   }

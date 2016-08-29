@@ -19,13 +19,11 @@
     ) {
     var vm = this;
 
-
     DocumentService
       .query({documentId: $routeParams.documentId})
       .$promise
       .then(function success(response) {
         vm.doc = response;
-
       });
   }
 })();

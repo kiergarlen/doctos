@@ -73,6 +73,11 @@
         controller: 'DocumentDetailController',
         controllerAs: 'detail'
       })
+      .when('/document/edit/:documentId', {
+        templateUrl: 'document-edit/document-edit.html',
+        controller: 'DocumentEditController',
+        controllerAs: 'edit'
+      })
     ;
   }
 })();

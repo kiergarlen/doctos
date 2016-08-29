@@ -9,7 +9,6 @@ var mongodb = require('mongodb');
 var User = require('./models/user');
 var Document = require('./models/document');
 
-// Export the routes for our app to use
 module.exports = function(app) {
   app.use(passport.initialize());
   app.use(bodyParser.urlencoded({extended: true}));

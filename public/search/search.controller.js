@@ -8,12 +8,14 @@
   SearchController.$inject = [
     '$location',
     '$mdDialog',
+    'DocumentService'
     'SearchService'
   ];
 
   function SearchController(
       $location,
       $mdDialog,
+      DocumentService,
       SearchService
     ) {
     var vm = this;
@@ -54,11 +56,11 @@
     }
 
     function editDocument(id) {
-      $location.path('document/view/' + id);
+      $location.path('document/edit/' + id);
     }
 
     function deleteDocument(id) {
-      $location.path('document/view/' + id);
+      DocumentService.delete(id);
     }
   }
 })();
