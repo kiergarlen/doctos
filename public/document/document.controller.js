@@ -48,7 +48,7 @@
 
     function getCurrentUser() {
       var userToken = TokenService.getUserFromToken();
-      return  {
+      return {
         name: userToken._doc.name,
         email: userToken._doc.email
       }
@@ -378,8 +378,8 @@
             .save(JSON.stringify(vm.doc))
             .$promise
             .then(function success(response) {
-                 if (response.success) {
-                  $location.path(returnPath + response.success);
+                if (response.success) {
+                  $location.path(returnPath + response.message);
                 }
                 return response;
               }, function error(response) {
@@ -396,11 +396,10 @@
             .update(JSON.stringify(vm.doc))
             .$promise
             .then(function success(response) {
-                console.log(response);
-                // if (response.success) {
-                //   $location.path(returnPath + response.success);
-                // }
-                // return response;
+                if (response.success) {
+                  $location.path(returnPath + response.message);
+                }
+                return response;
               }, function error(response) {
                 if (response.status === 404) {
                   return 'Recurso no encontrado';

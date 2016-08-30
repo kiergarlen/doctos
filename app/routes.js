@@ -158,58 +158,28 @@ module.exports = function(app) {
     '/document',
     passport.authenticate('jwt', {session: false}),
     function(req, res) {
-      var doc = new Document(req.body);
-      doc.save(function(err) {
-        if (err) {
-          res.send({success: false, message: 'Error: ' + err});
-        } else {
+      if (req.body._id) {
+        var id = req.body._id;
+        delete req.body._id;
+        Document.findByIdAndUpdate(
+          id,
+          {$set: req.body},
+          function(err, doc) {
+          if (err) {
+            res.send({success: false, message: 'Not found'});
+          }
           res.json({success: true, message: doc._id});
-        }
-      });
-    }
-  );
-
-  // apiRoutes.post(
-  //   '/document/:documentId',
-  //   passport.authenticate('jwt', {session: false}),
-  //   function(req, res) {
-  //     Document.findOne({_id: req.params.documentId},
-  //       function(err, doc) {
-  //         if (err) {
-  //           res.send({success: false, message: 'Error: ' + err});
-  //         } else {
-  //           doc = req.body;
-  //           doc.save(
-  //             function(err) {
-  //               if (err) {
-  //                 res.send({success: false, message: 'Error: ' + err});
-  //               }
-  //               res.json({success: true, message: req.params.documentId});
-  //             }
-  //           );
-  //         }
-  //       }
-  //     );
-  //   }
-  // );
-
-  apiRoutes.post(
-    '/document',
-    passport.authenticate('jwt', {session: false}),
-    function(req, res) {
-      var newDoc = new Document(req.body);
-      Document.findOneAndUpdate(
-        {_id: req.body._id},
-        newDoc,
-        {new: true, upsert: true},
-        function(err, doc) {
+        });
+      } else {
+        var doc = new Document(req.body);
+        doc.save(function(err) {
           if (err) {
             res.send({success: false, message: 'Error: ' + err});
           } else {
             res.json({success: true, message: doc._id});
           }
-        }
-      );
+        });
+      }
     }
   );
 
