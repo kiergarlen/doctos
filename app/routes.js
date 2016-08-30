@@ -27,7 +27,8 @@ module.exports = function(app) {
         var newUser = new User({
           email: req.body.email,
           password: req.body.password,
-          role: 'Guest'
+          name: req.body.name,
+          role: req.body.role
         });
 
         newUser.save(function(err) {
