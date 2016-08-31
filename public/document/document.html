@@ -16,7 +16,7 @@
           <span class="md-headline">Respuesta</span>
         </md-card-title-text>
         <md-input-container class="md-block" flex-gt-xs>
-          <label>Número de Oficio</label>
+          <label>Número de Oficio / Documento</label>
           <input ng-model="document.doc.number"
             required
             >
@@ -118,11 +118,26 @@
           </textarea>
         </md-input-container>
         <md-input-container class="md-block" flex-gt-xs>
-          <label>Hipervínculo</label>
+          <label>Documento Escaneado</label>
+          <md-icon
+            class="material-icons"
+            aria-label="Archivo">insert_drive_file</md-icon>
           <input type="text"
             ng-model="document.doc.url"
+            readonly
             >
         </md-input-container>
+        <!--
+        <md-input-container class="md-block" flex-gt-xs>
+          <div ngf-drop ngf-select ng-model="files" class="drop-box"
+            ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"
+            accept="image/*,application/pdf"
+            ngf-pattern="'image/*,application/pdf'">Arrastrar PDF aquí</div>
+          <div ngf-no-file-drop>
+            <div class="button" ngf-select ng-model="file" ngf-multiple="false">Select File</div>
+          </div>
+        </md-input-container>
+        -->
         <md-card-title-text>
           <span class="md-headline">Recepción</span>
         </md-card-title-text>

@@ -24,27 +24,53 @@
       DocumentService
     ) {
     var vm = this;
+    var myDate = new Date();
     vm.currentUser = getCurrentUser();
     vm.doc = {};
-    vm.maxDate = {};
-    vm.minDate = {};
-    vm.myDate = new Date();
+    vm.file = null;
+    vm.files = [];
+    vm.minDate = new Date(myDate.getFullYear() - 1, 12, 1);
+    vm.maxDate = new Date(myDate.getFullYear() + 1, 0, 1);
     vm.receiverKinds = getReceiverKinds();
     vm.respondents = getRespondents();
     vm.statusTypes = getStatusTypes();
     vm.submit = submit;
 
-    vm.minDate = new Date(
-      vm.myDate.getFullYear(),
-      vm.myDate.getMonth() - 2,
-      vm.myDate.getDate()
-    );
+    // $scope.$watch('file', function() {
+    //   if (vm.file != null) {
+    //     vm.files = [vm.file];
+    //   }
+    // });
 
-    vm.maxDate = new Date(
-      vm.myDate.getFullYear(),
-      vm.myDate.getMonth() + 2,
-      vm.myDate.getDate()
-    );
+    // $scope.upload = function(files) {
+    //   if (files && files.length) {
+    //     for (var i = 0; i < files.length; i++) {
+    //       var file = files[i];
+    //       if (!file.$error) {
+    //         Upload.upload({
+    //           url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
+    //           data: {
+    //                   username: $scope.username,
+    //                   file: file
+    //                 }
+    //         }).then(function(resp) {
+    //           $timeout(function() {
+    //             $scope.log = 'file: ' +
+    //             resp.config.data.file.name +
+    //             ', Response: ' + JSON.stringify(resp.data) +
+    //             '\n' + $scope.log;
+    //           });
+    //         }, null, function(evt) {
+    //           var progressPercentage = parseInt(100.0 *
+    //                   evt.loaded / evt.total);
+    //           $scope.log = 'progress: ' + progressPercentage +
+    //               '% ' + evt.config.data.file.name + '\n' +
+    //             $scope.log;
+    //         });
+    //       }
+    //     }
+    //   }
+    // };
 
     function getCurrentUser() {
       var userToken = TokenService.getUserFromToken();
@@ -334,6 +360,10 @@
         {
           '_id':'574725d24c2ec4f3ad6ce13a',
           'status': 'Cancelado'
+        },
+        {
+          '_id':'57c6f6ab1b98e0451f4f909f',
+          'status': 'Sin acuse'
         }
       ];
     }
