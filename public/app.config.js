@@ -7,12 +7,7 @@
       '$routeProvider', '$mdThemingProvider',
       config
     ]);
-    // .config([
-    //   '$routeProvider', '$mdThemingProvider', 'jwtInterceptorProvider',
-    //   config
-    // ]);
 
-  //function config($routeProvider, $mdThemingProvider, jwtInterceptorProvider) {
   function config($routeProvider, $mdThemingProvider) {
     $mdThemingProvider.definePalette('ceaPalette', {
       '50':'e9f1fa',
