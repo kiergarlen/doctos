@@ -25,7 +25,8 @@
           <label>Status acuse</label>
           <md-select ng-model="document.doc.status">
             <md-option
-              ng-repeat="item in document.statusTypes">
+              ng-repeat="item in document.statusTypes"
+              ng-value="item.status">
               {{::item.status}}
             </md-option>
           </md-select>
@@ -83,7 +84,8 @@
           <label>Tipo</label>
           <md-select ng-model="document.doc.receiver.kind">
             <md-option
-              ng-repeat="item in document.receiverKinds">
+              ng-repeat="item in document.receiverKinds"
+              ng-value="item.kind">
               {{::item.kind}}
             </md-option>
           </md-select>
@@ -174,7 +176,9 @@
             required
             >
             <md-option
-              ng-repeat="item in document.respondents">
+              ng-repeat="item in document.respondents"
+              ng-value="item.office"
+              >
               {{::item.office}}
             </md-option>
           </md-select>

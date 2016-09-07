@@ -25,6 +25,7 @@ build/Release
 
 # Dependency directory
 node_modules
+bower_components
 
 # Optional npm cache directory
 .npm
@@ -117,11 +118,11 @@ Thumbs.db
 .jscsrc
 
 # Images
-*.jpg
-*.gif
-*.png
-*.svg
-*.ico
+# *.jpg
+# *.gif
+# *.png
+# *.svg
+# *.ico
 
 # Video
 *.wmv
