@@ -183,6 +183,41 @@ module.exports = function(app) {
     }
   );
 
+app.post('/profile', upload.single('avatar'), function (req, res, next) {
+  // req.file is the `avatar` file
+  // req.body will hold the text fields, if there were any
+})
+
+
+  apiRoutes.post(
+    '/document/upload',
+    upload.single('docto'),
+    function(req, res, next) {
+      if (req.file) {
+        var id = req.body._id;
+        delete req.body._id;
+        Document.findByIdAndUpdate(
+          id,
+          {$set: req.body},
+          function(err, doc) {
+          if (err) {
+            res.send({success: false, message: 'Not found'});
+          }
+          res.json({success: true, message: doc._id});
+        });
+      } else {
+        var doc = new Document(req.body);
+        doc.save(function(err) {
+          if (err) {
+            res.send({success: false, message: 'Error: ' + err});
+          } else {
+            res.json({success: true, message: doc._id});
+          }
+        });
+      }
+    }
+  );
+
   apiRoutes.delete(
     '/document/:documentId',
     passport.authenticate('jwt', {session: false}),
