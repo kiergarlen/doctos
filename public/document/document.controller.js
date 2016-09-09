@@ -10,6 +10,7 @@
     '$scope',
     '$location',
     '$routeParams',
+    '$upload',
     'TokenService',
     'DateUtilsService',
     'DocumentService'
@@ -19,6 +20,7 @@
       $scope,
       $location,
       $routeParams,
+      $upload,
       TokenService,
       DateUtilsService,
       DocumentService
@@ -35,6 +37,8 @@
     vm.respondents = getRespondents();
     vm.statusTypes = getStatusTypes();
     vm.submit = submit;
+    vm.fileSelected = fileSelected;
+    vm.insertReturnPath = '';
 
     // $scope.$watch('file', function() {
     //   if (vm.file != null) {
@@ -77,6 +81,12 @@
       return {
         name: userToken._doc.name,
         email: userToken._doc.email
+      }
+    }
+
+    function fileSelected($files) {
+      if (files && files.length) {
+        vm.file = files[0];
       }
     }
 
@@ -409,7 +419,22 @@
             .$promise
             .then(function success(response) {
                 if (response.success) {
-                  $location.path(returnPath + response.message);
+                  vm.insertReturnPath = returnPath + '' + response.message;
+
+                  $upload
+                    .upload(
+                      {
+                        url: '/api/document/upload', //node.js route
+                        file: $scope.file
+                      }
+                    )
+                    .success(function(data) {
+                      console.log(data, 'uploaded');
+                      $location.path(vm.insertReturnPath);
+                    });
+                  };
+
+
                 }
                 return response;
               }, function error(response) {

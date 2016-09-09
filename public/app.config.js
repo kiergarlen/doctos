@@ -4,11 +4,13 @@
   angular
     .module('docsApp')
     .config([
-      '$routeProvider', '$mdThemingProvider',
+      '$routeProvider',
+      '$mdThemingProvider',
+      'angularFileUpload',
       config
     ]);
 
-  function config($routeProvider, $mdThemingProvider) {
+  function config($routeProvider, $mdThemingProvider, angularFileUpload) {
     $mdThemingProvider.definePalette('ceaPalette', {
       '50':'e9f1fa',
       '100':'bed4ef',

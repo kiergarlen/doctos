@@ -25,7 +25,8 @@
     "angular-route": "1.5.3",
     "angular_locale_es-mx": "angular-locale_es-mx#*",
     "angular-material": "1.1.1",
-    "crypto-js": "3.1.6"
+    "crypto-js": "3.1.6",
+    "angular-file-upload": "^2.3.4"
   },
   "resolutions": {
     "angular": "1.5.3"

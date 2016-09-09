@@ -5,6 +5,8 @@ var mongodb = require('mongodb');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
+var multer = require('multer');
+var upload = multer({dest: './uploads/'});
 var passport = require('passport');
 var JwtStrategy = require('passport-jwt').Strategy;
 var ExtractJwt = require('passport-jwt').ExtratJwt;
@@ -21,6 +23,7 @@ app.use(compression());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
+
 app.use(passport.initialize());
 mongoose.connect(config.database);
 
