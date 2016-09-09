@@ -10,7 +10,7 @@
     '$scope',
     '$location',
     '$routeParams',
-    '$upload',
+    'FileUploader',
     'TokenService',
     'DateUtilsService',
     'DocumentService'
@@ -20,17 +20,18 @@
       $scope,
       $location,
       $routeParams,
-      $upload,
+      FileUploader,
       TokenService,
       DateUtilsService,
       DocumentService
     ) {
     var vm = this;
     var myDate = new Date();
+    vm.uploader = new FileUploader();
     vm.currentUser = getCurrentUser();
     vm.doc = {};
     vm.file = null;
-    vm.files = [];
+    vm.item = {};
     vm.minDate = new Date(myDate.getFullYear() - 1, 12, 1);
     vm.maxDate = new Date(myDate.getFullYear() + 1, 0, 1);
     vm.receiverKinds = getReceiverKinds();
@@ -39,6 +40,27 @@
     vm.submit = submit;
     vm.fileSelected = fileSelected;
     vm.insertReturnPath = '';
+
+    vm.uploader.onAfterAddingFile = function (item) {
+      vm.item = item;
+    }
+
+    vm.uploader.onBeforeUploadItem = function (item) {
+      console.log('Before upload...');
+      console.log(item);
+    }
+
+    vm.uploader.onSuccessItem = function (item, response, status, headers) {
+      console.log('Upload success!');
+      console.log('item');
+      console.log(item);
+      console.log('response:');
+      console.log(response);
+    }
+
+    vm.uploader.onCompleteAll = function () {
+      console.log('All done');
+    }
 
     // $scope.$watch('file', function() {
     //   if (vm.file != null) {
@@ -378,29 +400,33 @@
       ];
     }
 
+    function flashMessage(message) {
+      alert(message);
+    }
+
     function isValidDoc() {
       if (!vm.doc) {
-        console.log('invalid doc');
+        flashMessage('invalid doc');
         return false
       }
       if (!vm.doc.receiver.organization) {
-        console.log('invalid receiver organization');
+        flashMessage('invalid receiver organization');
         return false;
       }
       if (!vm.doc.receiver.name) {
-        console.log('invalid receiver name');
+        flashMessage('invalid receiver name');
         return false;
       }
       if (!DateUtilsService.isValidDate(vm.doc.draftDate)) {
-        console.log('invalid draft date');
+        flashMessage('invalid draft date');
         return false;
       }
       if (!vm.doc.reception.controlNumber) {
-        console.log('invalid original control number');
+        flashMessage('invalid original control number');
         return false;
       }
       if (!DateUtilsService.isValidDate(vm.doc.reception.receptionDate)) {
-        console.log('invalid reception date');
+        flashMessage('invalid reception date');
         return false;
       }
       return true;
@@ -418,23 +444,14 @@
             .save(JSON.stringify(vm.doc))
             .$promise
             .then(function success(response) {
+                var url = 'api/document/';
+                var id = '';
                 if (response.success) {
-                  vm.insertReturnPath = returnPath + '' + response.message;
-
-                  $upload
-                    .upload(
-                      {
-                        url: '/api/document/upload', //node.js route
-                        file: $scope.file
-                      }
-                    )
-                    .success(function(data) {
-                      console.log(data, 'uploaded');
-                      $location.path(vm.insertReturnPath);
-                    });
-                  };
-
-
+                  id = response.message;
+                  vm.insertReturnPath = returnPath + '' + id;
+                  vm.uploader.url(url + id + '/upload');
+                  vm.item.upload();
+                  // $location.path(returnPath + id);
                 }
                 return response;
               }, function error(response) {
@@ -446,13 +463,18 @@
               }
             );
         } else {
-          console.log('existing doc. updating...');
           DocumentService
             .update(JSON.stringify(vm.doc))
             .$promise
             .then(function success(response) {
+                var url = ' api/document/';
+                var id = '';
                 if (response.success) {
-                  $location.path(returnPath + response.message);
+                  id = response.message;
+                  vm.insertReturnPath = returnPath + '' + id;
+                  vm.uploader.url(url + id + '/upload');
+                  vm.item.upload();
+                  // $location.path(returnPath + id);
                 }
                 return response;
               }, function error(response) {
@@ -465,7 +487,7 @@
             );
         }
       } else {
-        console.log('doc has errors. do nothing');
+        flashMessage('doc has errors. do nothing');
       }
     }
   }

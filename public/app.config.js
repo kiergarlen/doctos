@@ -6,11 +6,10 @@
     .config([
       '$routeProvider',
       '$mdThemingProvider',
-      'angularFileUpload',
       config
     ]);
 
-  function config($routeProvider, $mdThemingProvider, angularFileUpload) {
+  function config($routeProvider, $mdThemingProvider) {
     $mdThemingProvider.definePalette('ceaPalette', {
       '50':'e9f1fa',
       '100':'bed4ef',

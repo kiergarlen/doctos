@@ -5,6 +5,16 @@ var config = require('../config/config');
 var jwt = require('jsonwebtoken');
 var bodyParser = require('body-parser');
 var mongodb = require('mongodb');
+var multer = require('multer');
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+});
+var upload = multer({storage: storage}).single('file');
 
 var User = require('./models/user');
 var Document = require('./models/document');
@@ -16,9 +26,9 @@ module.exports = function(app) {
 
   require('../config/passport')(passport);
 
-  var apiRoutes = express.Router();
+  var api = express.Router();
 
-  apiRoutes.post(
+  api.post(
     '/register',
     function(req, res) {
       if (!req.body.email || !req.body.password) {
@@ -40,7 +50,7 @@ module.exports = function(app) {
       }
     });
 
-  apiRoutes.post(
+  api.post(
     '/authenticate',
     function(req, res) {
       User.findOne({
@@ -66,7 +76,7 @@ module.exports = function(app) {
       });
     });
 
-  apiRoutes.get(
+  api.get(
     '/user',
     passport.authenticate('jwt', {session: false}),
     function(req, res) {
@@ -83,7 +93,7 @@ module.exports = function(app) {
     }
   );
 
-  apiRoutes.get(
+  api.get(
     '/user/:userId',
     passport.authenticate('jwt', {session: false}),
     function(req, res) {
@@ -100,7 +110,7 @@ module.exports = function(app) {
     }
   );
 
-  apiRoutes.get(
+  api.get(
     '/dashboard',
     passport.authenticate('jwt', {session: false}),
     function(req, res) {
@@ -108,7 +118,7 @@ module.exports = function(app) {
     }
   );
 
-  apiRoutes.post(
+  api.post(
     '/search',
     passport.authenticate('jwt', {session: false}),
     function(req, res) {
@@ -128,7 +138,7 @@ module.exports = function(app) {
     }
   );
 
-  apiRoutes.get(
+  api.get(
     '/document',
     passport.authenticate('jwt', {session: false}),
     function(req, res) {
@@ -141,7 +151,7 @@ module.exports = function(app) {
     }
   );
 
-  apiRoutes.get(
+  api.get(
     '/document/:documentId',
     passport.authenticate('jwt', {session: false}),
     function(req, res) {
@@ -154,7 +164,7 @@ module.exports = function(app) {
     }
   );
 
-  apiRoutes.post(
+  api.post(
     '/document',
     passport.authenticate('jwt', {session: false}),
     function(req, res) {
@@ -183,42 +193,22 @@ module.exports = function(app) {
     }
   );
 
-app.post('/profile', upload.single('avatar'), function (req, res, next) {
-  // req.file is the `avatar` file
-  // req.body will hold the text fields, if there were any
-})
-
-
-  apiRoutes.post(
-    '/document/upload',
-    upload.single('docto'),
-    function(req, res, next) {
-      if (req.file) {
-        var id = req.body._id;
-        delete req.body._id;
-        Document.findByIdAndUpdate(
-          id,
-          {$set: req.body},
-          function(err, doc) {
-          if (err) {
-            res.send({success: false, message: 'Not found'});
-          }
-          res.json({success: true, message: doc._id});
-        });
-      } else {
-        var doc = new Document(req.body);
-        doc.save(function(err) {
-          if (err) {
-            res.send({success: false, message: 'Error: ' + err});
-          } else {
-            res.json({success: true, message: doc._id});
-          }
-        });
-      }
+  api.post(
+    '/document/:documentId/upload',
+    passport.authenticate('jwt', {session: false}),
+    function(req, res) {
+      upload(req, res, function (err) {
+        if (err) {
+          res.send({success: false, message: err});
+          return;
+        }
+        console.log(req);
+        res.send({success: true, message: 'File uploaded'});
+      });
     }
   );
 
-  apiRoutes.delete(
+  api.delete(
     '/document/:documentId',
     passport.authenticate('jwt', {session: false}),
     function(req, res) {
@@ -234,5 +224,15 @@ app.post('/profile', upload.single('avatar'), function (req, res, next) {
     }
   );
 
-  app.use('/api', apiRoutes)
+  app.post(
+    '/profile',
+    passport.authenticate('jwt', {session: false}),
+    function (req, res, next) {
+      console.log(req.file);
+      // req.file is the `avatar` file
+      // req.body will hold the text fields, if there were any
+    }
+  )
+
+  app.use('/api', api)
 }

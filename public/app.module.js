@@ -6,9 +6,10 @@
       'ngRoute',
       'ngResource',
       'ngAnimate',
-      'angular-jwt',
+      'ngMessages',
       'ngMaterial',
-      'ngMessages'
+      'angular-jwt',
+      'angularFileUpload'
     ]
   );
 })();

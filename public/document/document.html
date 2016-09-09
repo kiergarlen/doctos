@@ -130,8 +130,15 @@
             >
         </md-input-container>
         <input type="file"
-          ng-file-select="document.fileSelected($files)"
-          accept="'application/pdf'">
+          nv-file-select
+          uploader="document.uploader"
+          >
+          <ul>
+            <li ng-repeat="item in uploader.queue">
+              Name: <span ng-bind="item.file.name"></span><br>
+              <button ng-click="item.upload()">upload</button>
+            </li>
+          </ul>
         <!--
         <md-input-container class="md-block" flex-gt-xs>
           <div
