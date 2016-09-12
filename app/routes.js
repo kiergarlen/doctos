@@ -38,7 +38,7 @@ module.exports = function(app) {
           email: req.body.email,
           password: req.body.password,
           name: req.body.name,
-          role: req.body.role
+          role: 'Guest'
         });
 
         newUser.save(function(err) {
@@ -107,14 +107,6 @@ module.exports = function(app) {
           res.json(user);
         }
       });
-    }
-  );
-
-  api.get(
-    '/dashboard',
-    passport.authenticate('jwt', {session: false}),
-    function(req, res) {
-      res.send('It worked! User id is: ' + req.user._id);
     }
   );
 
@@ -193,16 +185,30 @@ module.exports = function(app) {
     }
   );
 
+////
+///router.post(
+///'/uploads',
+///function (req, res, next) {
+///if (!authorized) {
+///res.send(403);
+///} else {
+///next();
+///}
+///},
+///multer({ dest: '/uploads/' }),
+///function (req, res, next) {
+///// whatever you were planning to do.
+///});
+
   api.post(
-    '/document/:documentId/upload',
-    passport.authenticate('jwt', {session: false}),
+    '/document/upload/:documentId',
+    // passport.authenticate('jwt', {session: false}),
     function(req, res) {
       upload(req, res, function (err) {
         if (err) {
           res.send({success: false, message: err});
           return;
         }
-        console.log(req);
         res.send({success: true, message: 'File uploaded'});
       });
     }

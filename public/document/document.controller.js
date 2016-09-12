@@ -29,6 +29,8 @@
     var myDate = new Date();
     vm.uploader = new FileUploader();
     vm.currentUser = getCurrentUser();
+    vm.isDifferentFileName = isDifferentFileName;
+    vm.id = '';
     vm.doc = {};
     vm.file = null;
     vm.item = {};
@@ -40,14 +42,16 @@
     vm.submit = submit;
     vm.fileSelected = fileSelected;
     vm.insertReturnPath = '';
+    vm.returnPath = '/document/view/';
+    vm.uploadPath = '/api/document/upload/';
 
     vm.uploader.onAfterAddingFile = function (item) {
       vm.item = item;
+      console.log('File added...');
     }
 
     vm.uploader.onBeforeUploadItem = function (item) {
-      console.log('Before upload...');
-      console.log(item);
+      item.url = vm.uploadPath + vm.id;
     }
 
     vm.uploader.onSuccessItem = function (item, response, status, headers) {
@@ -60,6 +64,9 @@
 
     vm.uploader.onCompleteAll = function () {
       console.log('All done');
+      if (vm.id.length > 0) {
+        $location.path(vm.returnPath + vm.id);
+      }
     }
 
     // $scope.$watch('file', function() {
@@ -436,22 +443,21 @@
       return !vm.doc._id;
     }
 
+    function isDifferentFileName() {
+      // //TODO check if filename is equal to stored before re-upload
+      return true;
+    }
+
     function submit() {
-      var returnPath = '/document/view/';
       if (isValidDoc()) {
         if (isNewDoc()) {
           DocumentService
             .save(JSON.stringify(vm.doc))
             .$promise
             .then(function success(response) {
-                var url = 'api/document/';
-                var id = '';
                 if (response.success) {
-                  id = response.message;
-                  vm.insertReturnPath = returnPath + '' + id;
-                  vm.uploader.url(url + id + '/upload');
-                  vm.item.upload();
-                  // $location.path(returnPath + id);
+                  vm.id = response.message;
+                   vm.item.upload();
                 }
                 return response;
               }, function error(response) {
@@ -467,14 +473,14 @@
             .update(JSON.stringify(vm.doc))
             .$promise
             .then(function success(response) {
-                var url = ' api/document/';
-                var id = '';
                 if (response.success) {
-                  id = response.message;
-                  vm.insertReturnPath = returnPath + '' + id;
-                  vm.uploader.url(url + id + '/upload');
-                  vm.item.upload();
-                  // $location.path(returnPath + id);
+                  vm.id = response.message;
+                  if (vm.isDifferentFileName()) {
+                    vm.item.upload();
+                  } else {
+                    // load document view
+                    $location.path(vm.returnPath + vm.id);
+                  }
                 }
                 return response;
               }, function error(response) {
