@@ -17,14 +17,13 @@ var config = require('./config/config');
 require('./config/passport')(passport);
 require('./app/routes')(app);
 
+mongoose.connect(config.database);
+
 app.use(compression());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
-
 app.use(passport.initialize());
-mongoose.connect(config.database);
-
 app.use(express.static('public'));
 
 app.listen(port, function() {

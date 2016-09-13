@@ -82,11 +82,11 @@
         <h4>Destinatario</h4>
         <md-input-container class="md-block" flex-gt-xs>
           <label>Tipo</label>
-          <md-select ng-model="document.doc.receiver.kind">
+          <md-select ng-model="document.doc.receiver.type">
             <md-option
-              ng-repeat="item in document.receiverKinds"
-              ng-value="item.kind">
-              {{::item.kind}}
+              ng-repeat="item in document.receiverTypes"
+              ng-value="item.type">
+              {{::item.type}}
             </md-option>
           </md-select>
         </md-input-container>
@@ -129,43 +129,22 @@
             readonly
             >
         </md-input-container>
-        <input type="file"
-          nv-file-select
+        <div
+          class="drop-box"
+          layout="column"
+          layout-align="center center"
+          nv-file-drop
           uploader="document.uploader"
           >
+          <h2><small>Arrastrar PDF aquí</small></h2>
           <ul>
             <li ng-repeat="item in uploader.queue">
               Name: <span ng-bind="item.file.name"></span><br>
               <button ng-click="item.upload()">upload</button>
             </li>
           </ul>
-        <!--
-        <md-input-container class="md-block" flex-gt-xs>
-          <div
-            class="drop-box"
-            ng-model="files"
-            ngf-drop
-            ngf-select
-            ngf-drag-over-class="'dragover'"
-            ngf-multiple="true"
-            ngf-allow-dir="true"
-            ngf-pattern="'image/*,application/pdf'"
-            accept="image/*,application/pdf"
-            >
-            Arrastrar PDF aquí
-          </div>
-          <div ngf-no-file-drop>
-            <div
-              class="button"
-              ng-model="file"
-              ngf-select
-              ngf-multiple="false"
-              >
-              Select File
-            </div>
-          </div>
-        </md-input-container>
-        -->
+        </div>
+        <br>
         <md-card-title-text>
           <span class="md-headline">Recepción</span>
         </md-card-title-text>

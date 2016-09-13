@@ -12,7 +12,7 @@ pids
 lib-cov
 
 # upload directory
-uploads
+pdf
 
 # Coverage directory used by tools like istanbul
 coverage
@@ -126,6 +126,7 @@ Thumbs.db
 # *.png
 # *.svg
 # *.ico
+*.pdf
 
 # Video
 *.wmv

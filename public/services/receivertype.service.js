@@ -3,14 +3,14 @@
   'use strict';
   angular
     .module('docsApp')
-    .factory('StatusService', StatusService);
+    .factory('ReceiverTypeService', ReceiverTypeService);
 
-  StatusService.$inject = [
+  ReceiverTypeService.$inject = [
     '$resource', 'TokenService'
   ];
 
-  function StatusService($resource, TokenService) {
-    return $resource('api/status', {}, {
+  function ReceiverTypeService($resource, TokenService) {
+    return $resource('api/receiver/type', {}, {
       get: {
         method: 'GET',
         params: {},

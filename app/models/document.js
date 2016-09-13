@@ -10,7 +10,7 @@ var DocumentSchema = new mongoose.Schema({
     required: true
   },
   receiver: {
-    kind: {
+    type: {
       type: String,
       required: true
     },

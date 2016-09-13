@@ -32,7 +32,7 @@
           <br>
           <h3>Destinatario</h3>
           <b>Tipo:</b>
-          {{::documentDetail.doc.receiver.kind}}
+          {{::documentDetail.doc.receiver.type}}
           <br>
           <b>Dependencia/Organización:</b>
           {{::documentDetail.doc.receiver.organization}}
@@ -40,7 +40,7 @@
           <b>Encargado/Nombre:</b>
           {{::documentDetail.doc.receiver.name}}
           <br>
-          <h3>Datos respuesta</h3>
+          <h3>Respuesta</h3>
           <b>Asunto:</b>
           <br>
           {{::documentDetail.doc.subject}}
@@ -51,7 +51,7 @@
           <br>
           <b>Hipervínculo:</b>
           <br>
-          <a ng-href="{{::documentDetail.doc.url}}">
+          <a ng-href="pdf/{{::documentDetail.doc.url}}">
             {{::documentDetail.doc.url}}
           </a>
           <br>

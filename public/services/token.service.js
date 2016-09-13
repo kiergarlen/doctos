@@ -10,7 +10,7 @@
   ];
 
   function TokenService($window, $http, $location, jwtHelper) {
-    var tokenKey = 'token';
+    var tokenKey = 'jwt';
     var storage = $window.sessionStorage;
     var cachedToken;
     var Token = {};

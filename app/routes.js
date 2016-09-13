@@ -8,7 +8,7 @@ var mongodb = require('mongodb');
 var multer = require('multer');
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './uploads/')
+    cb(null, './public/pdf/')
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname)
@@ -17,6 +17,9 @@ var storage = multer.diskStorage({
 var upload = multer({storage: storage}).single('file');
 
 var User = require('./models/user');
+var Status = require('./models/status');
+var ReceiverType = require('./models/receivertype');
+var Respondent = require('./models/respondent');
 var Document = require('./models/document');
 
 module.exports = function(app) {
@@ -230,7 +233,49 @@ module.exports = function(app) {
     }
   );
 
-  app.post(
+  api.get(
+    '/status',
+    passport.authenticate('jwt', {session: false}),
+    function(req, res) {
+      Status.find({}, function(err, statusList) {
+        if (err) {
+          res.send({success: false, message: 'Not found'});
+          throw err;
+        }
+        res.json(statusList);
+      });
+    }
+  );
+
+  api.get(
+    '/receiver/type',
+    passport.authenticate('jwt', {session: false}),
+    function(req, res) {
+      ReceiverType.find({}, function(err, receiverTypes) {
+        if (err) {
+          res.send({success: false, message: 'Not found'});
+          throw err;
+        }
+        res.json(receiverTypes);
+      });
+    }
+  );
+
+  api.get(
+    '/respondent',
+    passport.authenticate('jwt', {session: false}),
+    function(req, res) {
+      Respondent.find({}, function(err, respondents) {
+        if (err) {
+          res.send({success: false, message: 'Not found'});
+          throw err;
+        }
+        res.json(respondents);
+      });
+    }
+  );
+
+  api.get(
     '/profile',
     passport.authenticate('jwt', {session: false}),
     function (req, res, next) {
@@ -240,5 +285,5 @@ module.exports = function(app) {
     }
   )
 
-  app.use('/api', api)
+  app.use('/api', api);
 }

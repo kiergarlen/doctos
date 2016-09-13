@@ -18,14 +18,6 @@
         headers: {
            'Authorization': TokenService.getToken()
         }
-      },
-      save: {
-        method: 'POST',
-        params: {},
-        isArray: false,
-        headers: {
-          'Authorization': TokenService.getToken()
-        }
       }
     });
   }
