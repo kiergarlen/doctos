@@ -10,6 +10,7 @@
     '$scope',
     '$location',
     '$routeParams',
+    '$mdDialog',
     'FileUploader',
     'TokenService',
     'DateUtilsService',
@@ -23,6 +24,7 @@
       $scope,
       $location,
       $routeParams,
+      $mdDialog,
       FileUploader,
       TokenService,
       DateUtilsService,
@@ -98,7 +100,7 @@
 
     function getBaseDoc() {
       var data = {
-        number: '',
+        number: 'Sin número',
         status: '',
         receiver: {
           type: '',
@@ -203,7 +205,7 @@
             );
         }
       } else {
-        flashMessage('Error al guardar el documento');
+        // flashMessage('Error al guardar el documento');
       }
     }
   }
