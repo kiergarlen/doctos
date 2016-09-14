@@ -14,6 +14,7 @@
     'FileUploader',
     'TokenService',
     'DateUtilsService',
+    'TextUtilsService',
     'ReceiverTypeService',
     'RespondentService',
     'StatusService',
@@ -28,6 +29,7 @@
       FileUploader,
       TokenService,
       DateUtilsService,
+      TextUtilsService,
       ReceiverTypeService,
       RespondentService,
       StatusService,
@@ -46,29 +48,31 @@
     vm.receiverTypes = ReceiverTypeService.get();
     vm.respondents = RespondentService.get();
     vm.statusTypes = StatusService.get();
-    vm.submit = submit;    vm.insertReturnPath = '';
+    vm.submit = submit;
     vm.returnPath = '/document/view/';
     vm.uploadPath = '/api/document/upload/';
 
     vm.uploader.onAfterAddingFile = function (item) {
+      var name = item._file.name;
+      name = TextUtilsService.trim(name);
+      name = TextUtilsService.removeDiacritics(name);
+      item.file.name = name;
       vm.item = item;
-      vm.doc.url = item._file.name;
+      vm.doc.url = name;
     }
 
     vm.uploader.onBeforeUploadItem = function (item) {
       item.url = vm.uploadPath + vm.id;
     }
 
-    vm.uploader.onSuccessItem = function (item, response, status, headers) {
-      console.log('Upload success!');
-      console.log('item');
-      console.log(item);
-      console.log('response:');
-      console.log(response);
-    }
+    // vm.uploader.onSuccessItem = function (item, response, status, headers) {
+    //   console.log('Upload success!');
+    //   console.log(item);
+    //   console.log('response:');
+    //   console.log(response);
+    // }
 
     vm.uploader.onCompleteAll = function () {
-      console.log('All done');
       if (vm.id.length > 0) {
         $location.path(vm.returnPath + vm.id);
       }
