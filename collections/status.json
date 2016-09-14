@@ -1,7 +1,6 @@
-{"_id":{"$oid":"574725d24c2ec4f3ad6ce136"},"status":"Acuse original"}
-{"_id":{"$oid":"574725d24c2ec4f3ad6ce137"},"status":"Acuse duplicado"}
-{"_id":{"$oid":"574725d24c2ec4f3ad6ce138"},"status":"Acuse vía correo electrónico"}
-{"_id":{"$oid":"574725d24c2ec4f3ad6ce139"},"status":"Acuse original en área receptora"}
-{"_id":{"$oid":"574725d24c2ec4f3ad6ce13a"},"status":"Cancelado"}
-{"_id":{"$oid":"574725d24c2ec4f3ad6ce13b"},"status":"No definido"}
-{"_id":{"$oid":"574725d24c2ec4f3ad6ce13c"},"status":"Copia del acuse original"}
+
+db.status.insert({status: "Original"});
+db.status.insert({status: "Copia"});
+db.status.insert({status: "Vía correo"});
+db.status.insert({status: "Cancelado"});
+db.status.insert({status: "Sin acuse"});

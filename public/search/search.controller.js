@@ -60,7 +60,7 @@
     }
 
     function deleteDocument(id) {
-      DocumentService.delete(id);
+      DocumentService.delete({documentId: id});
     }
   }
 })();

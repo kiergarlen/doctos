@@ -65,13 +65,6 @@
       item.url = vm.uploadPath + vm.id;
     }
 
-    // vm.uploader.onSuccessItem = function (item, response, status, headers) {
-    //   console.log('Upload success!');
-    //   console.log(item);
-    //   console.log('response:');
-    //   console.log(response);
-    // }
-
     vm.uploader.onCompleteAll = function () {
       if (vm.id.length > 0) {
         $location.path(vm.returnPath + vm.id);
