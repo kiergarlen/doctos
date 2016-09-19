@@ -33,21 +33,10 @@
                   <b>Status acuse:</b>
                   {{::item.status}}
                 </div>
-                <!--
-                <div ng-if="!item.signDate">
-                -->
                 <div>
                   <b>Firma:</b>
                   {{::item.signDate | date: 'dd/MM/yyyy'}}
                 </div>
-                <!--
-                <div ng-if="item.signDate">
-                  <b>Firma:</b>
-                  <span style="color:red;">
-                    Pendiente de Firma
-                  </span>
-                </div>
-                -->
                 <div>
                   <b>Dependencia:</b>
                   {{::item.receiver.organization}}
@@ -60,10 +49,6 @@
                   <b>Asunto:</b>
                    {{::item.subject}}
                 </div>
-                <small>
-                  Relevancia:
-                  {{::item.score | number: 3}}
-                </small>
               </p>
             </div>
             <div flex layout="column"
