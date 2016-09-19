@@ -14,14 +14,15 @@
     vm.isLoggedIn = false;
     vm.searchText = '';
 
-    vm.checkIfLoggedIn = checkIfLoggedIn;
+    vm.isAuthenticated = isAuthenticated;
     vm.openMenu = openMenu;
     vm.openProfile = openProfile;
     vm.openSearch = openSearch;
+    vm.openList = openList;
     vm.openDocument = openDocument;
     vm.openLogout = openLogout;
 
-    function checkIfLoggedIn() {
+    function isAuthenticated() {
       return TokenService.isAuthenticated();
     }
 
@@ -31,6 +32,11 @@
 
     function openSearch(e) {
       $location.path('/search');
+      return e;
+    }
+
+    function openList(e) {
+      $location.path('/list');
       return e;
     }
 

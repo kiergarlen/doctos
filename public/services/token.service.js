@@ -10,7 +10,7 @@
   ];
 
   function TokenService($window, $http, $location, jwtHelper) {
-    var tokenKey = 'jwt';
+    var TOKEN_KEY = 'jwt';
     var storage = $window.sessionStorage;
     var cachedToken;
     var Token = {};
@@ -55,19 +55,19 @@
 
     function setToken(token) {
       cachedToken = token;
-      storage.setItem(tokenKey, token);
+      storage.setItem(TOKEN_KEY, token);
     }
 
     function getToken() {
       if (!cachedToken) {
-        cachedToken = storage.getItem(tokenKey);
+        cachedToken = storage.getItem(TOKEN_KEY);
       }
       return cachedToken;
     }
 
     function clearToken() {
       cachedToken = null;
-      storage.removeItem(tokenKey);
+      storage.removeItem(TOKEN_KEY);
     }
 
     function decodeToken() {

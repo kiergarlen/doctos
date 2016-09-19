@@ -17,6 +17,8 @@
 
     vm.submitForm = submitForm;
 
+    TokenService.clearToken();
+
     function submitForm(e) {
       if (vm.userName.length > 1 && vm.userPassword.length > 1) {
         e.preventDefault();
@@ -26,5 +28,6 @@
         );
       }
     }
+
   }
 })();

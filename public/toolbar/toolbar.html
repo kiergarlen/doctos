@@ -10,7 +10,7 @@
     </h3>
     <span flex></span>
     <div
-      ng-if="toolbar.checkIfLoggedIn()">
+      ng-if="toolbar.isAuthenticated()">
       <md-button
         aria-label="Búsqueda"
         class="md-icon-button"
@@ -21,6 +21,18 @@
           aria-label="Búsqueda">search</md-icon>
         <md-tooltip>
           Búsqueda
+        </md-tooltip>
+      </md-button>
+      <md-button
+        aria-label="Listado"
+        class="md-icon-button"
+        ng-click="toolbar.openList($event)"
+        >
+        <md-icon
+          class="material-icons"
+          aria-label="Listado">list</md-icon>
+        <md-tooltip>
+          Listado
         </md-tooltip>
       </md-button>
       <md-button

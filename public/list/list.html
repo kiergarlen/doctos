@@ -1,0 +1,94 @@
+<md-content layout="row"
+  layout-padding layout-wrap
+  layout-align="center center"
+  ng-cloak
+  style="background: transparent;"
+  >
+  <div flex hide-sm>
+  </div>
+  <md-card class="md-default-theme"
+    md-whiteframe="2"
+    flex-gt-sm="66"
+    flex="100">
+    <md-card-content class="autoScroll">
+      <md-list>
+        <md-subheader class="md-sticky"
+          ng-if="list.results.length > 0">
+          Documentos
+        </md-subheader>
+        <md-list-item
+          class="md-3-line"
+          ng-repeat="item in list.results"
+          >
+          <div
+            class="md-list-item-text"
+            layout="row"
+            >
+            <div layout="column" flex="90">
+              <h2 class="md-display-1">
+                {{::item.number}}
+              </h2>
+              <p class="md-caption">
+                <div>
+                  <b>Status acuse:</b>
+                  {{::item.status}}
+                </div>
+                <!--
+                <div ng-if="!item.signDate">
+                -->
+                <div>
+                  <b>Firma:</b>
+                  {{::item.signDate | date: 'dd/MM/yyyy'}}
+                </div>
+                <!--
+                <div ng-if="item.signDate">
+                  <b>Firma:</b>
+                  <span style="color:red;">
+                    Pendiente de Firma
+                  </span>
+                </div>
+                -->
+                <div>
+                  <b>Dependencia:</b>
+                  {{::item.receiver.organization}}
+                </div>
+                <div ng-if="item.receiver.name">
+                  <b>Responsable:</b>
+                   {{::item.receiver.name}}
+                </div>
+                <div>
+                  <b>Asunto:</b>
+                   {{::item.subject}}
+                </div>
+                <small>
+                  Relevancia:
+                  {{::item.score | number: 3}}
+                </small>
+              </p>
+            </div>
+            <div flex layout="column"
+              class="md-secondary"
+              >
+              <md-button
+                aria-label="Ver documento"
+                class="md-icon-button"
+                ng-click="list.viewDocument(item._id)"
+                >
+                <md-icon
+                  class="material-icons"
+                  aria-label="Ver documento">visibility</md-icon>
+                <md-tooltip>
+                  Ver documento
+                </md-tooltip>
+              </md-button>
+            </div>
+          </div>
+          <md-divider ng-if="!$last"></md-divider>
+          <br>
+        </md-list-item>
+      </md-list>
+    </md-card-content>
+  </md-card>
+  <div flex hide-sm>
+  </div>
+</md-content>
