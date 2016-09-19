@@ -15,7 +15,6 @@
       DocumentService
     ) {
     var vm = this;
-    vm.term = '';
     vm.results = DocumentService.get();
     vm.viewDocument = viewDocument;
 

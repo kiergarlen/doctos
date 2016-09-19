@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 var Respondent = new mongoose.Schema({
   officeId: {
@@ -39,6 +39,6 @@ var Respondent = new mongoose.Schema({
       required: true
     }
   }
-});
+})
 
-module.exports = mongoose.model('respondent', Respondent);
+module.exports = mongoose.model('respondent', Respondent)

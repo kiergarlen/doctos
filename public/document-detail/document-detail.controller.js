@@ -7,13 +7,11 @@
     .controller('DocumentDetailController', DocumentDetailController);
 
   DocumentDetailController.$inject = [
-    '$location',
     '$routeParams',
     'DocumentService'
   ];
 
   function DocumentDetailController(
-      $location,
       $routeParams,
       DocumentService
     ) {

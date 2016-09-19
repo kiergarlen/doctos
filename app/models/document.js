@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 var DocumentSchema = new mongoose.Schema({
   number: {
@@ -78,6 +78,6 @@ var DocumentSchema = new mongoose.Schema({
 },
 {
   timestamps: true
-});
+})
 
-module.exports = mongoose.model('Doc', DocumentSchema);
+module.exports = mongoose.model('Doc', DocumentSchema)
