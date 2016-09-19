@@ -38,14 +38,18 @@
         }
       }).then(function success(response) {
         var token = response.data.token || null;
-        setToken(token);
-        $location.path('/search');
+        if (token) {
+          setToken(token);
+          $location.path('/search');
+        }
+        $location.path('/login');
       }, function error(response) {
         if (response.status === 404) {
           return 'Sin enlace al servidor';
         } else {
           return 'Error no especificado';
         }
+        $location.path('/login');
       });
     }
 

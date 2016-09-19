@@ -39,7 +39,7 @@ function initApp(app) {
     '/register',
     (req, res) => {
       if (!req.body.email || !req.body.password) {
-        console.log(req)
+        console.log()
         res.json({success: false, message: 'Missing email or password'})
       } else {
         var newUser = new User({
@@ -68,7 +68,8 @@ function initApp(app) {
           throw err
         }
         if (!user) {
-          res.send({success: false, message: 'Not found'})
+          res.status(404).send('Not found');
+          // res.send({success: false, message: 'Not found'})
         } else {
           user.comparePassword(req.body.password, (err, isMatch) => {
             if (isMatch && !err) {
@@ -77,7 +78,8 @@ function initApp(app) {
               })
               res.json({success: true, token: 'JWT ' + token})
             } else {
-              res.send({success: false, message: 'Authentication failed.'})
+              res.status(404).send('Not found 2');
+              // res.send({success: false, message: 'Authentication failed.'})
             }
           })
         }
