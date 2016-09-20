@@ -1,5 +1,3 @@
-'use strict'
-
 const passport = require('passport')
 const express = require('express')
 const config = require('../../config/config')
