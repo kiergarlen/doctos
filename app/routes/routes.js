@@ -69,22 +69,20 @@ function initApp(app) {
         }
         if (!user) {
           res.status(404).send('Not found');
-          // res.send({success: false, message: 'Not found'})
         } else {
           user.comparePassword(req.body.password, (err, isMatch) => {
             if (isMatch && !err) {
               var token = jwt.sign(user, config.secret, {
-                expiresIn: 86400
+                expiresIn: 28800
               })
               res.json({success: true, token: 'JWT ' + token})
             } else {
-              res.status(404).send('Not found 2');
-              // res.send({success: false, message: 'Authentication failed.'})
+              res.status(403).send('Authentication failed.')
             }
           })
         }
       })
-          })
+    })
 
   api.get(
     '/user',
