@@ -41,15 +41,16 @@
         if (token) {
           setToken(token);
           $location.path('/search');
+        } else {
+          $location.path('/');
         }
-        $location.path('/login');
       }, function error(response) {
         if (response.status === 404) {
           return 'Sin enlace al servidor';
         } else {
           return 'Error no especificado';
         }
-        $location.path('/login');
+        $location.path('/');
       });
     }
 
