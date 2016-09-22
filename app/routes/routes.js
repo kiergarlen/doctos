@@ -126,7 +126,7 @@ function initApp(app) {
         {score: {$meta: 'textScore'}}
       )
       .select('_id number status receiver reception subject signDate')
-      .sort({score:{$meta: 'textScore'}})
+      .sort({score: {$meta: 'textScore'}})
       .exec((err, docs) => {
         if (err) {
           res.send({success: false, message: 'Query failed. Error: ' + err})
