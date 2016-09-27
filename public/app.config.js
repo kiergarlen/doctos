@@ -26,7 +26,7 @@
       'A400':'4a88d3',
       'A700':'1d5498',
       'contrastDefaultColor': 'light',
-      'contrastDarkColors': ['50', '100','200', '300', '400', 'A100'],
+      'contrastDarkColors': ['50', '100', '200', '300', '400', 'A100'],
       'contrastLightColors': undefined
     });
 

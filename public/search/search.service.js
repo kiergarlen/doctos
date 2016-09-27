@@ -16,7 +16,7 @@
         params: {},
         isArray: true,
         headers: {
-           'Authorization': TokenService.getToken()
+          'Authorization': TokenService.getToken()
         }
       }
     });

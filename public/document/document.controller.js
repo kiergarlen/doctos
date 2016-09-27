@@ -52,7 +52,7 @@
     vm.returnPath = '/document/view/';
     vm.uploadPath = '/api/document/upload/';
 
-    vm.uploader.onAfterAddingFile = function (item) {
+    vm.uploader.onAfterAddingFile = function(item) {
       var name = item._file.name;
       name = TextUtilsService.trim(name);
       name = TextUtilsService.removeDiacritics(name);
@@ -61,11 +61,11 @@
       vm.doc.url = name;
     }
 
-    vm.uploader.onBeforeUploadItem = function (item) {
+    vm.uploader.onBeforeUploadItem = function(item) {
       item.url = vm.uploadPath + vm.id;
     }
 
-    vm.uploader.onCompleteAll = function () {
+    vm.uploader.onCompleteAll = function() {
       if (vm.id.length > 0) {
         $location.path(vm.returnPath + vm.id);
       }
@@ -167,7 +167,7 @@
             .then(function success(response) {
                 if (response.success) {
                   vm.id = response.message;
-                   vm.item.upload();
+                  vm.item.upload();
                 }
                 return response;
               }, function error(response) {
