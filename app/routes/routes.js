@@ -14,7 +14,7 @@ const Document = require('../models/document')
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, '../../public/pdf/')
+    cb(null, './public/pdf/')
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname)
