@@ -10,12 +10,14 @@
     '$scope',
     '$location',
     '$routeParams',
+    '$q',
     '$mdDialog',
     'FileUploader',
     'TokenService',
     'DateUtilsService',
     'TextUtilsService',
     'ReceiverTypeService',
+    'ReceptionistService',
     'RespondentService',
     'StatusService',
     'DocumentService'
@@ -25,12 +27,14 @@
       $scope,
       $location,
       $routeParams,
+      $q,
       $mdDialog,
       FileUploader,
       TokenService,
       DateUtilsService,
       TextUtilsService,
       ReceiverTypeService,
+      ReceptionistService,
       RespondentService,
       StatusService,
       DocumentService
@@ -46,6 +50,7 @@
     vm.minDate = new Date(myDate.getFullYear() - 1, 12, 1);
     vm.maxDate = new Date(myDate.getFullYear() + 1, 0, 1);
     vm.receiverTypes = ReceiverTypeService.get();
+    vm.receptionists = ReceptionistService.get();
     vm.respondents = RespondentService.get();
     vm.statusTypes = StatusService.get();
     vm.submit = submit;
@@ -126,7 +131,7 @@
       data.entryUser.name = vm.currentUser.name;
       data.entryUser.email = vm.currentUser.email;
       return data;
-    };
+    }
 
     function flashMessage(message) {
       $mdDialog.show(

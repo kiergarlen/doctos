@@ -6,11 +6,12 @@ const bodyParser = require('body-parser')
 const mongodb = require('mongodb')
 const multer = require('multer')
 
-const User = require('../models/user')
-const Status = require('../models/status')
+const Document = require('../models/document')
+const Employee = require('../models/employee')
 const ReceiverType = require('../models/receivertype')
 const Respondent = require('../models/respondent')
-const Document = require('../models/document')
+const Status = require('../models/status')
+const User = require('../models/user')
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -275,6 +276,21 @@ function initApp(app) {
           throw err
         }
         res.json(respondents)
+      })
+    }
+  )
+
+  api.get(
+    '/receptionist',
+    passport.authenticate('jwt', {session: false}),
+    (req, res) => {
+      Employee.find({'receptionist':1}, null, {'sort': {'name': 1}},
+        (err, receptionists) => {
+        if (err) {
+          res.send({success: false, message: 'Not found'})
+          throw err
+        }
+        res.json(receptionists)
       })
     }
   )
