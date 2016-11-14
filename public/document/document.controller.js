@@ -56,6 +56,7 @@
     vm.submit = submit;
     vm.returnPath = '/document/view/';
     vm.uploadPath = '/api/document/upload/';
+    vm.timeString = '00:00:00';
 
     vm.uploader.onAfterAddingFile = function(item) {
       var name = item._file.name;

@@ -10,7 +10,7 @@
     flex-gt-sm="70"
     flex="100">
     <md-card-content class="autoScroll md-padding">
-      <h1>Documento Dirección General</h1>
+      <h1>Documento Contraloría</h1>
       <form name="newDocForm">
         <md-card-title-text>
           <span class="md-headline">Respuesta</span>
@@ -31,7 +31,7 @@
             </md-option>
           </md-select>
         </md-input-container>
-        <label>Fecha elaboración</label><br>
+        <label>Fecha original</label><br>
         <md-datepicker
           name="draftDateField"
           ng-model="document.doc.draftDate"
@@ -56,7 +56,67 @@
           </div>
         </div>
         <br>
-        <label>Fecha recepción (Firma)</label><br>
+        <label>Fecha y hora recepción (Sello)</label><br>
+        <md-datepicker
+          name="sealDateField"
+          ng-model="document.doc.sealDate"
+          md-placeholder="Fecha elaboración"
+          md-min-date="document.minDate"
+          md-max-date="document.maxDate"
+          required
+          >
+        </md-datepicker>
+        <div>
+          <div layout="column"
+            class="validation-messages"
+            ng-messages="newDocForm.sealDateField.$error"
+            >
+            <div ng-message="valid">No es una fecha válida</div>
+            <div ng-message="mindate">
+              La fecha es anterior al rango permitido
+            </div>
+            <div ng-message="maxdate">
+              La fecha es posterior al rango permitido
+            </div>
+          </div>
+        </div>
+
+        <md-input-container class="md-icon-float ">
+          <label>Hora</label>
+          <md-icon
+            class="material-icons"
+            aria-label="Hora">access_time</md-icon>
+          <input type="text"
+            ng-model="document.timeString"
+            ng-pattern="/([01]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?/"
+            >
+        </md-input-container>
+        <br>
+
+
+
+        <md-icon
+          class="material-icons"
+          aria-label="Hora">access_time</md-icon>
+        <input type="text"
+          ng-model="document.timeString"
+          ng-pattern="/([01]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?/"
+          />
+        <br>
+        <span>Fecha Hora recepción: (Sello) {{document.timeString}}</span>
+        <md-input-container class="md-icon-float md-block">
+          <label>Término de respuesta (horas)</label>
+          <md-icon
+            class="material-icons"
+            aria-label="Hora">alarm</md-icon>
+          <input type="number"
+            >
+        </md-input-container>
+        <br>
+
+
+        <br>
+        <label>Fecha firma</label><br>
         <md-datepicker
           name="signDateField"
           ng-model="document.doc.signDate"
