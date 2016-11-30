@@ -1,6 +1,5 @@
-
-db.status.insert({status: "Original"});
-db.status.insert({status: "Copia"});
-db.status.insert({status: "Vía correo"});
-db.status.insert({status: "Cancelado"});
-db.status.insert({status: "Sin acuse"});
+{"status": "Original"}
+{"status": "Copia"}
+{"status": "Vía correo"}
+{"status": "Cancelado"}
+{"status": "Sin acuse"}
