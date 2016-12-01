@@ -92,7 +92,7 @@ function initApp(app) {
           throw err
         }
         if (!user) {
-          res.send({success: false, message: 'Users not found'})
+          res.send({success: false, message: 'Not found'})
         } else {
           res.json(users)
         }
@@ -109,7 +109,7 @@ function initApp(app) {
           throw err
         }
         if (!user) {
-          res.send({success: false, message: 'User not found'})
+          res.send({success: false, message: 'Not found'})
         } else {
           res.json(user)
         }
