@@ -86,36 +86,69 @@
           <md-icon
             class="material-icons"
             aria-label="Hora">access_time</md-icon>
-          <input type="text"
-            ng-model="document.timeString"
-            ng-pattern="/([01]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?/"
+          <input type="time"
+            ng-model="document.doc.sealDate"
+            ng-pattern="/([01]?[0-9]|2[0-3]):[0-5][0-9]?/"
             >
         </md-input-container>
         <br>
 
+<hr>
 
 
-        <md-icon
-          class="material-icons"
-          aria-label="Hora">access_time</md-icon>
-        <input type="text"
-          ng-model="document.timeString"
-          ng-pattern="/([01]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?/"
-          />
+        {{document.sealDate}}
         <br>
-        <span>Fecha Hora recepción: (Sello) {{document.timeString}}</span>
-        <md-input-container class="md-icon-float md-block">
-          <label>Término de respuesta (horas)</label>
+
+        <md-input-container class="md-icon-float ">
+          <label>Horas</label>
           <md-icon
             class="material-icons"
-            aria-label="Hora">alarm</md-icon>
+            aria-label="Horas">access_time</md-icon>
           <input type="number"
+            ng-max="23"
+            ng-model="document.sealDateTimeHours"
+            ng-pattern="/([01]?[0-9]|2[0-3])?/"
+            >
+        </md-input-container>
+
+        <md-input-container class="md-icon-float ">
+          <label>Minutos</label>
+          <md-icon
+            class="material-icons"
+            aria-label="Minutos">access_time</md-icon>
+          <input type="number"
+            ng-max="59"
+            ng-model="document.sealDateTimeMinutes"
+            ng-pattern="/[0-5][0-9]?/"
             >
         </md-input-container>
         <br>
 
+<hr>
+        <md-input-container>
+          <md-switch
+            ng-model="document.doc.hasDeadline"
+            aria-label="Switch término"
+            >
+            ¿Tiene fecha de término? {{document.doc.hasDeadline ? 'Sí' : 'No'}}
+          </md-switch>
+        </md-input-container>
 
+        <div ng-show="document.doc.hasDeadline">
+          <md-input-container class="md-icon-float md-block">
+            <label>Término de respuesta (horas)</label>
+            <md-icon
+              class="material-icons"
+              aria-label="Hora">alarm</md-icon>
+            <input type="number"
+              ng-model="document.doc.hoursUntilDeadline"
+              >
+          </md-input-container>
+
+          <h2 class="md-warn">Término: {{document.getDeadline()}}</h2>
+        </div>
         <br>
+
         <label>Fecha firma</label><br>
         <md-datepicker
           name="signDateField"

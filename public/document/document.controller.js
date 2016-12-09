@@ -56,7 +56,14 @@
     vm.submit = submit;
     vm.returnPath = '/document/view/';
     vm.uploadPath = '/api/document/upload/';
-    vm.timeString = '00:00:00';
+    vm.sealDateTimeHours = 15;
+    vm.sealDateTimeMinutes = 58;
+    vm.getDeadline = function() {
+      vm.doc.deadline = moment(vm.doc.sealDate)
+        .add(vm.doc.hoursUntilDeadline, 'hours');
+      return moment(vm.doc.deadline).format('LLLL');
+    }
+
 
     vm.uploader.onAfterAddingFile = function(item) {
       var name = item._file.name;
@@ -93,7 +100,9 @@
           vm.doc = response;
           vm.doc.draftDate = new Date(vm.doc.draftDate);
           vm.doc.signDate = new Date(vm.doc.signDate);
-          vm.doc.reception.receptionDate = new Date(vm.doc.reception.receptionDate);
+          vm.doc.reception.receptionDate = new Date(
+            vm.doc.reception.receptionDate
+          );
           vm.doc.createdAt = new Date(vm.doc.createdAt);
           vm.doc.updatedAt = new Date();
         });
@@ -104,7 +113,7 @@
     function getBaseDoc() {
       var data = {
         number: 'Sin número',
-        status: '',
+        status: 'Original',
         receiver: {
           type: '',
           organization: '',
@@ -113,6 +122,10 @@
         url: '',
         draftDate: new Date(),
         signDate: new Date(),
+        sealDate: new Date('2016-12-09T21:54Z'),
+        hasDeadline: true,
+        hoursUntilDeadline: 72,
+        deadline: new Date(),
         entryUser: {
           name: '',
           email: ''
