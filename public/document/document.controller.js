@@ -47,8 +47,8 @@
     vm.doc = {};
     vm.file = null;
     vm.item = {};
-    vm.minDate = new Date(myDate.getFullYear() - 1, 12, 1);
-    vm.maxDate = new Date(myDate.getFullYear() + 1, 0, 1);
+    vm.minDate = new Date(myDate.getFullYear() - 3, 12, 1);
+    vm.maxDate = new Date(myDate.getFullYear() + 3, 0, 1);
     vm.receiverTypes = ReceiverTypeService.get();
     vm.receptionists = ReceptionistService.get();
     vm.respondents = RespondentService.get();
