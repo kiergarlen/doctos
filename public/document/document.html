@@ -88,7 +88,7 @@
             aria-label="Hora">access_time</md-icon>
           <input type="time"
             ng-model="document.doc.sealDate"
-            ng-pattern="/([01]?[0-9]|2[0-3]):[0-5][0-9]?/"
+            ng-pattern="/([01]?[0-9]|2[0-3]):[0-5][0-9]/"
             >
         </md-input-container>
         <br>
@@ -110,13 +110,12 @@
 
         <md-input-container class="md-icon-float ">
           <label>Minutos</label>
-          <md-icon
-            class="material-icons"
-            aria-label="Minutos">access_time</md-icon>
           <input type="number"
             ng-max="59"
+            ng-min="0"
             ng-model="document.sealDateTimeMinutes"
             ng-pattern="/[0-5][0-9]?/"
+            ng-change="document.setSealDateMinutes()"
             >
         </md-input-container>
         <br>

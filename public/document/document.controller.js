@@ -56,14 +56,29 @@
     vm.submit = submit;
     vm.returnPath = '/document/view/';
     vm.uploadPath = '/api/document/upload/';
-    vm.sealDateTimeHours = 15;
-    vm.sealDateTimeMinutes = 58;
+    vm.sealDateTimeHours = 0;
+    vm.sealDateTimeMinutes = 0;
     vm.getDeadline = function() {
       vm.doc.deadline = moment(vm.doc.sealDate)
         .add(vm.doc.hoursUntilDeadline, 'hours');
       return moment(vm.doc.deadline).format('LLLL');
     }
-
+    vm.setSealDateMinutes = function() {
+      var minutes = 0;
+      if (!!vm.setSealDateMinutes) {
+        minutes = parseInt(vm.sealDateTimeMinutes, 10);
+        if (vm.sealDateTimeMinutes > 59) {
+          minutes = 59;
+        }
+        if (vm.sealDateTimeMinutes < 0) {
+          minutes = 0;
+        }
+      }
+      //vm.sealDateTimeMinutes = minutes;
+      console.log(minutes);
+      console.log(vm.sealDateTimeMinutes);
+      return true;
+    }
 
     vm.uploader.onAfterAddingFile = function(item) {
       var name = item._file.name;
@@ -103,6 +118,15 @@
           vm.doc.reception.receptionDate = new Date(
             vm.doc.reception.receptionDate
           );
+          console.log('hours: ' + moment(
+              new Date(vm.doc.reception.receptionDate, 'H')
+            )
+          );
+          console.log('minutes: ' + moment(
+              new Date(vm.doc.reception.receptionDate, 'm')
+            )
+          );
+
           vm.doc.createdAt = new Date(vm.doc.createdAt);
           vm.doc.updatedAt = new Date();
         });
