@@ -58,10 +58,18 @@
     vm.uploadPath = '/api/document/upload/';
     vm.sealDateTimeHours = 0;
     vm.sealDateTimeMinutes = 0;
+    vm.deadlineTimeHours = 0;
+    vm.deadlineTimeMinutes = 0;
     vm.getDeadline = function() {
-      vm.doc.deadline = moment(vm.doc.sealDate)
-        .add(vm.doc.hoursUntilDeadline, 'hours');
-      return moment(vm.doc.deadline).format('LLLL');
+      var deadline = new Date();
+      var m;
+      if(moment(vm.doc.sealDate).isValid()) {
+        console.log(vm.doc.deadline);
+        m = moment(vm.doc.sealDate)
+          .add(vm.doc.hoursUntilDeadline, 'hours');
+        return moment(vm.doc.deadline).format('LLLL');
+      }
+      return '';
     }
     vm.setSealDateMinutes = function() {
       var minutes = 0;
@@ -159,10 +167,10 @@
         });
     } else {
       vm.doc = getBaseDoc();
+      console.log(vm.doc.deadline.toString());
     }
 
     function getBaseDoc() {
-      console.log(moment('2016-12-09T21:54Z').add(moment.duration(72, "hours")).toDate());
       var data = {
         number: 'Sin número',
         status: 'Original',
@@ -173,29 +181,38 @@
         },
         url: '',
         draftDate: new Date(),
-        signDate: new Date(),
+        signDate: new Date('2016-12-10T14:08Z'),
         sealDate: new Date('2016-12-09T21:54Z'),
         hasDeadline: true,
         hoursUntilDeadline: 72,
-        deadline: new Date(),
+        deadline: new Date('2016-12-12T21:54Z'),
         entryUser: {
           name: '',
           email: ''
         },
         reception: {
           controlNumber:'',
-          receptionDate: new Date(),
+          receptionDate: new Date('2016-12-12T19:18Z'),
           office: '',
           receptionist: '',
           subject: ''
         },
         subject: '',
         content: '',
-        createdAt: new Date(),
-        updatedAt: new Date()
+        createdAt: new Date('2016-12-10T03:12Z'),
+        updatedAt: new Date('2016-12-10T03:12Z'),
+        entryUser: {
+          name: vm.currentUser.name,
+          email: vm.currentUser.email
+        }
       };
-      data.entryUser.name = vm.currentUser.name;
-      data.entryUser.email = vm.currentUser.email;
+      console.log(moment(data.deadline).isValid());
+      var moment1 = moment(data.sealDate);
+      //var moment2 = moment(moment1.add(moment.duration(data.hoursUntilDeadline, 'hours')).toDate());
+      console.log(moment1.toDate());
+      //console.log(moment2.toDate());
+
+
       return data;
     }
 
