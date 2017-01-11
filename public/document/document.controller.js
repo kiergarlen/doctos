@@ -107,6 +107,33 @@
       }
     }
 
+// console.log(moment.duration(24, "hours").humanize());
+// duration.get('hours');
+// duration.get('minutes');
+//       DocumentService
+//         .query({documentId: $routeParams.documentId})
+//         .$promise
+//         .then(function success(response) {
+//           vm.doc = response;
+//           vm.doc.draftDate = new Date(vm.doc.draftDate);
+//           vm.doc.signDate = new Date(vm.doc.signDate);
+//           vm.doc.reception.receptionDate = new Date(
+//             vm.doc.reception.receptionDate
+//           );
+//           console.log('hours: ' + moment(
+//               new Date(vm.doc.reception.receptionDate, 'H')
+//             )
+//           );
+//           console.log('minutes: ' + moment(
+//               new Date(vm.doc.reception.receptionDate, 'm')
+//             )
+//           );
+
+//           vm.doc.createdAt = new Date(vm.doc.createdAt);
+//           vm.doc.updatedAt = new Date();
+//         });
+
+
     if ($routeParams.documentId) {
       DocumentService
         .query({documentId: $routeParams.documentId})
@@ -135,6 +162,7 @@
     }
 
     function getBaseDoc() {
+      console.log(moment('2016-12-09T21:54Z').add(moment.duration(72, "hours")).toDate());
       var data = {
         number: 'Sin número',
         status: 'Original',
