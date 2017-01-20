@@ -56,7 +56,7 @@
           </div>
         </div>
         <br>
-        <label>Fecha y hora Recepción y Sellado</label><br>
+        <label>Fecha y hora de Recepción y Sellado</label><br>
         <md-datepicker
           name="sealDateField"
           ng-model="document.doc.sealDate"
@@ -92,16 +92,16 @@
             >
         </md-input-container>
         <md-input-container class="md-icon-float ">
-          <label>Minutos</label>
+          <label>Minutos {{document.sealDateTimeMinutes}}</label>
           <input type="number"
             ng-max="59"
             ng-min="0"
             ng-model="document.sealDateTimeMinutes"
             ng-pattern="/[0-5][0-9]?/"
-            ng-change="document.setSealDateMinutes()"
             >
         </md-input-container>
         <br>
+        <!--
         <md-input-container class="md-icon-float ">
           <label>Hora</label>
           <md-icon
@@ -113,6 +113,7 @@
             >
         </md-input-container>
         <br>
+        -->
         <md-input-container>
           <md-switch
             ng-model="document.doc.hasDeadline"

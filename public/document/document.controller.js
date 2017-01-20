@@ -42,7 +42,6 @@
     var vm = this;
     var myDate = new Date();
     vm.uploader = new FileUploader();
-    vm.currentUser = getCurrentUser();
     vm.id = '';
     vm.doc = {};
     vm.file = null;
@@ -55,25 +54,27 @@
     vm.statusTypes = StatusService.get();
     vm.submit = submit;
     vm.returnPath = '/document/view/';
+    vm.listPath = '/list';
     vm.uploadPath = '/api/document/upload/';
     vm.sealDateTimeHours = 0;
     vm.sealDateTimeMinutes = 0;
     vm.deadlineTimeHours = 0;
     vm.deadlineTimeMinutes = 0;
-    vm.getDeadline = function() {
-      var deadline = new Date();
-      var m;
-      if(moment(vm.doc.sealDate).isValid()) {
-        console.log(vm.doc.deadline);
-        m = moment(vm.doc.sealDate)
-          .add(vm.doc.hoursUntilDeadline, 'hours');
-        return moment(vm.doc.deadline).format('LLLL');
-      }
-      return '';
-    }
+    vm.currentUser = vm.getCurrentUser();
+    // vm.getDeadline = function() {
+    //   var deadline = new Date();
+    //   var m;
+    //   if(moment(vm.doc.sealDate).isValid()) {
+    //     //console.log(vm.doc.deadline);
+    //     m = moment(vm.doc.sealDate)
+    //       .add(vm.doc.hoursUntilDeadline, 'hours');
+    //     return moment(vm.doc.deadline).format('LLLL');
+    //   }
+    //   return '';
+    // }
     vm.setSealDateMinutes = function() {
       var minutes = 0;
-      if (!!vm.setSealDateMinutes) {
+      if (!!vm.sealDateMinutes) {
         minutes = parseInt(vm.sealDateTimeMinutes, 10);
         if (vm.sealDateTimeMinutes > 59) {
           minutes = 59;
@@ -82,9 +83,6 @@
           minutes = 0;
         }
       }
-      //vm.sealDateTimeMinutes = minutes;
-      console.log(minutes);
-      console.log(vm.sealDateTimeMinutes);
       return true;
     }
 
@@ -107,7 +105,7 @@
       }
     }
 
-    function getCurrentUser() {
+    vm.getCurrentUser = function() {
       var userToken = TokenService.getUserFromToken();
       return {
         name: userToken._doc.name,
@@ -141,45 +139,35 @@
 //           vm.doc.updatedAt = new Date();
 //         });
 
-
     if ($routeParams.documentId) {
       DocumentService
         .query({documentId: $routeParams.documentId})
         .$promise
         .then(function success(response) {
-          vm.doc = response;
-          vm.doc.draftDate = new Date(vm.doc.draftDate);
-          vm.doc.signDate = new Date(vm.doc.signDate);
-          vm.doc.reception.receptionDate = new Date(
-            vm.doc.reception.receptionDate
+          var data = response;
+          data.draftDate = new Date(data.draftDate);
+          data.signDate = new Date(data.signDate);
+          data.reception.receptionDate = new Date(
+            data.reception.receptionDate
           );
-          console.log('hours: ' + moment(
-              new Date(vm.doc.reception.receptionDate, 'H')
-            )
-          );
-          console.log('minutes: ' + moment(
-              new Date(vm.doc.reception.receptionDate, 'm')
-            )
-          );
-
-          vm.doc.createdAt = new Date(vm.doc.createdAt);
-          vm.doc.updatedAt = new Date();
+          data.createdAt = new Date(data.createdAt);
+          data.updatedAt = new Date();
+          vm.doc = processDocumentDeadline(data);
         });
     } else {
-      vm.doc = getBaseDoc();
-      console.log(vm.doc.deadline.toString());
+      vm.doc = processDocumentDeadline(getBaseDoc());
     }
 
     function getBaseDoc() {
       var data = {
-        number: 'Sin número',
+        number: '32768',
         status: 'Original',
         receiver: {
-          type: '',
-          organization: '',
-          name: ''
+          type: 'Gerencia',
+          organization: 'Gerencia de Formulación de Proyectos',
+          name: 'Mario Ríos Plascencia'
         },
-        url: '',
+        url: '32768.pdf',
         draftDate: new Date(),
         signDate: new Date('2016-12-10T14:08Z'),
         sealDate: new Date('2016-12-09T21:54Z'),
@@ -191,28 +179,35 @@
           email: ''
         },
         reception: {
-          controlNumber:'',
+          controlNumber:'32745',
           receptionDate: new Date('2016-12-12T19:18Z'),
-          office: '',
-          receptionist: '',
-          subject: ''
+          office: 'Gerencia de Formulación de Proyectos',
+          receptionist: 'Silvia Beatriz Antón Márquez',
+          subject: 'Asunto del documento original'
         },
-        subject: '',
-        content: '',
+        subject: 'Asunto del documento de respuesta',
+        content: 'Contenido del documento de respuesta',
         createdAt: new Date('2016-12-10T03:12Z'),
-        updatedAt: new Date('2016-12-10T03:12Z'),
-        entryUser: {
-          name: vm.currentUser.name,
-          email: vm.currentUser.email
-        }
+        updatedAt: new Date('2016-12-10T03:12Z')
       };
-      console.log(moment(data.deadline).isValid());
-      var moment1 = moment(data.sealDate);
-      //var moment2 = moment(moment1.add(moment.duration(data.hoursUntilDeadline, 'hours')).toDate());
-      console.log(moment1.toDate());
-      //console.log(moment2.toDate());
+      data.entryUser = {
+        name: vm.currentUser.name,
+        email: vm.currentUser.email
+      };
+      return data;
+    }
 
-
+    function processDocumentDeadline(data) {
+      var moment1;
+      var moment2;
+      moment1 = moment(data.sealDate);
+      vm.sealDateTimeHours = parseInt(moment1.format('H'), 10);
+      vm.sealDateTimeMinutes = parseInt(moment1.format('m'), 10);
+      if (data.hasDeadline) {
+        moment2 = moment(data.deadline);
+        vm.deadlineTimeHours = parseInt(moment2.format('H'), 10);
+        vm.deadlineTimeMinutes = parseInt(moment2.format('m'), 10);
+      }
       return data;
     }
 
@@ -255,7 +250,13 @@
             .then(function success(response) {
                 if (response.success) {
                   vm.id = response.message;
-                  vm.item.upload();
+                  if (vm.item && vm.file) {
+                    vm.item.upload();
+                  }
+                  $location.path(vm.returnPath + vm.id);
+                } else {
+                  //flash message, Error
+                  alert('Error' + response.message);
                 }
                 return response;
               }, function error(response) {

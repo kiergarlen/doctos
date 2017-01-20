@@ -284,7 +284,8 @@ function initApp(app) {
     '/receptionist',
     passport.authenticate('jwt', {session: false}),
     (req, res) => {
-      Employee.find({'receptionist':1}, null, {'sort': {'name': 1}},
+      //Employee.find({'receptionist':1}, null, {'sort': {'name': 1}},
+      Employee.find({}, null, {'sort': {'name': 1}},
         (err, receptionists) => {
         if (err) {
           res.send({success: false, message: 'Not found'})

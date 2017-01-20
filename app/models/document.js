@@ -35,6 +35,23 @@ var DocumentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
+  sealDate: {
+    type: Date,
+    default: Date.now
+  },
+  hasDeadline: {
+    type: Boolean,
+    default: false
+  },
+  hoursUntilDeadline: {
+    type: Number,
+    required: false,
+    default: 0
+  },
+  deadline: {
+    type: Date,
+    required: false
+  },
   entryUser: {
     name: {
       type: String,
