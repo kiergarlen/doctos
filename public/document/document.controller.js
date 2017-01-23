@@ -124,35 +124,35 @@
 
     function getBaseDoc() {
       var data = {
-        number: '32768',
-        status: 'Original',
+        number: '',
+        status: '',
         receiver: {
-          type: 'Gerencia',
-          organization: 'Gerencia de Formulación de Proyectos',
-          name: 'Mario Ríos Plascencia'
+          type: '',
+          organization: '',
+          name: ''
         },
-        url: '32768.pdf',
+        url: '',
         draftDate: new Date(),
-        signDate: new Date('2016-12-10T14:08Z'),
-        sealDate: new Date('2016-12-09T21:54Z'),
-        hasDeadline: true,
-        hoursUntilDeadline: 72,
-        deadline: new Date('2016-12-12T21:54Z'),
+        signDate: new Date(),
+        sealDate: new Date(),
+        hasDeadline: false,
+        hoursUntilDeadline: 0,
+        deadline: new Date(),
         entryUser: {
           name: '',
           email: ''
         },
         reception: {
-          controlNumber:'32745',
-          receptionDate: new Date('2016-12-12T19:18Z'),
-          office: 'Gerencia de Formulación de Proyectos',
-          receptionist: 'Silvia Beatriz Antón Márquez',
-          subject: 'Asunto del documento original'
+          controlNumber:'',
+          receptionDate: new Date(),
+          office: '',
+          receptionist: '',
+          subject: ''
         },
-        subject: 'Asunto del documento de respuesta',
-        content: 'Contenido del documento de respuesta',
-        createdAt: new Date('2016-12-10T03:12Z'),
-        updatedAt: new Date('2016-12-10T03:12Z')
+        subject: '',
+        content: '',
+        createdAt: new Date(),
+        updatedAt: new Date()
       };
       data.entryUser = {
         name: vm.currentUser.name,
