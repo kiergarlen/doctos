@@ -60,18 +60,8 @@
     vm.sealDateTimeMinutes = 0;
     vm.deadlineTimeHours = 0;
     vm.deadlineTimeMinutes = 0;
-    vm.currentUser = vm.getCurrentUser();
-    // vm.getDeadline = function() {
-    //   var deadline = new Date();
-    //   var m;
-    //   if(moment(vm.doc.sealDate).isValid()) {
-    //     //console.log(vm.doc.deadline);
-    //     m = moment(vm.doc.sealDate)
-    //       .add(vm.doc.hoursUntilDeadline, 'hours');
-    //     return moment(vm.doc.deadline).format('LLLL');
-    //   }
-    //   return '';
-    // }
+    vm.currentUser = getCurrentUser();
+
     vm.setSealDateMinutes = function() {
       var minutes = 0;
       if (!!vm.sealDateMinutes) {
@@ -105,39 +95,13 @@
       }
     }
 
-    vm.getCurrentUser = function() {
+    function getCurrentUser() {
       var userToken = TokenService.getUserFromToken();
       return {
         name: userToken._doc.name,
         email: userToken._doc.email
       }
     }
-
-// console.log(moment.duration(24, "hours").humanize());
-// duration.get('hours');
-// duration.get('minutes');
-//       DocumentService
-//         .query({documentId: $routeParams.documentId})
-//         .$promise
-//         .then(function success(response) {
-//           vm.doc = response;
-//           vm.doc.draftDate = new Date(vm.doc.draftDate);
-//           vm.doc.signDate = new Date(vm.doc.signDate);
-//           vm.doc.reception.receptionDate = new Date(
-//             vm.doc.reception.receptionDate
-//           );
-//           console.log('hours: ' + moment(
-//               new Date(vm.doc.reception.receptionDate, 'H')
-//             )
-//           );
-//           console.log('minutes: ' + moment(
-//               new Date(vm.doc.reception.receptionDate, 'm')
-//             )
-//           );
-
-//           vm.doc.createdAt = new Date(vm.doc.createdAt);
-//           vm.doc.updatedAt = new Date();
-//         });
 
     if ($routeParams.documentId) {
       DocumentService
@@ -255,16 +219,16 @@
                   }
                   $location.path(vm.returnPath + vm.id);
                 } else {
-                  //flash message, Error
-                  alert('Error' + response.message);
+               flashMessage(response.message);
                 }
                 return response;
               }, function error(response) {
                 if (response.status === 404) {
-                  return 'Recurso no encontrado';
+                  flashMessage('Recurso no encontrado');
                 } else {
-                  return 'Error no especificado';
+                  flashMessage('Error no especificado');
                 }
+                return response;
               }
             );
         } else {
@@ -291,7 +255,7 @@
             );
         }
       } else {
-        // flashMessage('Error al guardar el documento');
+        flashMessage('Error al guardar el documento');
       }
     }
   }
