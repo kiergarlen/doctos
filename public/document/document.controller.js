@@ -62,6 +62,25 @@
     vm.deadlineTimeMinutes = 0;
     vm.currentUser = getCurrentUser();
 
+    if ($routeParams.documentId) {
+      DocumentService
+        .query({documentId: $routeParams.documentId})
+        .$promise
+        .then(function success(response) {
+          var data = response;
+          data.draftDate = new Date(data.draftDate);
+          data.signDate = new Date(data.signDate);
+          data.reception.receptionDate = new Date(
+            data.reception.receptionDate
+          );
+          data.createdAt = new Date(data.createdAt);
+          data.updatedAt = new Date();
+          vm.doc = processDocumentDeadline(data);
+        });
+    } else {
+      vm.doc = processDocumentDeadline(getBaseDoc());
+    }
+
     vm.setSealDateMinutes = function() {
       var minutes = 0;
       if (!!vm.sealDateMinutes) {
@@ -101,25 +120,6 @@
         name: userToken._doc.name,
         email: userToken._doc.email
       }
-    }
-
-    if ($routeParams.documentId) {
-      DocumentService
-        .query({documentId: $routeParams.documentId})
-        .$promise
-        .then(function success(response) {
-          var data = response;
-          data.draftDate = new Date(data.draftDate);
-          data.signDate = new Date(data.signDate);
-          data.reception.receptionDate = new Date(
-            data.reception.receptionDate
-          );
-          data.createdAt = new Date(data.createdAt);
-          data.updatedAt = new Date();
-          vm.doc = processDocumentDeadline(data);
-        });
-    } else {
-      vm.doc = processDocumentDeadline(getBaseDoc());
     }
 
     function getBaseDoc() {
@@ -247,9 +247,9 @@
                 return response;
               }, function error(response) {
                 if (response.status === 404) {
-                  return 'Recurso no encontrado';
+                  flashMessage('Recurso no encontrado');
                 } else {
-                  return 'Error no especificado';
+                  flashMessage('Error no especificado');
                 }
               }
             );
