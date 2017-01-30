@@ -10,7 +10,7 @@ const morgan = require('morgan')
 const passport = require('passport')
 const JwtStrategy = require('passport-jwt').Strategy
 const ExtractJwt = require('passport-jwt').ExtratJwt
-const port = 3000
+const port = 3004
 const Schema = mongoose.Schema
 const config = require('./config/config')
 
