@@ -61,6 +61,11 @@
     vm.deadlineTimeHours = 0;
     vm.deadlineTimeMinutes = 0;
     vm.currentUser = getCurrentUser();
+    vm.internalDepartments = [
+      'Contraloría Interna',
+      'Gerencia de Auditoría Interna',
+      'Gerencia de Auditoría (Administrativa y Procesos)'
+    ];
 
     if ($routeParams.documentId) {
       DocumentService

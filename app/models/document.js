@@ -5,6 +5,10 @@ var DocumentSchema = new mongoose.Schema({
     type: String,
     required: false
   },
+  internalDepartment:  {
+    type: String,
+    required: true
+  },
   status: {
     type: String,
     required: true
