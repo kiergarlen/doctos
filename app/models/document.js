@@ -5,6 +5,10 @@ var DocumentSchema = new mongoose.Schema({
     type: String,
     required: false
   },
+  consecutive: {
+    type: Number,
+    required: true
+  },
   internalDepartment:  {
     type: String,
     required: true
@@ -85,6 +89,19 @@ var DocumentSchema = new mongoose.Schema({
     },
     subject: {
       type: String,
+      required: false
+    },
+    hasDeadline: {
+      type: Boolean,
+      default: false
+    },
+    hoursUntilDeadline: {
+      type: Number,
+      required: false,
+      default: 0
+    },
+    deadline: {
+      type: Date,
       required: false
     }
   },

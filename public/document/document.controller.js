@@ -40,14 +40,14 @@
       DocumentService
     ) {
     var vm = this;
-    var myDate = new Date();
+    vm.now = new Date();
     vm.uploader = new FileUploader();
     vm.id = '';
     vm.doc = {};
     vm.file = null;
     vm.item = {};
-    vm.minDate = new Date(myDate.getFullYear() - 3, 12, 1);
-    vm.maxDate = new Date(myDate.getFullYear() + 3, 0, 1);
+    vm.minDate = new Date(vm.now.getFullYear() - 3, 12, 1);
+    vm.maxDate = new Date(vm.now.getFullYear() + 3, 0, 1);
     vm.receiverTypes = ReceiverTypeService.get();
     vm.receptionists = ReceptionistService.get();
     vm.respondents = RespondentService.get();
@@ -79,7 +79,7 @@
             data.reception.receptionDate
           );
           data.createdAt = new Date(data.createdAt);
-          data.updatedAt = new Date();
+          data.updatedAt = vm.now;
           vm.doc = processDocumentDeadline(data);
         });
     } else {
@@ -128,8 +128,11 @@
     }
 
     function getBaseDoc() {
-      var data = {
+      return {
         number: '',
+
+        consecutive: 0,
+        internalDepartment: '',
         status: '',
         receiver: {
           type: '',
@@ -137,33 +140,31 @@
           name: ''
         },
         url: '',
-        draftDate: new Date(),
-        signDate: new Date(),
-        sealDate: new Date(),
+        draftDate: vm.now,
+        signDate: vm.now,
+        sealDate: vm.now,
         hasDeadline: false,
         hoursUntilDeadline: 0,
-        deadline: new Date(),
+        deadline: vm.now,
         entryUser: {
-          name: '',
-          email: ''
+          name: vm.currentUser.name,
+          email: vm.currentUser.email
         },
         reception: {
           controlNumber:'',
-          receptionDate: new Date(),
+          receptionDate: vm.now,
           office: '',
           receptionist: '',
-          subject: ''
+          subject: '',
+          hasDeadline: false,
+          hoursUntilDeadline: 0,
+          deadline: vm.now
         },
         subject: '',
         content: '',
-        createdAt: new Date(),
-        updatedAt: new Date()
+        createdAt: vm.now,
+        updatedAt: vm.now
       };
-      data.entryUser = {
-        name: vm.currentUser.name,
-        email: vm.currentUser.email
-      };
-      return data;
     }
 
     function processDocumentDeadline(data) {
