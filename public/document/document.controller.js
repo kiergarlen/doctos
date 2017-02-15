@@ -140,30 +140,30 @@
           name: ''
         },
         url: '',
-        draftDate: vm.now,
-        signDate: vm.now,
-        sealDate: vm.now,
+        draftDate: new Date(),
+        signDate: new Date(),
+        sealDate: new Date(),
         hasDeadline: false,
         hoursUntilDeadline: 0,
-        deadline: vm.now,
+        deadline: new Date(),
         entryUser: {
           name: vm.currentUser.name,
           email: vm.currentUser.email
         },
         reception: {
           controlNumber:'',
-          receptionDate: vm.now,
+          receptionDate: new Date(),
           office: '',
           receptionist: '',
           subject: '',
           hasDeadline: false,
           hoursUntilDeadline: 0,
-          deadline: vm.now
+          deadline: new Date()
         },
         subject: '',
         content: '',
-        createdAt: vm.now,
-        updatedAt: vm.now
+        createdAt: new Date(),
+        updatedAt: new Date()
       };
     }
 
