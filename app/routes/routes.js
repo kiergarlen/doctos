@@ -9,6 +9,7 @@ const multer = require('multer')
 const Document = require('../models/document')
 const Employee = require('../models/employee')
 const ReceiverType = require('../models/receivertype')
+const DocumentType = require('../models/documenttype')
 const Respondent = require('../models/respondent')
 const Status = require('../models/status')
 const User = require('../models/user')
@@ -262,6 +263,20 @@ function initApp(app) {
           throw err
         }
         res.json(receiverTypes)
+      })
+    }
+  )
+
+  api.get(
+    '/document_type',
+    passport.authenticate('jwt', {session: false}),
+    (req, res) => {
+      DocumentType.find({}, (err, documentTypes) => {
+        if (err) {
+          res.send({success: false, message: 'Not found'})
+          throw err
+        }
+        res.json(documentTypes)
       })
     }
   )

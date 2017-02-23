@@ -1,0 +1,33 @@
+{
+    "type" : "Memorando"
+}
+
+{
+    "type" : "Oficio"
+}
+
+{
+    "type" : "Órden de Auditoría"
+}
+{
+    "type" : "Acta de Inicio"
+}
+{
+    "type" : "Acta de Cierre"
+}
+
+{
+    "type" : "Respuesta del Área Auditada"
+}
+
+{
+    "type" : "Seguimiento del Órgano de Control Interno"
+}
+
+{
+    "type" : "Seguimiento de la Auditoría"
+}
+
+{
+    "type" : "Informe de la Auditoría"
+}

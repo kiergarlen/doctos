@@ -16,6 +16,7 @@
     'TokenService',
     'DateUtilsService',
     'TextUtilsService',
+    'DocumentTypeService',
     'ReceiverTypeService',
     'ReceptionistService',
     'RespondentService',
@@ -33,6 +34,7 @@
       TokenService,
       DateUtilsService,
       TextUtilsService,
+      DocumentTypeService,
       ReceiverTypeService,
       ReceptionistService,
       RespondentService,
@@ -48,6 +50,7 @@
     vm.item = {};
     vm.minDate = new Date(vm.now.getFullYear() - 3, 12, 1);
     vm.maxDate = new Date(vm.now.getFullYear() + 3, 0, 1);
+    vm.documentTypes = DocumentTypeService.get();
     vm.receiverTypes = ReceiverTypeService.get();
     vm.receptionists = ReceptionistService.get();
     vm.respondents = RespondentService.get();
@@ -130,7 +133,8 @@
     function getBaseDoc() {
       return {
         number: '',
-
+        numberExecutiveOffice: '',
+        documentType: '',
         consecutive: 0,
         internalDepartment: '',
         status: '',

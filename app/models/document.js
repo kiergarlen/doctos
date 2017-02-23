@@ -5,11 +5,19 @@ var DocumentSchema = new mongoose.Schema({
     type: String,
     required: false
   },
-  consecutive: {
-    type: Number,
+  numberExecutiveOffice: {
+    type: String,
+    required: false
+  },
+  documentType: {
+    type: String,
     required: true
   },
-  internalDepartment:  {
+  consecutive: {
+    type: Number,
+    required: false
+  },
+  internalDepartment: {
     type: String,
     required: true
   },
