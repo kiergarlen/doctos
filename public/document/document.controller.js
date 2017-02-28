@@ -61,8 +61,10 @@
     vm.uploadPath = '/api/document/upload/';
     vm.sealDateTimeHours = 0;
     vm.sealDateTimeMinutes = 0;
-    vm.deadlineTimeHours = 0;
-    vm.deadlineTimeMinutes = 0;
+    vm.deadlineHours = 0;
+    vm.deadlineMinutes = 0;
+    vm.receptionDeadlineHours = 0;
+    vm.receptionDeadlineMinutes = 0;
     vm.currentUser = getCurrentUser();
     vm.internalDepartments = [
       'Contraloría Interna',
@@ -83,10 +85,12 @@
           );
           data.createdAt = new Date(data.createdAt);
           data.updatedAt = vm.now;
-          vm.doc = processDocumentDeadline(data);
+          vm.doc = data;
+          setDocumentDateParts(vm.doc);
         });
     } else {
-      vm.doc = processDocumentDeadline(getBaseDoc());
+      vm.doc = getBaseDoc();
+      setDocumentDateParts(vm.doc);
     }
 
     vm.setSealDateMinutes = function() {
@@ -101,7 +105,7 @@
         }
       }
       return true;
-    }
+    };
 
     vm.uploader.onAfterAddingFile = function(item) {
       var name = item._file.name;
@@ -110,24 +114,24 @@
       item.file.name = name;
       vm.item = item;
       vm.doc.url = name;
-    }
+    };
 
     vm.uploader.onBeforeUploadItem = function(item) {
       item.url = vm.uploadPath + vm.id;
-    }
+    };
 
     vm.uploader.onCompleteAll = function() {
       if (vm.id.length > 0) {
         $location.path(vm.returnPath + vm.id);
       }
-    }
+    };
 
     function getCurrentUser() {
       var userToken = TokenService.getUserFromToken();
       return {
         name: userToken._doc.name,
         email: userToken._doc.email
-      }
+      };
     }
 
     function getBaseDoc() {
@@ -171,18 +175,20 @@
       };
     }
 
-    function processDocumentDeadline(data) {
-      var moment1;
-      var moment2;
-      moment1 = moment(data.sealDate);
-      vm.sealDateTimeHours = parseInt(moment1.format('H'), 10);
-      vm.sealDateTimeMinutes = parseInt(moment1.format('m'), 10);
+    function setDocumentDateParts(data) {
+      var dateParts = DateUtilsService.getDateParts(data.sealDate);
+      vm.sealDateTimeHours = dateParts.hours;
+      vm.sealDateTimeMinutes = dateParts.minutes;
       if (data.hasDeadline) {
-        moment2 = moment(data.deadline);
-        vm.deadlineTimeHours = parseInt(moment2.format('H'), 10);
-        vm.deadlineTimeMinutes = parseInt(moment2.format('m'), 10);
+        dateParts = DateUtilsService.getDateParts(data.deadline);
+        vm.deadlineHours = dateParts.hours;
+        vm.deadlineMinutes = dateParts.minutes;
       }
-      return data;
+      if (data.reception.deadline) {
+        dateParts = DateUtilsService.getDateParts(data.reception.deadline);
+        vm.receptionDeadlineHours = dateParts.hours;
+        vm.receptionDeadlineMinutes = dateParts.minutes;
+      }
     }
 
     function flashMessage(message) {
@@ -198,7 +204,7 @@
     function isValidDoc() {
       if (!vm.doc) {
         flashMessage('Documento incompleto');
-        return false
+        return false;
       }
       if (!vm.doc.receiver.organization) {
         flashMessage('Debe agregar una Dependencia');
