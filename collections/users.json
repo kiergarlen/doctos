@@ -1,3 +1,42 @@
-{"email": "ogonzalez@ceajalisco.gob.mx","password": "$2a$10$Ic/VzHqIklP4zEllhH99IORhjGjZH6xUoTJugNAaPweqZOHu5YD4i","role": "Admin","name": "Oscar Gonzalez"}
-{"email": "emiranda@ceajalisco.gob.mx","password": "$2a$10$1/G8fKzB7fo7mExixZSL3.y9strgWwzqXvf3X6g3I.8/GGlmdrlO2","name": "Erika Miranda","role": "Guest"}
-{"email": "mbecerra@ceajalisco.gob.mx","password": "$2a$10$CeKP1YNEXJV3LqidUvTzdOBS1fHQMmcRwl.WKdS0Ri.Yzoi1flz0W","name": "Monica Becerra","role": "Guest"}
+{
+  "email": "ogonzalez@ceajalisco.gob.mx",
+  "password": "$2a$10$Ic/VzHqIklP4zEllhH99IORhjGjZH6xUoTJugNAaPweqZOHu5YD4i",
+  "name": "Oscar Gonzalez",
+  "role": "Admin"
+}
+
+{
+  "email": "mbeltran@ceajalisco.gob.mx",
+  "password": "$2a$10$xEnpFWme0.I8v9xZG.zQ4uWqCj83lL9rBqL5QLd8Dn7B.CAHcw72S",
+  "name": "Miriam Astrid Beltran Fernandez",
+  "role": "Admin"
+}
+
+{
+  "email": "kzuno@ceajalisco.gob.mx",
+  "password": "$2a$10$98VmVrJEgKIHi3qopYjNkeEe.K48OOr4Teb6c00n23HOEYRDG5c.O",
+  "name": "Karen Stephanie Zuno Orozco",
+  "role": "Guest"
+}
+
+{
+  "email": "fparra@ceajalisco.gob.mx",
+  "password": "$2a$10$G1SbpxEswY/CDEzDYHTXCOn0idepO.UbmV5SS71Y1NyIbRpaegdq6",
+  "name": "Fabiola Parra Cambero",
+  "role": "Guest"
+}
+
+{
+  "email": "xlopez@ceajalisco.gob.mx",
+  "password": "$2a$10$FaEpQnV.UBrkOj3R17Fiwul0k.DouLfYd26QoXldEG.HmS0xT/Ksy",
+  "name": "Xochitl Lopez Cisneros",
+  "role": "Guest"
+}
+
+{
+  "email": "yrivas@ceajalisco.gob.mx",
+  "password": "$2a$10$jnYY2JHFaOLOUxyT37rRYOSgFvLCgvlmEekP9PlpqM72fjpOqF6..",
+  "name": "Yaneyra Rivas Urena",
+  "role": "Guest"
+}
+
