@@ -9,6 +9,7 @@ const multer = require('multer')
 const Document = require('../models/document')
 const Employee = require('../models/employee')
 const ReceiverType = require('../models/receivertype')
+
 const Respondent = require('../models/respondent')
 const Status = require('../models/status')
 const User = require('../models/user')
@@ -92,7 +93,7 @@ function initApp(app) {
           throw err
         }
         if (!user) {
-          res.send({success: false, message: 'Users not found'})
+          res.send({success: false, message: 'Not found'})
         } else {
           res.json(users)
         }
@@ -109,7 +110,7 @@ function initApp(app) {
           throw err
         }
         if (!user) {
-          res.send({success: false, message: 'User not found'})
+          res.send({success: false, message: 'Not found'})
         } else {
           res.json(user)
         }

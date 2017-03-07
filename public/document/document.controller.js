@@ -16,6 +16,7 @@
     'TokenService',
     'DateUtilsService',
     'TextUtilsService',
+
     'ReceiverTypeService',
     'ReceptionistService',
     'RespondentService',
@@ -33,6 +34,7 @@
       TokenService,
       DateUtilsService,
       TextUtilsService,
+
       ReceiverTypeService,
       ReceptionistService,
       RespondentService,
@@ -40,22 +42,70 @@
       DocumentService
     ) {
     var vm = this;
-    var myDate = new Date();
+    vm.now = new Date();
     vm.uploader = new FileUploader();
-    vm.currentUser = getCurrentUser();
     vm.id = '';
     vm.doc = {};
     vm.file = null;
     vm.item = {};
-    vm.minDate = new Date(myDate.getFullYear() - 1, 12, 1);
-    vm.maxDate = new Date(myDate.getFullYear() + 1, 0, 1);
+    vm.minDate = new Date(vm.now.getFullYear() - 3, 12, 1);
+    vm.maxDate = new Date(vm.now.getFullYear() + 3, 0, 1);
+
     vm.receiverTypes = ReceiverTypeService.get();
     vm.receptionists = ReceptionistService.get();
     vm.respondents = RespondentService.get();
     vm.statusTypes = StatusService.get();
     vm.submit = submit;
     vm.returnPath = '/document/view/';
+
     vm.uploadPath = '/api/document/upload/';
+
+
+
+
+
+
+    vm.currentUser = getCurrentUser();
+
+
+
+
+
+
+    if ($routeParams.documentId) {
+      DocumentService
+        .query({documentId: $routeParams.documentId})
+        .$promise
+        .then(function success(response) {
+          var data = response;
+          data.draftDate = new Date(data.draftDate);
+          data.signDate = new Date(data.signDate);
+          data.reception.receptionDate = new Date(
+            data.reception.receptionDate
+          );
+          data.createdAt = new Date(data.createdAt);
+          data.updatedAt = vm.now;
+          vm.doc = data;
+
+        });
+    } else {
+      vm.doc = getBaseDoc();
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     vm.uploader.onAfterAddingFile = function(item) {
       var name = item._file.name;
@@ -64,45 +114,33 @@
       item.file.name = name;
       vm.item = item;
       vm.doc.url = name;
-    }
+    };
 
     vm.uploader.onBeforeUploadItem = function(item) {
       item.url = vm.uploadPath + vm.id;
-    }
+    };
 
     vm.uploader.onCompleteAll = function() {
       if (vm.id.length > 0) {
         $location.path(vm.returnPath + vm.id);
       }
-    }
+    };
 
     function getCurrentUser() {
       var userToken = TokenService.getUserFromToken();
       return {
         name: userToken._doc.name,
         email: userToken._doc.email
-      }
-    }
-
-    if ($routeParams.documentId) {
-      DocumentService
-        .query({documentId: $routeParams.documentId})
-        .$promise
-        .then(function success(response) {
-          vm.doc = response;
-          vm.doc.draftDate = new Date(vm.doc.draftDate);
-          vm.doc.signDate = new Date(vm.doc.signDate);
-          vm.doc.reception.receptionDate = new Date(vm.doc.reception.receptionDate);
-          vm.doc.createdAt = new Date(vm.doc.createdAt);
-          vm.doc.updatedAt = new Date();
-        });
-    } else {
-      vm.doc = getBaseDoc();
+      };
     }
 
     function getBaseDoc() {
-      var data = {
+      return {
         number: 'Sin número',
+
+
+
+
         status: '',
         receiver: {
           type: '',
@@ -112,9 +150,13 @@
         url: '',
         draftDate: new Date(),
         signDate: new Date(),
+
+
+
+
         entryUser: {
-          name: '',
-          email: ''
+          name: vm.currentUser.name,
+          email: vm.currentUser.email
         },
         reception: {
           controlNumber:'',
@@ -122,16 +164,32 @@
           office: '',
           receptionist: '',
           subject: ''
+
+
+
         },
         subject: '',
         content: '',
         createdAt: new Date(),
         updatedAt: new Date()
       };
-      data.entryUser.name = vm.currentUser.name;
-      data.entryUser.email = vm.currentUser.email;
-      return data;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     function flashMessage(message) {
       $mdDialog.show(
@@ -146,7 +204,7 @@
     function isValidDoc() {
       if (!vm.doc) {
         flashMessage('Documento incompleto');
-        return false
+        return false;
       }
       if (!vm.doc.receiver.organization) {
         flashMessage('Debe agregar una Dependencia');
@@ -172,15 +230,21 @@
             .then(function success(response) {
                 if (response.success) {
                   vm.id = response.message;
-                  vm.item.upload();
+                  if (vm.item && vm.file) {
+                    vm.item.upload();
+                  }
+                  $location.path(vm.returnPath + vm.id);
+                } else {
+                  flashMessage(response.message);
                 }
                 return response;
               }, function error(response) {
                 if (response.status === 404) {
-                  return 'Recurso no encontrado';
+                  flashMessage('Recurso no encontrado');
                 } else {
-                  return 'Error no especificado';
+                  flashMessage('Error no especificado');
                 }
+                return response;
               }
             );
         } else {
@@ -199,15 +263,15 @@
                 return response;
               }, function error(response) {
                 if (response.status === 404) {
-                  return 'Recurso no encontrado';
+                  flashMessage('Recurso no encontrado');
                 } else {
-                  return 'Error no especificado';
+                  flashMessage('Error no especificado');
                 }
               }
             );
         }
       } else {
-        // flashMessage('Error al guardar el documento');
+        flashMessage('Error al guardar el documento');
       }
     }
   }

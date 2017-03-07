@@ -6,12 +6,6 @@
     .factory('DateUtilsService', DateUtilsService);
 
   function DateUtilsService() {
-    var DateUtils = {};
-
-    DateUtils.padNumber = padNumber;
-    DateUtils.dateToIso = dateToIso;
-    DateUtils.isValidDate = isValidDate;
-
     function padNumber(number, places) {
       var paddedNumber = String(number);
       var i = 0;
@@ -31,22 +25,23 @@
     }
 
     function dateToIso(date) {
+      var parts = getDateParts(date);
       return [
-        date.getFullYear(),
+        parts.years(),
         '-',
-        padNumber(date.getMonth() + 1, 2),
+        padNumber(parts.months() + 1, 2),
         '-',
-        padNumber(date.getDate(), 2),
+        padNumber(parts.days(), 2),
         'T',
-        padNumber(date.getHours(), 2),
+        padNumber(parts.hours(), 2),
         ':',
-        padNumber(date.getMinutes(), 2),
+        padNumber(parts.minutes(), 2),
         ':',
-        padNumber(date.getSeconds(), 2),
+        padNumber(parts.seconds(), 2),
         '.',
-        (date.getMilliseconds() / 1000).toFixed(3).slice(2, 5),
-        (date.getTimezoneOffset() / 60 > -1) ? '-' : '+',
-        padNumber(date.getTimezoneOffset() / 60, 2),
+        (parts.milliseconds() / 1000).toFixed(3).slice(2, 5),
+        (parts.offset() / 60 > -1) ? '-' : '+',
+        padNumber(parts.offset() / 60, 2),
         ':00'
       ].join('');
     }
@@ -58,6 +53,24 @@
       return !isNaN(date.getTime());
     }
 
-    return DateUtils;
+    function getDateParts(date) {
+      return {
+        years: date.getFullYear(),
+        months: date.getMonth(),
+        days: date.getDate(),
+        hours: date.getHours(),
+        minutes: date.getMinutes(),
+        seconds: date.getSeconds(),
+        milliseconds: date.getMilliseconds(),
+        offset: date.getTimezoneOffset()
+      };
+    }
+
+    return {
+      padNumber: padNumber,
+      dateToIso: dateToIso,
+      isValidDate: isValidDate,
+      getDateParts: getDateParts
+    };
   }
 })();
