@@ -113,7 +113,9 @@
             </md-input-container>
             <md-input-container class="md-block" flex-gt-xs>
               <label>Encargado/Nombre</label>
-              <input ng-model="document.doc.receiver.name">
+              <input ng-model="document.doc.receiver.name"
+                required
+                >
             </md-input-container>
           </md-card-content>
         </md-card>
@@ -190,9 +192,7 @@
               <md-input-container class="md-block" flex-gt-xs>
                 <label>Número de Control (Correspondencia)</label>
                 <input
-                  ng-model="document.doc.reception.controlNumber"
-                  required
-                  >
+                  ng-model="document.doc.reception.controlNumber">
               </md-input-container>
             </div>
             <label>Fecha Recepción (Original)</label><br>
@@ -202,7 +202,6 @@
               md-placeholder="Fecha Recepción (Original)"
               md-min-date="document.minDate"
               md-max-date="document.maxDate"
-              required
               >
             </md-datepicker>
             <div layout="column"
@@ -215,9 +214,7 @@
             <md-input-container class="md-block" flex-gt-xs>
               <label>Área receptora</label>
               <md-select
-                ng-model="document.doc.reception.office"
-                required
-                >
+                ng-model="document.doc.reception.office">
                 <md-option
                   ng-repeat="item in document.respondents"
                   ng-value="item.office"

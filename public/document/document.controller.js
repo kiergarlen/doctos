@@ -16,7 +16,6 @@
     'TokenService',
     'DateUtilsService',
     'TextUtilsService',
-
     'ReceiverTypeService',
     'ReceptionistService',
     'RespondentService',
@@ -34,7 +33,6 @@
       TokenService,
       DateUtilsService,
       TextUtilsService,
-
       ReceiverTypeService,
       ReceptionistService,
       RespondentService,
@@ -50,27 +48,14 @@
     vm.item = {};
     vm.minDate = new Date(vm.now.getFullYear() - 3, 12, 1);
     vm.maxDate = new Date(vm.now.getFullYear() + 3, 0, 1);
-
     vm.receiverTypes = ReceiverTypeService.get();
     vm.receptionists = ReceptionistService.get();
     vm.respondents = RespondentService.get();
     vm.statusTypes = StatusService.get();
     vm.submit = submit;
     vm.returnPath = '/document/view/';
-
     vm.uploadPath = '/api/document/upload/';
-
-
-
-
-
-
     vm.currentUser = getCurrentUser();
-
-
-
-
-
 
     if ($routeParams.documentId) {
       DocumentService
@@ -90,22 +75,7 @@
         });
     } else {
       vm.doc = getBaseDoc();
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     vm.uploader.onAfterAddingFile = function(item) {
       var name = item._file.name;
@@ -137,10 +107,6 @@
     function getBaseDoc() {
       return {
         number: 'Sin número',
-
-
-
-
         status: '',
         receiver: {
           type: '',
@@ -150,10 +116,6 @@
         url: '',
         draftDate: new Date(),
         signDate: new Date(),
-
-
-
-
         entryUser: {
           name: vm.currentUser.name,
           email: vm.currentUser.email
@@ -164,9 +126,6 @@
           office: '',
           receptionist: '',
           subject: ''
-
-
-
         },
         subject: '',
         content: '',
@@ -174,22 +133,6 @@
         updatedAt: new Date()
       };
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     function flashMessage(message) {
       $mdDialog.show(
@@ -212,6 +155,10 @@
       }
       if (!vm.doc.receiver.name) {
         flashMessage('Debe agregar un encargado');
+        return false;
+      }
+      if (!vm.doc.reception.subject) {
+        flashMessage('Debe agregar un asunto para la respuesta');
         return false;
       }
       if (!DateUtilsService.isValidDate(vm.doc.draftDate)) {

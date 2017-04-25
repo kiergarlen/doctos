@@ -24,7 +24,7 @@
     vm.fullName = TokenService.getUserFromToken()._doc.name;
     vm.currentPassword = '';
     vm.newPassword = '';
-    vm.submitForm = function (ev) {
+    vm.submitForm = function(ev) {
       // TODO: Check if password is valid
       // Show user feddback before persisting to database
       var confirm = $mdDialog.confirm()
@@ -45,6 +45,6 @@
           vm.newPassword = '';
         }
       );
-    }
+    };
   }
 })();

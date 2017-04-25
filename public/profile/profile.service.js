@@ -3,13 +3,13 @@
   'use strict';
   angular
     .module('docsApp')
-    .factory('Profile.Service', Profile.Service);
+    .factory('ProfileService', ProfileService);
 
-  Profile.Service.$inject = [
+  ProfileService.$inject = [
     '$resource', 'TokenService'
   ];
 
-  function Profile.Service($resource, TokenService) {
+  function ProfileService($resource, TokenService) {
     return $resource('api/profile/:profileId', {}, {
       query: {
         method: 'GET',

@@ -61,6 +61,8 @@
 
     function deleteDocument(id) {
       DocumentService.delete({documentId: id});
+      $location.path('/search');
+      return id;
     }
   }
 })();
