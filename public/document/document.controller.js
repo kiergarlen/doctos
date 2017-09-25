@@ -45,9 +45,7 @@
     vm.id = '';
     vm.doc = {};
     vm.file = null;
-    vm.files = [];
     vm.item = {};
-    vm.items = [];
     vm.minDate = new Date(vm.now.getFullYear() - 3, 12, 1);
     vm.maxDate = new Date(vm.now.getFullYear() + 3, 0, 1);
     vm.receiverTypes = ReceiverTypeService.get();
@@ -82,19 +80,9 @@
       var name = item._file.name;
       name = TextUtilsService.trim(name);
       name = TextUtilsService.removeDiacritics(name);
-      if (vm.doc.url.length > 0) {
-        name = "rec_" + name;
-      }
       item.file.name = name;
       vm.item = item;
-      vm.file = vm.item.file;
-      vm.items.push(item);
-      vm.files.push(item);
-      if (vm.doc.url.length < 1) {
-        vm.doc.url = name;
-      } else {
-        vm.doc.urlReceived = name;
-      }
+      vm.doc.url = name;
     };
 
     vm.uploader.onBeforeUploadItem = function(item) {
@@ -125,7 +113,6 @@
           name: ''
         },
         url: '',
-        urlReceived: '',
         draftDate: new Date(),
         signDate: new Date(),
         entryUser: {
@@ -170,7 +157,7 @@
         return false;
       }
       if (!vm.doc.reception.subject) {
-        flashMessage('Debe agregar un asunto para la respuesta');
+        flashMessage('Debe agregar un asunto al documento');
         return false;
       }
       if (!DateUtilsService.isValidDate(vm.doc.draftDate)) {
@@ -189,8 +176,8 @@
             .then(function success(response) {
                 if (response.success) {
                   vm.id = response.message;
-                  if (vm.files[0]) {
-                    vm.uploader.uploadAll();
+                  if (vm.item && vm.file) {
+                    vm.item.upload();
                   }
                   $location.path(vm.returnPath + vm.id);
                 } else {
@@ -214,7 +201,7 @@
                 if (response.success) {
                   vm.id = response.message;
                   if (vm.item._file.name !== vm.doc.url) {
-                    vm.uploader.uploadAll();
+                    vm.item.upload();
                   } else {
                     $location.path(vm.returnPath + vm.id);
                   }

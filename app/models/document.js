@@ -27,10 +27,6 @@ var DocumentSchema = new mongoose.Schema({
     type: String,
     required: false
   },
-  urlReceived: {
-    type: String,
-    required: false
-  },
   draftDate: {
     type: Date,
     default: Date.now
@@ -77,7 +73,7 @@ var DocumentSchema = new mongoose.Schema({
   },
   content: {
     type: String,
-    required: true
+    required: false
   }
 },
 {

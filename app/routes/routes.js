@@ -193,6 +193,21 @@ function initApp(app) {
       }
     }
   )
+  
+  ////
+  ///router.post(
+  ///'/uploads',
+  ///function (req, res, next) {
+  ///if (!authorized) {
+  ///res.send(403)
+  ///} else {
+  ///next()
+  ///}
+  ///},
+  ///multer({ dest: '/uploads/' }),
+  ///function (req, res, next) {
+  ///// whatever you were planning to do.
+  ///})
 
   api.post(
     '/document/upload/:documentId',
