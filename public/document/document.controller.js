@@ -111,9 +111,20 @@
       var name = item._file.name;
       name = TextUtilsService.trim(name);
       name = TextUtilsService.removeDiacritics(name);
+      if (vm.doc.url.length > 0) {
+        name = "rec_" + name;
+      }
+      item.file.name = name;
       item.file.name = name;
       vm.item = item;
-      vm.doc.url = name;
+      vm.file = vm.item.file;
+      vm.items.push(item);
+      vm.files.push(item);
+      if (vm.doc.url.length < 1) {
+        vm.doc.url = name;
+      } else {
+        vm.doc.urlReceived = name;
+      }
     };
 
     vm.uploader.onBeforeUploadItem = function(item) {
@@ -148,6 +159,7 @@
           name: ''
         },
         url: '',
+        urlReceived: '',
         draftDate: new Date(),
         signDate: new Date(),
         sealDate: new Date(),
@@ -230,12 +242,12 @@
             .then(function success(response) {
                 if (response.success) {
                   vm.id = response.message;
-                  if (vm.item && vm.file) {
-                    vm.item.upload();
+                  if (vm.files[0]) {
+                    vm.uploader.uploadAll();
                   }
                   $location.path(vm.returnPath + vm.id);
                 } else {
-               flashMessage(response.message);
+                  flashMessage(response.message);
                 }
                 return response;
               }, function error(response) {
@@ -255,7 +267,7 @@
                 if (response.success) {
                   vm.id = response.message;
                   if (vm.item._file.name !== vm.doc.url) {
-                    vm.item.upload();
+                    vm.uploader.uploadAll();
                   } else {
                     $location.path(vm.returnPath + vm.id);
                   }

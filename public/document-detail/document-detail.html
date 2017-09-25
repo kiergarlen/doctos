@@ -49,7 +49,7 @@
           <br>
           {{::documentDetail.doc.content}}
           <br>
-          <b>Hipervínculo:</b>
+          <b>Documento:</b>
           <br>
           <a ng-href="pdf/{{::documentDetail.doc.url}}">
             {{::documentDetail.doc.url}}
@@ -70,6 +70,12 @@
           <br>
           <b>Asunto (Original):</b>
           {{::documentDetail.doc.reception.subject}}
+          <div ng-if="documentDetail.doc.urlReceived.length > 1">
+              <b>Documento recibido:</b>
+              <a ng-href="pdf/{{::documentDetail.doc.urlReceived}}" target="_blank">
+                {{::documentDetail.doc.urlReceived}}
+              </a>
+            </div>
         </div>
     </md-card-content>
   </md-card>
