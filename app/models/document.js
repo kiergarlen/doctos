@@ -77,7 +77,7 @@ var DocumentSchema = new mongoose.Schema({
   },
   content: {
     type: String,
-    required: false
+    required: true
   }
 },
 {

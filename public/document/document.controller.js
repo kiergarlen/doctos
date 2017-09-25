@@ -169,8 +169,8 @@
         flashMessage('Debe agregar un encargado');
         return false;
       }
-      if (!vm.doc.subject) {
-        flashMessage('Debe agregar un asunto al documento');
+      if (!vm.doc.reception.subject) {
+        flashMessage('Debe agregar un asunto para la respuesta');
         return false;
       }
       if (!DateUtilsService.isValidDate(vm.doc.draftDate)) {
