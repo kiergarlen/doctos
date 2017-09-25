@@ -45,7 +45,9 @@
     vm.id = '';
     vm.doc = {};
     vm.file = null;
+    vm.files = [];
     vm.item = {};
+    vm.items = [];
     vm.minDate = new Date(vm.now.getFullYear() - 3, 12, 1);
     vm.maxDate = new Date(vm.now.getFullYear() + 3, 0, 1);
     vm.receiverTypes = ReceiverTypeService.get();
@@ -71,7 +73,6 @@
           data.createdAt = new Date(data.createdAt);
           data.updatedAt = vm.now;
           vm.doc = data;
-
         });
     } else {
       vm.doc = getBaseDoc();
@@ -81,9 +82,19 @@
       var name = item._file.name;
       name = TextUtilsService.trim(name);
       name = TextUtilsService.removeDiacritics(name);
+      if (vm.doc.url.length > 0) {
+        name = "rec_" + name;
+      }
       item.file.name = name;
       vm.item = item;
-      vm.doc.url = name;
+      vm.file = vm.item.file;
+      vm.items.push(item);
+      vm.files.push(item);
+      if (vm.doc.url.length < 1) {
+        vm.doc.url = name;
+      } else {
+        vm.doc.urlReceived = name;
+      }
     };
 
     vm.uploader.onBeforeUploadItem = function(item) {
@@ -106,7 +117,7 @@
 
     function getBaseDoc() {
       return {
-        number: 'Sin número',
+        number: '',
         status: '',
         receiver: {
           type: '',
@@ -114,6 +125,7 @@
           name: ''
         },
         url: '',
+        urlReceived: '',
         draftDate: new Date(),
         signDate: new Date(),
         entryUser: {
@@ -177,8 +189,8 @@
             .then(function success(response) {
                 if (response.success) {
                   vm.id = response.message;
-                  if (vm.item && vm.file) {
-                    vm.item.upload();
+                  if (vm.files[0]) {
+                    vm.uploader.uploadAll();
                   }
                   $location.path(vm.returnPath + vm.id);
                 } else {
@@ -202,7 +214,7 @@
                 if (response.success) {
                   vm.id = response.message;
                   if (vm.item._file.name !== vm.doc.url) {
-                    vm.item.upload();
+                    vm.uploader.uploadAll();
                   } else {
                     $location.path(vm.returnPath + vm.id);
                   }
