@@ -47,7 +47,9 @@
     vm.id = '';
     vm.doc = {};
     vm.file = null;
+    vm.files = [];
     vm.item = {};
+    vm.items = [];
     vm.minDate = new Date(vm.now.getFullYear() - 3, 12, 1);
     vm.maxDate = new Date(vm.now.getFullYear() + 3, 0, 1);
     vm.documentTypes = DocumentTypeService.get();
