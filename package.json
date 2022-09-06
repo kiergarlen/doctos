@@ -4,7 +4,7 @@
   "private": true,
   "description": "Administración de documentos de Dirección General de la CEA",
   "author": {
-    "name": "Oscar Iván González Muñoz",
+    "name": "Oscar González",
     "email": "ogonzalez@ceajalisco.gob.mx"
   },
   "scripts": {
@@ -17,11 +17,11 @@
     "compression": "1.6.2",
     "debug": "^2.5.1",
     "express": "4.13.4",
-    "express-jwt": "3.4.0",
+    "express-jwt": "6.0.0",
     "express-session": "1.13.0",
     "jsonwebtoken": "6.2.0",
     "moment": "^2.19.3",
-    "mongodb": "2.2.5",
+    "mongodb": "3.1.13",
     "mongoose": "6.5.4",
     "morgan": "^1.9.1",
     "multer": "1.2.0",
@@ -49,7 +49,7 @@
     "mocha": "2.4.5",
     "node-inspector": "0.12.8",
     "superagent": "^3.7.0",
-    "underscore": "1.8.3",
+    "underscore": "1.12.1",
     "vinyl-source-stream": "1.1.0",
     "wagner-core": "0.2.0",
     "watchify": "3.7.0"
